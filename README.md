@@ -1,4 +1,4 @@
-# Trend Health
+# Trend Edge
 - Single Page React Web Application, hosted on heroku via an express server; data posts and pulls required for the application are made via communication with an MLab Mongo database. 
 
 **ABOUT THIS APP** 
