@@ -3,11 +3,10 @@ import mediumZoom from 'medium-zoom'
 import ImageZoom from './ImageZoom'
 import Paper from '@material-ui/core/Paper'
 import { makeStyles } from '@material-ui/core/styles'
-import Button from '@material-ui/core/Button'
-import Modal from '@material-ui/core/Modal'
 import Iwm from './img/IWM.png'
 import Gme from './img/GME.png'
 import Qqq from './img/qqq.png'
+
 const useStyles = makeStyles(theme => ({
   modal: {
     display: 'flex',

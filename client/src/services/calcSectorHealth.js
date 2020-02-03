@@ -1,4 +1,7 @@
+import React from 'react'
 import auth from './authService'
+import { PopoverExampleMulti } from '../components/popover'
+
 
 export function calcSectorHealth(sectorData) {
     const userData = auth.getCurrentUser();
@@ -48,13 +51,47 @@ export function calcSectorHealth(sectorData) {
         let slowSMASum = 0
         let slowSMALookbackSum = 0
         let idCounter = 0
-        
+
+        const loopTableData = (holdingsTableData) => {
+            for (let i =0; i <holdingsTableData.length; i++){
+                return (<tr><td> holdingsTableData.companies[0] </td><td>"test123"</td></tr>)
+            }
+        }
+
         for (let x = 0; x < sectorData.data.length; x++){
             sectorAndHealthScore.symbol = sectorData.data[x].indexName
             sectorAndHealthScore.sectorName = sectorData.data[x].sectorName
             sectorAndHealthScore.priceTZero = sectorData.data[x].priceData[0]
-            sectorAndHealthScore.topHoldingsNames = sectorData.data[x].topHoldingsNames
-            sectorAndHealthScore.topHoldingsPcts = sectorData.data[x].topHoldingsPcts
+
+            let holdingsTableData = {
+                companies: sectorData.data[x].topHoldingsNames,
+                pctHeld: sectorData.data[x].topHoldingsPcts
+            }
+            
+            sectorAndHealthScore.topHoldings = 
+                <PopoverExampleMulti 
+                key={idCounter} 
+                id = {idCounter}
+                purpose={"Top Holdings"}
+                popoverBody={
+                    <div className="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">Stock</th>
+                            <th scope="col">% Held</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mark</td>
+                                <td>Otto</td>
+                            </tr>
+                            {loopTableData(holdingsTableData)}
+                        </tbody>
+                    </div>
+                }
+                />
+
             sectorAndHealthScore.id = idCounter
             // console.log(sectorAndHealthScore.symbol)
 

@@ -1,21 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import MaterialTable from 'material-table'
-
 import { createSectors } from '../../services/createSectors'
 import { updateSectorData } from '../../services/pullSectors'
 
 export function SectorTable({ sectorHealthData }) {
 
   const sectorHealthTableData = sectorHealthData
+  console.log(sectorHealthTableData)
 
   const [state, setState] = useState({
     columns: [
       { title: 'Ticker', field: 'symbol' },
       { title: 'Sector', field: 'sectorName' },
       { title: 'Price', field: 'priceTZero' },
-      { title: 'Top Holdings Names TEMP', field: 'topHoldingsNames'},
-      { title: 'Top Holdings Pct TEMP', field: 'topHoldingsPcts'},
-
+      { title: 'Top Holdings', field: 'topHoldings'},
+      // { title: 'Top Holdings Names TEMP', field: 'topHoldingsNames'},
+      // { title: 'Top Holdings Pct TEMP', field: 'topHoldingsPcts'},
       {
         title: 'Health (%)',
         field: 'score',
@@ -38,39 +38,19 @@ export function SectorTable({ sectorHealthData }) {
         title='Sector Health Dashboard'
         columns={state.columns}
         data={sectorHealthTableData}
-
-        // editable={{
-        //   onRowAdd: newData =>
-        //     new Promise(resolve => {
-        //       setTimeout(() => {
-        //         resolve()
-        //         setState(prevState => {
-        //           const data = [...prevState.data]
-        //           data.push(newData)
-        //           return { ...prevState, data }
-        //         })
-        //       }, 600)
-        //     }),
-        //   onRowUpdate: (newData, oldData) =>
-        //     new Promise(resolve => {
-        //       setTimeout(() => {
-        //         resolve()
-        //         if (oldData) {
-        //           setState(prevState => {
-        //             const data = [...prevState.data]
-        //             data[data.indexOf(oldData)] = newData
-        //             return { ...prevState, data }
-        //           })
-        //         }
-        //       }, 600)
-        //     }),
-        //   onRowDelete: oldData =>
-        //     new Promise(resolve => {
-        //       setTimeout(() => {
-        //         resolve()
-        //         deleteWatchListItem(user.email, oldData.indexName, state.data)
-        //       }, 600)
-        //     })
+        // actions={[
+        //   {
+        //     icon: 'save',
+        //     tooltip: 'View Top Holdings',
+        //     onClick: (event, rowData) => {
+        //       console.log("Holdings Data for" + rowData.symbol)
+        //       console.log(rowData.topHoldingsNames)
+        //       console.log(rowData.topHoldingsPcts)
+        //     }
+        //   }
+        // ]}
+        // options={{
+        //   actionsColumnIndex: 3
         // }}
       />
     </React.Fragment>
