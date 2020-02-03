@@ -46,8 +46,8 @@ export function DrawerMenu({ children }) {
     try {
     const userData = auth.getCurrentUser()
     setUserLogged(userData)
-    console.log("DRAWER")
-    console.log(userData)
+    // console.log("DRAWER")
+    // console.log(userData)
   } catch (ex) {}
   }, [])
 

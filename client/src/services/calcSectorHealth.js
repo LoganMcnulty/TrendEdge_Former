@@ -52,6 +52,9 @@ export function calcSectorHealth(sectorData) {
         for (let x = 0; x < sectorData.data.length; x++){
             sectorAndHealthScore.symbol = sectorData.data[x].indexName
             sectorAndHealthScore.sectorName = sectorData.data[x].sectorName
+            sectorAndHealthScore.priceTZero = sectorData.data[x].priceData[0]
+            sectorAndHealthScore.topHoldingsNames = sectorData.data[x].topHoldingsNames
+            sectorAndHealthScore.topHoldingsPcts = sectorData.data[x].topHoldingsPcts
             sectorAndHealthScore.id = idCounter
             // console.log(sectorAndHealthScore.symbol)
 
@@ -98,7 +101,6 @@ export function calcSectorHealth(sectorData) {
 
                 sectorAndHealthScore.score = (fastSMAPositiveSlopeWeighted + slowSMAPositiveSlopeWeighted + fastGreaterSlowWeighted + macdPositiveSlopeWeighted + adxValueWeighted)
             
-            
             allSectorHealthData.push(sectorAndHealthScore)
 
             idCounter++
@@ -118,8 +120,7 @@ export function calcSectorHealth(sectorData) {
 
             sectorAndHealthScore = {
                 symbol: "",
-                score: 0,
-                sectorName: ""
+                score: 0
             }            
         }
     return allSectorHealthData

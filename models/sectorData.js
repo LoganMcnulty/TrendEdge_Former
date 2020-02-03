@@ -5,6 +5,12 @@ SectorSchema = new Schema({
     indexName: { type: String, required: true, index: { unique: true } },
     sectorName: {type: String},
     lastActiveDate: Date,
+    topHoldingsNames: [{
+        type: String
+    }],
+    topHoldingsPcts: [{
+        type:Number
+    }],
     priceData: [{
         type: Number
     }],

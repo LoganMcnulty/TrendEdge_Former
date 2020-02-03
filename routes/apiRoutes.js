@@ -174,11 +174,16 @@ router.route("/api/updateSectors").put((req, res) => {
     sectorData = {
         indexName: req.body.symbol
     }
+    console.log("REQ BODY")
+    console.log(req.body)
     db.Sector.findOneAndUpdate(sectorData, {
         "priceData": req.body.priceData,
         "macdData": req.body.macdData,
-        "adxData": req.body.adxData
+        "adxData": req.body.adxData,
+        "topHoldingsNames": req.body.topHoldingsNames,
+        "topHoldingsPcts": req.body.topHoldingsPcts
     }).then(function (res) {
+        console.log("RESPONSE")
         console.log(res)
     })
         .catch(function (err) {
