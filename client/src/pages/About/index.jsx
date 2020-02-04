@@ -55,11 +55,11 @@ const styles = {
 }
 
 export const About = () => {
-  const classes = useStyles()
   const zoom = React.useRef(mediumZoom())
 
   return (
-    <div>
+    <div className="container">
+      <div className="co-lg-10">
       <Paper elevation={6} style={{ marginBottom: '2%' }}>
         <div className='container fluid'>
           <div className='row justify-content-center'>
@@ -124,12 +124,15 @@ export const About = () => {
                 later)
               </p>
 
+              <div className="row justify-content-center">
               <ImageZoom
-                src={Iwm}
-                alt='Zoom 1'
-                zoom={zoom.current}
-                background='#000'
-              />
+                  src={Iwm}
+                  alt='Zoom 1'
+                  zoom={zoom.current}
+                  background='#000'
+                />
+              </div>
+   
 
               <p style={styles.paragraph}>
                 In Figure 1, inferences about the trend of the index can be made
@@ -209,7 +212,7 @@ export const About = () => {
                 time highs.
               </p>
 
-              <div className='row justicy-content-center'>
+              <div className='row justify-content-center'>
                 <ImageZoom
                   src={Gme}
                   alt='Zoom 2'
@@ -282,6 +285,7 @@ export const About = () => {
           </div>
         </div>
       </Paper>
+      </div>
     </div>
   )
 }

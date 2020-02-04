@@ -2,7 +2,7 @@ import http from './httpService'
 import { apiUrl } from '../config.json'
 import $ from 'jquery'
 import { getSettings } from '../services/userService'
-import { yahooDataPUll, yahooDataPull } from './yahooFinance'
+import { yahooDataPull } from './yahooFinance'
 
 export function pullStockData(email, stockTicker, stockSector, currentWatchList) {
     console.log(email)
@@ -52,10 +52,8 @@ export function pullStockData(email, stockTicker, stockSector, currentWatchList)
     }
 
     const getFundamentalData = () => {
-        console.log("Yahoo data...")
         yahooDataPull(stockTicker).then((yahooData) => {
             console.log(yahooData)
-
             //technical data
                 thisStockData.averageVolumeTenDays = yahooData.data.summaryDetail.averageVolume10days.raw
                 thisStockData.livePrice = yahooData.data.summaryDetail.ask.raw
@@ -69,13 +67,9 @@ export function pullStockData(email, stockTicker, stockSector, currentWatchList)
                 thisStockData.fundamentalData.nextEarningsDate = yahooData.data.calendarEvents.earnings.earningsDate[0].raw
                 thisStockData.fundamentalData.grossMargins = yahooData.data.financialData.grossMargins.raw
                 thisStockData.fundamentalData.profitMargins = yahooData.data.financialData.profitMargins.raw
-
-
         }).then(()=> {
-            
             getMacdData()
         })
-    
       }
 
     const getMacdData = () => {

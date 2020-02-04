@@ -6,7 +6,7 @@ import { yahooDataPull } from '../../services/yahooFinance'
 export function WatchTable({ user }) {
   const [state, setState] = useState({
     columns: [
-      { title: 'Ticker', field: 'indexName' },
+      { title: 'Ticker', field: 'indexName'},
       { title: 'Sector', field: 'sector' },
       { title: 'Price', field: 'price' },
       {
