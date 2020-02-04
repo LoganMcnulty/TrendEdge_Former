@@ -25,7 +25,8 @@ export default function Routes({ user, sectorHealthDataPass }) {
         />
         <Route 
         exact path='/Sector' 
-        render = {props => <Trend {...props} sectorHealthDataPass={sectorHealthDataPass} />}
+        render = {props => <Trend {...props} sectorHealthDataPass={sectorHealthDataPass}
+        />}
         />
         <Route
           exact

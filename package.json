@@ -27,6 +27,7 @@
     "if-env": "^1.0.4",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^2.2.0",
-    "mongoose": "^5.8.6"
+    "mongoose": "^5.8.6",
+    "reactstrap": "^8.4.1"
   }
 }

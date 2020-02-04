@@ -2,6 +2,7 @@ import http from './httpService'
 import { apiUrl } from '../config.json'
 import $ from 'jquery'
 import { getSettings } from '../services/userService'
+import { yahooDataPUll, yahooDataPull } from './yahooFinance'
 
 export function pullStockData(email, stockTicker, stockSector, currentWatchList) {
     console.log(email)
@@ -9,13 +10,25 @@ export function pullStockData(email, stockTicker, stockSector, currentWatchList)
     console.log(currentWatchList)
     const apiKey = '07S5MN2IBXDCQAGB'
     let thisStockData = {
+        livePrice: 0,
         indexName: stockTicker,
         sector: stockSector,
-        // marketCap: 1,
-        // health: 1,
         priceData: [],
         adxData: [],
-        macdData: []
+        macdData: [],
+        averageVolumeTenDays: 0,
+        fundamentalData: {
+            marketCap: 0,
+            sector: "",
+            floatingShares: 0,
+            sharesShort: 0,
+            insidersPctHeld: 0,
+            // salesTTM: 0, <--- cannot find good source in yahoo
+            // earningsTTM: 0, <-- cannot find good source in yahoo
+            nextEarningsDate: "",
+            grossMargins: 0,
+            profitMargins: 0
+        }
     }
 
     //kick off
@@ -33,10 +46,37 @@ export function pullStockData(email, stockTicker, stockSector, currentWatchList)
                         thisStockData.adxData.push(Number(value['ADX']))
                     }
                 )
-                getMacdData()
+                getFundamentalData()
             }
         })
     }
+
+    const getFundamentalData = () => {
+        console.log("Yahoo data...")
+        yahooDataPull(stockTicker).then((yahooData) => {
+            console.log(yahooData)
+
+            //technical data
+                thisStockData.averageVolumeTenDays = yahooData.data.summaryDetail.averageVolume10days.raw
+                thisStockData.livePrice = yahooData.data.summaryDetail.ask.raw
+
+            // fundamental data
+                thisStockData.fundamentalData.marketCap = yahooData.data.summaryDetail.marketCap.fmt
+                thisStockData.fundamentalData.sector = yahooData.data.summaryProfile.sector
+                thisStockData.fundamentalData.floatingShares = yahooData.data.defaultKeyStatistics.floatShares.raw
+                thisStockData.fundamentalData.sharesShort = yahooData.data.defaultKeyStatistics.sharesShort.raw
+                thisStockData.fundamentalData.insidersPctHeld = yahooData.data.defaultKeyStatistics.heldPercentInsiders.raw
+                thisStockData.fundamentalData.nextEarningsDate = yahooData.data.calendarEvents.earnings.earningsDate[0].raw
+                thisStockData.fundamentalData.grossMargins = yahooData.data.financialData.grossMargins.raw
+                thisStockData.fundamentalData.profitMargins = yahooData.data.financialData.profitMargins.raw
+
+
+        }).then(()=> {
+            
+            getMacdData()
+        })
+    
+      }
 
     const getMacdData = () => {
         $.ajax({
@@ -52,6 +92,9 @@ export function pullStockData(email, stockTicker, stockSector, currentWatchList)
                         thisStockData.macdData.push(Number(value['MACD']))
                     }
                 )
+
+
+                console.log(thisStockData)
                 currentWatchList.push(thisStockData);
                 delete currentWatchList[0].tableData;
                 delete currentWatchList[0]._id;
