@@ -162,7 +162,7 @@ export function DrawerMenu({ children }) {
             </Grid>
             <Grid item>
               <Typography variant='h5' noWrap>
-                Trend Health
+                Trend Edge
               </Typography>
             </Grid>
           </Grid>
