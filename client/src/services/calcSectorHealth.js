@@ -52,12 +52,6 @@ export function calcSectorHealth(sectorData) {
         let slowSMALookbackSum = 0
         let idCounter = 0
 
-        const loopTableData = (holdingsTableData) => {
-            for (let i =0; i <holdingsTableData.length; i++){
-                return (<tr><td> holdingsTableData.companies[0] </td><td>"test123"</td></tr>)
-            }
-        }
-
         for (let x = 0; x < sectorData.data.length; x++){
             sectorAndHealthScore.symbol = sectorData.data[x].indexName
             sectorAndHealthScore.sectorName = sectorData.data[x].sectorName
@@ -82,11 +76,10 @@ export function calcSectorHealth(sectorData) {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                            </tr>
-                            {loopTableData(holdingsTableData)}
+                            {holdingsTableData.companies.map((companies, index) => {
+                                const pctHeldMap = holdingsTableData.pctHeld[index]
+                                return <tr><td>{companies}</td><td>{(pctHeldMap*100).toFixed(2)}</td></tr>
+                            })}
                         </tbody>
                     </div>
                 }
