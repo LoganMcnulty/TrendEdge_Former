@@ -178,7 +178,6 @@ export function DrawerMenu({ children }) {
           (<div><a href="/logout"><h3 style={{color:"white"}}>Logout</h3></a></div>)
           }
           
-
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
@@ -223,12 +222,11 @@ export function DrawerMenu({ children }) {
             </ListItemIcon>
             <ListItemText primary='Sector' />
           </ListItemLink>
-
-          <ListItemLink button href='Watchlist' key='Watchlist'>
+          <ListItemLink button href='ActiveOptions' key='Options'>
             <ListItemIcon>
-              <ViewListIcon />
+              <CheckBoxOutlineBlankIcon />
             </ListItemIcon>
-            <ListItemText primary='Watchlist' />
+            <ListItemText primary='Active Options' />
           </ListItemLink>
         </List>
         <Divider />
@@ -243,6 +241,12 @@ export function DrawerMenu({ children }) {
             <SettingsIcon />
           </ListItemIcon>
           <ListItemText primary='User Settings' />
+          </ListItemLink>
+          <ListItemLink button href='Watchlist' key='Watchlist'>
+            <ListItemIcon>
+              <ViewListIcon />
+            </ListItemIcon>
+            <ListItemText primary='Watchlist' />
           </ListItemLink>
           </>)
         :

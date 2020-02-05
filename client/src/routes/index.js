@@ -9,7 +9,8 @@ import {
   Watchlist,
   PageNotFound,
   LandingPage,
-  Logout
+  Logout,
+  ActiveOptions
 } from 'pages'
 
 export default function Routes({ user, sectorHealthDataPass }) {
@@ -19,6 +20,7 @@ export default function Routes({ user, sectorHealthDataPass }) {
       <Switch>
         <Route exact path='/' component={LandingPage} />
         <Route exact path='/About' component={About} />
+        <Route exact path='/ActiveOptions' component={ActiveOptions} />
         <Route
           exact path='/User'
           render={props => <User {...props} user={user} />}
