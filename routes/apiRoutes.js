@@ -64,7 +64,7 @@ router.route("/api/getUserSettings").post((req, res, next) => {
         email: req.body.email
     }
 
-    db.User.findOne(userData, function (err, {userSettings}) {
+    db.User.findOne(userData, function (err, { userSettings }) {
         if (err) {
             res.json(err)
         } else {
@@ -92,25 +92,21 @@ router.route("/api/getWatchList").post((req, res, next) => {
     userData = {
         email: req.body.email
     }
-
-    db.User.findOne(userData, function (err, {userWatchList}) {
-        if (err) {
-            res.json(err)
-        } else {
-            res.json(userWatchList);
-        }
+    db.User.findOne(userData).populate("userWatchList").then(function (returnData) {
+        res.json(returnData);
     })
 })
 
-router.route("/api/updateWatchList").put((req, res, next) => {
+router.route("/api/updateWatchList").post((req, res, next) => {
     userData = {
         email: req.body.email
     }
-    db.User.findOneAndUpdate(userData, { "userWatchList": req.body.watchList })
-        .then(function () {
-            console.log("Watch List Updated!");
-            res.send(true);
-            //add response for User watchlist update
+    db.Stock.create(req.body.thisStockData)
+        .then(function (dbWatchList) {
+            db.User.findOneAndUpdate(userData, { $push: { userWatchList: dbWatchList._id } }, { new: true }).then(() => {
+                console.log("Watch List Updated!");
+                res.send(true);
+            })
         })
         .catch(function (err) {
             console.log("ERROR " + err)
@@ -125,7 +121,7 @@ router.route("/api/deleteWatchList").put((req, res, next) => {
     }
     let updatedWatchList = req.body.watchList;
 
-    updatedWatchList.forEach( updWatchListItem => {
+    updatedWatchList.forEach(updWatchListItem => {
         delete updWatchListItem.tableData;
         delete updWatchListItem.health;
         delete updWatchListItem.sector;

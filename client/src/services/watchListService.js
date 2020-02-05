@@ -2,17 +2,13 @@ import http from './httpService'
 import { apiUrl } from '../config.json'
 import $ from 'jquery'
 import { getSettings } from '../services/userService'
-import { yahooDataPUll, yahooDataPull } from './yahooFinance'
+import { yahooDataPull } from './yahooFinance'
 
-export function pullStockData(email, stockTicker, stockSector, currentWatchList) {
-    console.log(email)
-    console.log(stockTicker)
-    console.log(currentWatchList)
+export function pullStockData(email, stockTicker) {
     const apiKey = '07S5MN2IBXDCQAGB'
     let thisStockData = {
         livePrice: 0,
-        indexName: stockTicker,
-        sector: stockSector,
+        stockName: stockTicker,
         priceData: [],
         adxData: [],
         macdData: [],
@@ -23,8 +19,6 @@ export function pullStockData(email, stockTicker, stockSector, currentWatchList)
             floatingShares: 0,
             sharesShort: 0,
             insidersPctHeld: 0,
-            // salesTTM: 0, <--- cannot find good source in yahoo
-            // earningsTTM: 0, <-- cannot find good source in yahoo
             nextEarningsDate: "",
             grossMargins: 0,
             profitMargins: 0
@@ -95,11 +89,8 @@ export function pullStockData(email, stockTicker, stockSector, currentWatchList)
 
 
                 console.log(thisStockData)
-                currentWatchList.push(thisStockData);
-                delete currentWatchList[0].tableData;
-                delete currentWatchList[0]._id;
-                let apiEndpoint = apiUrl + '/updateWatchList'
-                http.put(apiEndpoint, { watchList: currentWatchList, email: email }).then(() => {
+                let apiEndpoint = apiUrl + '/updateWatchList';
+                http.post(apiEndpoint, {thisStockData, email}).then(() => {
                     window.location = "/Watchlist"
                 });
             }
@@ -216,7 +207,11 @@ export async function getWatchList(email) {
     try {
         let apiEndpoint = apiUrl + '/getWatchList'
         const watchListData = await http.post(apiEndpoint, { email })
-        return watchListData
+        const userDataAndSettings = {
+            userWatchList:watchListData.data.userWatchList,
+            userSettings:watchListData.data.userSettings
+        }
+        return userDataAndSettings
     } catch {
         return []
     }

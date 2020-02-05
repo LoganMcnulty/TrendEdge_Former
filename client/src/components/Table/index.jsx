@@ -6,9 +6,10 @@ import { yahooDataPull } from '../../services/yahooFinance'
 export function WatchTable({ user }) {
   const [state, setState] = useState({
     columns: [
-      { title: 'Ticker', field: 'indexName' },
-      { title: 'Sector', field: 'sector' },
-      { title: 'Price', field: 'price' },
+      { title: 'Ticker', field: 'stockName' },
+      { title: 'Price', field: 'livePrice', type: 'currency' },
+      { title: '% From Fast SMA', field: 'pxPctFast' },
+      { title: '% From Slow SMA', field: 'pxPctSlow' },
       {
         title: 'Health (%)',
         field: 'health',
@@ -24,32 +25,23 @@ export function WatchTable({ user }) {
     try {
       setPullSpinner(false);
       getWatchList(user.email).then((loadWatchList) => {
-        if (loadWatchList.data.length > 0) {
-          loadWatchList.data.forEach((stockData, index) => {
+        console.log(loadWatchList);
+        if (loadWatchList.userWatchList.length > 0) {
+          loadWatchList.userWatchList.forEach((stockData, index) => {
             console.log(stockData)
-
             calcStockHealth(user.email, stockData).then((health) => {
-              // console.log(health)
-              loadWatchList.data[index].health = (health * 100).toFixed(1);
-              loadWatchList.data[index].indexName = loadWatchList.data[index].indexName.toUpperCase();
-              setState({ ...state, data: loadWatchList.data });
-            })
-              .then(() => {
-                console.log("Yahoo data...")
-                yahooDataPull(stockData.indexName).then((yahooData) => {
-                  console.log(yahooData);
-                  console.log(yahooData.data.summaryProfile.sector)
-                  console.log(yahooData.data.price.marketCap.fmt)
-                  console.log(yahooData.data.price.regularMarketOpen.raw)
+              stockData.health = (health * 100).toFixed(1);
+              stockData.stockName = stockData.stockName.toUpperCase();
+              let fastSMASum = 0;
+              for (let i = 0; i < loadWatchList.userSettings.fastSMA; i++) { fastSMASum += stockData.priceData[i] }
+              stockData.pxPctFast = (( (fastSMASum / loadWatchList.userSettings.fastSMA) - stockData.priceData[0] ) / stockData.priceData[0] * 100).toFixed(2) + "%";
+              let slowSMASum = 0;
+              for (let i = 0; i < loadWatchList.userSettings.slowSMA; i++) { slowSMASum += stockData.priceData[i] }
+              stockData.pxPctSlow = (( (slowSMASum / loadWatchList.userSettings.slowSMA) - stockData.priceData[0] ) / stockData.priceData[0] * 100).toFixed(2) + "%";
 
-                  loadWatchList.data[index].sector = yahooData.data.summaryProfile.sector
-                  loadWatchList.data[index].marketCap = `$${yahooData.data.price.marketCap.fmt}`
-                  loadWatchList.data[index].price = `$${yahooData.data.price.regularMarketOpen.raw}`
-                  setState({ ...state, data: loadWatchList.data }
-                  )
-                })
-              })
-          });
+              setState({ ...state, data: loadWatchList.userWatchList });
+            })
+          })
         }
       })
     } catch (ex) { console.log("ERROR: " + ex) }
@@ -59,7 +51,8 @@ export function WatchTable({ user }) {
     e.preventDefault();
     try {
       setPullSpinner(true);
-      pullStockData(user.email, addWatchList, "Test Sector", state.data);
+      
+      pullStockData(user.email, addWatchList);
     } catch (err) {
       alert('stock ticker not found - ' + err)
     }

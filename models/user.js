@@ -16,20 +16,10 @@ var UserSchema = new Schema({
         MACDWeight: { type: Number, required: false },
         ADXWeight: { type: Number, required: false }
     },
-    userWatchList: [
-        {
-            indexName: String,
-            priceData: [{
-                type: Number
-            }],
-            macdData: [{
-                type: Number
-            }],
-            adxData: [{
-                type: Number
-            }]
-        }
-    ]
+    userWatchList: [{
+        type: Schema.Types.ObjectId,
+        ref: "Stock"
+      }]
 });
 
 UserSchema.pre('save', function (next) {
