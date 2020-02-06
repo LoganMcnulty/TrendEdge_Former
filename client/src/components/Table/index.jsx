@@ -51,7 +51,6 @@ export function WatchTable({ user }) {
     e.preventDefault();
     try {
       setPullSpinner(true);
-      
       pullStockData(user.email, addWatchList);
     } catch (err) {
       alert('stock ticker not found - ' + err)
@@ -101,7 +100,7 @@ export function WatchTable({ user }) {
             new Promise(resolve => {
               setTimeout(() => {
                 resolve()
-                deleteWatchListItem(user.email, oldData.indexName, state.data)
+                deleteWatchListItem(user.email, oldData.stockName, state.data)
               }, 600)
             })
         }}

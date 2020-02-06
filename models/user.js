@@ -10,6 +10,7 @@ var UserSchema = new Schema({
     userSettings: {
         fastSMA: { type: Number, required: false },
         slowSMA: { type: Number, required: false },
+        lookback: { type: Number, required: false },
         fastWeight: { type: Number, required: false },
         slowWeight: { type: Number, required: false },
         fastToSlowWeight: { type: Number, required: false },

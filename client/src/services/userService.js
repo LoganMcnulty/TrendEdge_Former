@@ -11,6 +11,7 @@ export function register(user) {
         userSettings: {
             fastSMA: 10,
             slowSMA: 40,
+            lookback: 1,
             fastWeight: 20,
             slowWeight: 20,
             fastToSlowWeight: 20,
