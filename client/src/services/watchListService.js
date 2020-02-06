@@ -2,22 +2,13 @@ import http from './httpService'
 import { apiUrl } from '../config.json'
 import $ from 'jquery'
 import { getSettings } from '../services/userService'
-import { yahooDataPUll, yahooDataPull } from './yahooFinance'
+import { yahooDataPull } from './yahooFinance'
 
-export function pullStockData(
-  email,
-  stockTicker,
-  stockSector,
-  currentWatchList
-) {
-  console.log(email)
-  console.log(stockTicker)
-  console.log(currentWatchList)
-  const apiKey = process.env.REACT_APP_ALPHA_VANTAGE_API_KEY
+export function pullStockData(email, stockTicker) {
+  const apiKey = '07S5MN2IBXDCQAGB'
   let thisStockData = {
     livePrice: 0,
-    indexName: stockTicker,
-    sector: stockSector,
+    stockName: stockTicker.toUpperCase(),
     priceData: [],
     adxData: [],
     macdData: [],
@@ -28,8 +19,6 @@ export function pullStockData(
       floatingShares: 0,
       sharesShort: 0,
       insidersPctHeld: 0,
-      // salesTTM: 0, <--- cannot find good source in yahoo
-      // earningsTTM: 0, <-- cannot find good source in yahoo
       nextEarningsDate: '',
       grossMargins: 0,
       profitMargins: 0,
@@ -106,15 +95,10 @@ export function pullStockData(
         )
 
         console.log(thisStockData)
-        currentWatchList.push(thisStockData)
-        delete currentWatchList[0].tableData
-        delete currentWatchList[0]._id
         let apiEndpoint = apiUrl + '/updateWatchList'
-        http
-          .put(apiEndpoint, { watchList: currentWatchList, email: email })
-          .then(() => {
-            window.location = '/Watchlist'
-          })
+        http.post(apiEndpoint, { thisStockData, email }).then(() => {
+          window.location = '/Watchlist'
+        })
       },
     })
   }
@@ -137,7 +121,16 @@ export function pullStockData(
       },
     })
   }
-  getPriceData()
+
+  let apiEndpoint =
+    apiUrl + '/findStockData/' + stockTicker.toUpperCase() + '/' + email
+  http.get(apiEndpoint).then(({ data }) => {
+    if (data) {
+      window.location = '/Watchlist'
+    } else {
+      getPriceData()
+    }
+  })
 }
 
 export async function calcStockHealth(email, thisStockData) {
@@ -258,22 +251,29 @@ export async function getWatchList(email) {
   try {
     let apiEndpoint = apiUrl + '/getWatchList'
     const watchListData = await http.post(apiEndpoint, { email })
-    return watchListData
+    const userDataAndSettings = {
+      userWatchList: watchListData.data.userWatchList,
+      userSettings: watchListData.data.userSettings,
+    }
+    return userDataAndSettings
   } catch {
     return []
   }
 }
 
-export async function deleteWatchListItem(email, indexName, currentWatchList) {
+export async function deleteWatchListItem(email, stockName, currentWatchList) {
   try {
     let updatedWatchList = currentWatchList.filter(watchListItem => {
-      return watchListItem.indexName != indexName
+      return watchListItem.stockName != stockName
+    })
+    let newWatchListArr = []
+    updatedWatchList.forEach(watchListItem => {
+      newWatchListArr.push(watchListItem._id)
     })
 
-    console.log(updatedWatchList)
     let apiEndpoint = apiUrl + '/deleteWatchList'
     http
-      .put(apiEndpoint, { email: email, watchList: updatedWatchList })
+      .put(apiEndpoint, { email: email, watchList: newWatchListArr })
       .then(() => {
         window.location = '/Watchlist'
       })
