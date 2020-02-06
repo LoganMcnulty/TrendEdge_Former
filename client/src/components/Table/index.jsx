@@ -34,10 +34,10 @@ export function WatchTable({ user }) {
               stockData.stockName = stockData.stockName.toUpperCase();
               let fastSMASum = 0;
               for (let i = 0; i < loadWatchList.userSettings.fastSMA; i++) { fastSMASum += stockData.priceData[i] }
-              stockData.pxPctFast = (( (fastSMASum / loadWatchList.userSettings.fastSMA) - stockData.priceData[0] ) / stockData.priceData[0] * 100).toFixed(2) + "%";
+              stockData.pxPctFast = (( stockData.priceData[0] - (fastSMASum / loadWatchList.userSettings.fastSMA) ) / (fastSMASum / loadWatchList.userSettings.fastSMA) * 100).toFixed(2) + "%";
               let slowSMASum = 0;
               for (let i = 0; i < loadWatchList.userSettings.slowSMA; i++) { slowSMASum += stockData.priceData[i] }
-              stockData.pxPctSlow = (( (slowSMASum / loadWatchList.userSettings.slowSMA) - stockData.priceData[0] ) / stockData.priceData[0] * 100).toFixed(2) + "%";
+              stockData.pxPctSlow = (( stockData.priceData[0] - (slowSMASum / loadWatchList.userSettings.slowSMA) ) / (slowSMASum / loadWatchList.userSettings.slowSMA) * 100).toFixed(2) + "%";
 
               setState({ ...state, data: loadWatchList.userWatchList });
             })
