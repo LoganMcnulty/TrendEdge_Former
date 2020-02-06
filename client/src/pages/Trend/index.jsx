@@ -1,28 +1,21 @@
 import React from 'react'
+import Box from '@material-ui/core/Box'
+import Typography from '@material-ui/core/Typography'
 import { SectorTable } from 'components'
 
 export const Trend = ({ sectorHealthDataPass, user }) => {
+  const sectorHealthData = sectorHealthDataPass
 
-  const sectorHealthData=sectorHealthDataPass
-  
-  const style = {
-    jumbotron: {
-      background: "#3f51b5",
-      backgroundSize: "cover"
-    }
+  if (!sectorHealthDataPass) {
+    return null
   }
 
-  if(!sectorHealthDataPass){
-    return(null)
-  }
-  
   return (
     <>
-      <div className="jumbotron" style={style.jumbotron}>
-        <div className="container for-about">
-        <h1 style={{textAlign:"center", color:"white"}}>Sector Health Dashboard</h1>
-        </div>
-      </div>
+      <Box bgcolor='primary.main' color='primary.contrastText' p={4} mb={5}>
+        <Typography variant='h3'>Sector Health Dashboard</Typography>
+      </Box>
+
       <SectorTable user={user} sectorHealthData={sectorHealthData} />
     </>
   )

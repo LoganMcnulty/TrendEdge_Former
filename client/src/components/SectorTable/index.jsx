@@ -1,39 +1,33 @@
 import React, { useState, useEffect } from 'react'
+import Button from '@material-ui/core/Button'
 import MaterialTable from 'material-table'
 import { createSectors } from '../../services/createSectors'
 import { updateSectorData } from '../../services/pullSectors'
 
 export function SectorTable({ sectorHealthData }) {
-
   const sectorHealthTableData = sectorHealthData
   console.log(sectorHealthTableData)
 
   const [state, setState] = useState({
     columns: [
-      { title: 'Ticker', field: 'symbol' },
+      {
+        title: 'Ticker',
+        field: 'symbol',
+      },
       { title: 'Sector', field: 'sectorName' },
       { title: 'Price', field: 'priceTZero' },
-      { title: 'Top Holdings', field: 'topHoldings'},
+      { title: 'Top Holdings', field: 'topHoldings' },
       // { title: 'Top Holdings Names TEMP', field: 'topHoldingsNames'},
       // { title: 'Top Holdings Pct TEMP', field: 'topHoldingsPcts'},
       {
         title: 'Health (%)',
         field: 'score',
-        type: 'numeric'
+        type: 'numeric',
       },
-    ]
+    ],
   })
-
   return (
-    <React.Fragment>
-      <div className="row">
-        <div className="col-lg-12">
-          <div>
-            <button class="btn btn-primary" type="submit" onClick={createSectors}>Create Sectors</button>
-            <button class="btn btn-primary" type="submit" onClick={updateSectorData}>update Sector data</button>
-          </div>
-        </div>
-      </div>
+    <>
       <MaterialTable
         title='Sector Health Dashboard'
         columns={state.columns}
@@ -49,10 +43,30 @@ export function SectorTable({ sectorHealthData }) {
         //     }
         //   }
         // ]}
-        // options={{
-        //   actionsColumnIndex: 3
-        // }}
+        options={{
+          // actionsColumnIndex: 3
+          toolbar: false,
+          draggable: false,
+         
+        }}
       />
-    </React.Fragment>
+
+      <Button
+        variant='contained'
+        color='primary'
+        type='submit'
+        onClick={createSectors}
+      >
+        Create
+      </Button>
+      <Button
+        variant='contained'
+        color='primary'
+        type='submit'
+        onClick={updateSectorData}
+      >
+        Update
+      </Button>
+    </>
   )
 }
