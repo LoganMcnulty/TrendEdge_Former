@@ -15,10 +15,16 @@ export const ActiveOptions = () => {
     <>
       <div className="jumbotron" style={style.jumbotron}>
         <div className="container for-about">
-        <h1 style={{textAlign:"center", color:"white"}}>Most Active Options Dashboard</h1>
+        <h1 style={{textAlign:"center", color:"white"}}>Active Options Dashboard</h1>
         </div>
       </div>
-      <OptionsTable />
+    <div className="container">
+        <div className="row">
+          <div className="col-lg-10">
+            <OptionsTable />
+        </div>
+      </div>
+    </div>
     </>
   )
 }

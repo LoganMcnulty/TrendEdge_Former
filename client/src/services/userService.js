@@ -11,6 +11,7 @@ export function register(user) {
         userSettings: {
             fastSMA: 10,
             slowSMA: 40,
+            lookback: 1,
             fastWeight: 20,
             slowWeight: 20,
             fastToSlowWeight: 20,
@@ -33,6 +34,7 @@ export async function getSettings(email) {
 }
 
 export function updateSettings(email, userSettings) {
+    console.log(userSettings)
     const apiEndpoint = apiUrl + "/userSettings";
     
     return http.post(apiEndpoint, {email, userSettings});

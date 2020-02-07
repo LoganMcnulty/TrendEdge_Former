@@ -55,7 +55,7 @@ export const activeOptionsPull = (ticker) => {
         //         </tr>
         //         )
         // })
+        console.log(result)
         return result
-        console.log(tableData)
     })
 }

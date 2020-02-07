@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import MaterialTable from 'material-table'
 import { activeOptionsPull } from '../../services/optionsDashboard'
 
-export const OptionsTable = () => {
+export function OptionsTable() {
 
   const [state, setState] = useState({
     columns: [
@@ -18,7 +18,9 @@ export const OptionsTable = () => {
     ]
   })
 
-  activeOptionsPull("spot")
+  // const [optionsData, setOptionsData]
+  // const optionsDataPull = activeOptionsPull("SPOT");
+  // setOptionsData(optionsDataPull)
 
   return (
     <React.Fragment>

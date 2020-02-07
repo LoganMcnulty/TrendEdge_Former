@@ -14,8 +14,6 @@ export function SectorTable({ sectorHealthData }) {
       { title: 'Sector', field: 'sectorName' },
       { title: 'Price', field: 'priceTZero' },
       { title: 'Top Holdings', field: 'topHoldings'},
-      // { title: 'Top Holdings Names TEMP', field: 'topHoldingsNames'},
-      // { title: 'Top Holdings Pct TEMP', field: 'topHoldingsPcts'},
       {
         title: 'Health (%)',
         field: 'score',

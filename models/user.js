@@ -10,26 +10,17 @@ var UserSchema = new Schema({
     userSettings: {
         fastSMA: { type: Number, required: false },
         slowSMA: { type: Number, required: false },
+        lookback: { type: Number, required: false },
         fastWeight: { type: Number, required: false },
         slowWeight: { type: Number, required: false },
         fastToSlowWeight: { type: Number, required: false },
         MACDWeight: { type: Number, required: false },
         ADXWeight: { type: Number, required: false }
     },
-    userWatchList: [
-        {
-            indexName: String,
-            priceData: [{
-                type: Number
-            }],
-            macdData: [{
-                type: Number
-            }],
-            adxData: [{
-                type: Number
-            }]
-        }
-    ]
+    userWatchList: [{
+        type: Schema.Types.ObjectId,
+        ref: "Stock"
+      }]
 });
 
 UserSchema.pre('save', function (next) {

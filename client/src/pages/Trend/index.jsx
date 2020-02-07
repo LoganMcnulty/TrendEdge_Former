@@ -24,7 +24,14 @@ export const Trend = ({ sectorHealthDataPass, user }) => {
         <h1 style={{textAlign:"center", color:"white"}}>Sector Dashboard</h1>
         </div>
       </div>
-      <SectorTable user={user} sectorHealthData={sectorHealthData} />
+      <div className="container">
+            <div className="row justify-content-center">
+                <div className="col-lg-12">
+                  <SectorTable user={user} sectorHealthData={sectorHealthData} />
+                </div>
+            </div>
+        </div>
+      
     </>
   )
 }

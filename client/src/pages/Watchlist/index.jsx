@@ -17,7 +17,14 @@ return (
             <h1 style={{textAlign:"center", color:"white"}}>Your Watchlist</h1>
             </div>
         </div>
-        <WatchTable user={user} />
+        <div className="container">
+            <div className="row justify-content-center">
+                <div className="col-lg-12">
+                    <WatchTable user={user} />
+                </div>
+            </div>
+        </div>
+        
     </>
 )}
 

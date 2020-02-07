@@ -129,7 +129,7 @@ export function calcSectorHealth(sectorData) {
                 if ((slowSMAValue > slowSMALookbackValue)){adxValueWeighted=(sectorData.data[x].adxData[0]*adxWeight/100)}
                 else{adxValueWeighted=0}
 
-                sectorAndHealthScore.score = (fastSMAPositiveSlopeWeighted + slowSMAPositiveSlopeWeighted + fastGreaterSlowWeighted + macdPositiveSlopeWeighted + adxValueWeighted)
+                sectorAndHealthScore.score = ((fastSMAPositiveSlopeWeighted + slowSMAPositiveSlopeWeighted + fastGreaterSlowWeighted + macdPositiveSlopeWeighted + adxValueWeighted)*100).toFixed(1)
             
             allSectorHealthData.push(sectorAndHealthScore)
 

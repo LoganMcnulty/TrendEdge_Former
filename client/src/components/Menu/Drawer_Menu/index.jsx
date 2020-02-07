@@ -220,13 +220,13 @@ export function DrawerMenu({ children }) {
             <ListItemIcon>
               <CheckBoxOutlineBlankIcon />
             </ListItemIcon>
-            <ListItemText primary='Sector' />
+            <ListItemText primary='Sector Dashboard' />
           </ListItemLink>
           <ListItemLink button href='ActiveOptions' key='Options'>
             <ListItemIcon>
               <CheckBoxOutlineBlankIcon />
             </ListItemIcon>
-            <ListItemText primary='Active Options' />
+            <ListItemText primary='Search Active Options ' />
           </ListItemLink>
         </List>
         <Divider />
@@ -236,23 +236,25 @@ export function DrawerMenu({ children }) {
 
         {userLogged ? 
         (<>
+          <ListItemLink button href='Watchlist' key='Watchlist'>
+            <ListItemIcon>
+              <ViewListIcon />
+            </ListItemIcon>
+            <ListItemText primary='User Watchlist' />
+          </ListItemLink>
           <ListItemLink button href='User' key='User'>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
           <ListItemText primary='User Settings' />
           </ListItemLink>
-          <ListItemLink button href='Watchlist' key='Watchlist'>
-            <ListItemIcon>
-              <ViewListIcon />
-            </ListItemIcon>
-            <ListItemText primary='Watchlist' />
-          </ListItemLink>
+          <Divider />
           </>)
         :
         (<>
         </>)
         }
+          
           <ListItemLink button href='About' key='About'>
           <ListItemIcon>
             <InfoIcon />
