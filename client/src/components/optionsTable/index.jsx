@@ -24,13 +24,13 @@ export function OptionsTable( {optionsData} ) {
           {optionsData.map((options, index) => {
             return (<tr>
               <td>{optionsData[index][1]}</td>
-              <td>{(optionsData[index][0])}</td>
-              <td>{(optionsData[index][2])}</td>
-              <td>{(optionsData[index][3])}</td>
-              <td>{(optionsData[index][4])}</td>
-              <td>{(optionsData[index][5])}</td>
-              <td>{(optionsData[index][6])}</td>
-              <td>{(optionsData[index][7])}</td>
+              <td>{optionsData[index][0]}</td>
+              <td>{optionsData[index][2]}</td>
+              <td>{optionsData[index][3]}</td>
+              <td>{optionsData[index][4]}</td>
+              <td>{optionsData[index][5]}</td>
+              <td>{optionsData[index][6]}</td>
+              <td>{optionsData[index][7]}</td>
             </tr>)
               })}
         </tbody>
