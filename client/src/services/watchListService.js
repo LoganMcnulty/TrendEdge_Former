@@ -133,31 +133,12 @@ export function pullStockData(email, stockTicker) {
   })
 }
 
-export async function calcStockHealth(email, thisStockData) {
-  // final score object for each sector
-  const stockScore = await getSettings(email).then(userSettings => {
-    //constant values from user
-    let fastSMA = Number(userSettings.fastSMA)
-    // console.log("fast SMA: " + fastSMA)
-    let fastWeight = Number(userSettings.fastWeight) / 100
-    // console.log("fast weight: " + fastWeight)
-    let slowSMA = Number(userSettings.slowSMA)
-    // console.log("slow SMA: " + slowSMA)
-    let slowWeight = Number(userSettings.slowWeight) / 100
-    // console.log("slow weight: " + slowSMAWeight)
-    let fastGreaterSlowWeight = Number(userSettings.fastToSlowWeight) / 100
-    // console.log("fast to slow weight: " + fastToSlowWeight)
-    let macdWeight = Number(userSettings.MACDWeight) / 100
-    // console.log("macd weight: " + macdWeight)
-    let adxWeight = Number(userSettings.ADXWeight) / 100
-    // console.log("adx Weight: " + adxWeight)
-
-    // calculated values
-    let fastSMAValue
-    let slowSMAValue
-    let fastSMALookbackValue
-    let slowSMALookbackValue
-    let macdValue
+    const getFundamentalData = () => {
+        yahooDataPull(stockTicker).then((yahooData) => {
+            console.log(yahooData)
+            //technical data
+            thisStockData.averageVolumeTenDays = yahooData.data.summaryDetail.averageVolume10days.raw
+            thisStockData.livePrice = yahooData.data.summaryDetail.ask.raw
 
     // values with weightings applied
     let fastSMAPositiveSlopeWeighted

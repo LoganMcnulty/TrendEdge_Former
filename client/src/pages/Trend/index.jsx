@@ -6,17 +6,31 @@ import { SectorTable } from 'components'
 export const Trend = ({ sectorHealthDataPass, user }) => {
   const sectorHealthData = sectorHealthDataPass
 
-  if (!sectorHealthDataPass) {
-    return null
+  const sectorHealthData=sectorHealthDataPass
+  
+  const style = {
+    jumbotron: {
+      background: "#3f51b5",
+      backgroundSize: "cover",
+      backgroundColor: "#4682B4",
+    }
   }
 
   return (
     <>
-      <Box bgcolor='primary.main' color='primary.contrastText' p={4} mb={5}>
-        <Typography variant='h3'>Sector Health Dashboard</Typography>
-      </Box>
-
-      <SectorTable user={user} sectorHealthData={sectorHealthData} />
+      <div className="jumbotron" style={style.jumbotron}>
+        <div className="container for-about">
+        <h1 style={{textAlign:"center", color:"white"}}>Sector Dashboard</h1>
+        </div>
+      </div>
+      <div className="container">
+            <div className="row justify-content-center">
+                <div className="col-lg-12">
+                  <SectorTable user={user} sectorHealthData={sectorHealthData} />
+                </div>
+            </div>
+        </div>
+      
     </>
   )
 }

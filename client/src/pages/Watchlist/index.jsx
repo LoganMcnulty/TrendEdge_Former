@@ -3,13 +3,30 @@ import Box from '@material-ui/core/Box'
 import Typography from '@material-ui/core/Typography'
 import { WatchTable } from 'components'
 
-export const Watchlist = ({ user }) => {
-  return (
+export const Watchlist = ({user}) => {
+
+    const style = {
+        jumbotron: {
+          background: "#3f51b5",
+          backgroundSize: "cover",
+          backgroundColor: "#4682B4",
+        }
+      }
+return (
     <>
-      <Box bgcolor='primary.main' color='primary.contrastText' p={4} mb={5}>
-        <Typography variant='h3'>Watch List</Typography>
-      </Box>
-      <WatchTable user={user} />
+        <div className="jumbotron" style={style.jumbotron}>
+            <div className="container for-about">
+            <h1 style={{textAlign:"center", color:"white"}}>Your Watchlist</h1>
+            </div>
+        </div>
+        <div className="container">
+            <div className="row justify-content-center">
+                <div className="col-lg-12">
+                    <WatchTable user={user} />
+                </div>
+            </div>
+        </div>
+        
     </>
-  )
-}
+)}
+
