@@ -25,7 +25,7 @@ router.route("/api/user").post((req, res, next) => {
 })
 
 router.route("/api/auth").post((req, res, next) => {
-    userData = {
+    let userData = {
         email: req.body.email
     }
 
@@ -60,11 +60,11 @@ router.route("/api/auth").post((req, res, next) => {
 })
 
 router.route("/api/getUserSettings").post((req, res, next) => {
-    userData = {
+    let userData = {
         email: req.body.email
     }
 
-    db.User.findOne(userData, function (err, {userSettings}) {
+    db.User.findOne(userData, function (err, { userSettings }) {
         if (err) {
             res.json(err)
         } else {
@@ -74,7 +74,7 @@ router.route("/api/getUserSettings").post((req, res, next) => {
 })
 
 router.route("/api/userSettings").post((req, res, next) => {
-    userData = {
+    let userData = {
         email: req.body.email
     }
 
@@ -89,28 +89,24 @@ router.route("/api/userSettings").post((req, res, next) => {
 })
 
 router.route("/api/getWatchList").post((req, res, next) => {
-    userData = {
+    let userData = {
         email: req.body.email
     }
-
-    db.User.findOne(userData, function (err, {userWatchList}) {
-        if (err) {
-            res.json(err)
-        } else {
-            res.json(userWatchList);
-        }
+    db.User.findOne(userData).populate("userWatchList").then(function (returnData) {
+        res.json(returnData);
     })
 })
 
-router.route("/api/updateWatchList").put((req, res, next) => {
-    userData = {
+router.route("/api/updateWatchList").post((req, res, next) => {
+    let userData = {
         email: req.body.email
     }
-    db.User.findOneAndUpdate(userData, { "userWatchList": req.body.watchList })
-        .then(function () {
-            console.log("Watch List Updated!");
-            res.send(true);
-            //add response for User watchlist update
+    db.Stock.create(req.body.thisStockData)
+        .then(function (dbWatchList) {
+            db.User.findOneAndUpdate(userData, { $push: { userWatchList: dbWatchList._id } }, { new: true }).then(() => {
+                console.log("Watch List Updated!");
+                res.send(true);
+            })
         })
         .catch(function (err) {
             console.log("ERROR " + err)
@@ -120,20 +116,11 @@ router.route("/api/updateWatchList").put((req, res, next) => {
 })
 
 router.route("/api/deleteWatchList").put((req, res, next) => {
-    userData = {
+    let userData = {
         email: req.body.email
     }
-    let updatedWatchList = req.body.watchList;
 
-    updatedWatchList.forEach( updWatchListItem => {
-        delete updWatchListItem.tableData;
-        delete updWatchListItem.health;
-        delete updWatchListItem.sector;
-        delete updWatchListItem.marketCap;
-        delete updWatchListItem.price;
-    })
-
-    db.User.findOneAndUpdate(userData, { "userWatchList": updatedWatchList })
+    db.User.findOneAndUpdate(userData, { "userWatchList": req.body.watchList })
         .then(function () {
             console.log("Watch List Updated!");
             res.send(true);
@@ -162,9 +149,30 @@ router.route("/api/pullSectors").get((req, res) => {
     console.log("Pulling Sector Data from global sector DB")
     db.Sector.find({}, function (err, data) {
         if (err) {
-            res.json(err)
+            res.send(err);
         } else {
             res.json(data)
+        }
+    })
+})
+
+router.route("/api/findStockData/:stockTicker/:email").get((req, res) => {
+    console.log("Checking if Stock Data Exists")
+    let stockData = {
+        stockName: req.params.stockTicker
+    }
+    let userData = {
+        email: req.params.email
+    }
+    db.Stock.findOne(stockData, function (err,foundStock) {
+        if (err) throw err;
+        if (!foundStock) {
+            res.send(false)
+        } else {
+            db.User.findOneAndUpdate(userData, { $push: { userWatchList: foundStock._id } }, { new: true }).then(() => {
+                console.log("Watch List Updated!");
+                res.send(true);
+            })
         }
     })
 })

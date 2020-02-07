@@ -11,8 +11,11 @@ export function UserSettings({ user }) {
   const [key, setKey] = useState('AveragePeriod');
   const [fastSMA, setFastSMA] = useState();
   const [slowSMA, setSlowSMA] = useState();
+  const [lookback, setLookback] = useState();
   const [weightObject, setWeightObject] = useState();
   const [currentUserSettings, setcurrentUserSettings] = useState();
+  const [SMAError, setSMAError] = useState();
+  const [weightError, setWeightError] = useState();
 
   useEffect(() => {
     try {
@@ -20,6 +23,7 @@ export function UserSettings({ user }) {
         if (!weightObject) {
           setFastSMA(loadUserSettings.fastSMA);
           setSlowSMA(loadUserSettings.slowSMA);
+          setLookback(loadUserSettings.lookback);
           setWeightObject({
             fastWeight: loadUserSettings.fastWeight,
             slowWeight: loadUserSettings.slowWeight,
@@ -31,6 +35,7 @@ export function UserSettings({ user }) {
             {
               fastSMA: loadUserSettings.fastSMA,
               slowSMA: loadUserSettings.slowSMA,
+              lookback: loadUserSettings.lookback,
               fastWeight: loadUserSettings.fastWeight,
               slowWeight: loadUserSettings.slowWeight,
               fastToSlowWeight: loadUserSettings.fastToSlowWeight,
@@ -44,7 +49,7 @@ export function UserSettings({ user }) {
   }, [user])
 
   const handleSave = () => {
-    const userSettings = { ...weightObject, "fastSMA": fastSMA, "slowSMA": slowSMA }
+    const userSettings = { ...weightObject, "fastSMA": fastSMA, "slowSMA": slowSMA, "lookback": lookback }
     updateSettings(user.email, userSettings);
   }
 
@@ -60,6 +65,18 @@ export function UserSettings({ user }) {
     setSlowSMA(newSlowSMA);
   }
 
+  const handleLookbackChange = (newLookback) => {
+    setLookback(newLookback);
+  }
+
+  const handleSMAError = (newError) => {
+    setSMAError(newError);
+  }
+
+  const handleWeightError = (newError) => {
+    setWeightError(newError);
+  }
+
   return (
     <React.Fragment>
       <Row className="align-items-center">
@@ -67,21 +84,22 @@ export function UserSettings({ user }) {
           <h1>User Settings</h1>
         </Col>
         <Col>
-          <button className="btn btn-primary" onClick={handleSave}>Save User Options</button>
+          {!SMAError && !weightError && < button className="btn btn-primary" onClick={handleSave}>Save User Options</button>}
+          {(SMAError || weightError) && <button className="btn btn-danger" disabled={true}>Save User Options</button>}
         </Col>
       </Row>
-      <Tabs
-        id='controlled-tab-example'
-        activeKey={key}
-        onSelect={k => setKey(k)}
-      >
-        <Tab eventKey='AveragePeriod' title='Average Period (Weekly)'>
-          <AveragePeriod user={currentUserSettings} onFastSMAChange={handleFastSMAChange} onSlowSMAChange={handleSlowSMAChange} />
-        </Tab>
-        <Tab eventKey='Weighting' title='Weighting (%)'>
-          <Weighting user={currentUserSettings} onWeightChange={handleWeightChange} />
-        </Tab>
-      </Tabs>
+    <Tabs
+      id='controlled-tab-example'
+      activeKey={key}
+      onSelect={k => setKey(k)}
+    >
+      <Tab eventKey='AveragePeriod' title='Average Period (Weekly)'>
+        <AveragePeriod user={currentUserSettings} onFastSMAChange={handleFastSMAChange} onSlowSMAChange={handleSlowSMAChange} onLookbackChange={handleLookbackChange} onError={handleSMAError} />
+      </Tab>
+      <Tab eventKey='Weighting' title='Weighting (%)'>
+        <Weighting user={currentUserSettings} onWeightChange={handleWeightChange} onError={handleWeightError} />
+      </Tab>
+    </Tabs>
     </React.Fragment >
   )
 }

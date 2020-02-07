@@ -2,17 +2,13 @@ import http from './httpService'
 import { apiUrl } from '../config.json'
 import $ from 'jquery'
 import { getSettings } from '../services/userService'
-import { yahooDataPUll, yahooDataPull } from './yahooFinance'
+import { yahooDataPull } from './yahooFinance'
 
-export function pullStockData(email, stockTicker, stockSector, currentWatchList) {
-    console.log(email)
-    console.log(stockTicker)
-    console.log(currentWatchList)
+export function pullStockData(email, stockTicker) {
     const apiKey = '07S5MN2IBXDCQAGB'
     let thisStockData = {
         livePrice: 0,
-        indexName: stockTicker,
-        sector: stockSector,
+        stockName: stockTicker.toUpperCase(),
         priceData: [],
         adxData: [],
         macdData: [],
@@ -23,8 +19,6 @@ export function pullStockData(email, stockTicker, stockSector, currentWatchList)
             floatingShares: 0,
             sharesShort: 0,
             insidersPctHeld: 0,
-            // salesTTM: 0, <--- cannot find good source in yahoo
-            // earningsTTM: 0, <-- cannot find good source in yahoo
             nextEarningsDate: "",
             grossMargins: 0,
             profitMargins: 0
@@ -57,26 +51,25 @@ export function pullStockData(email, stockTicker, stockSector, currentWatchList)
             console.log(yahooData)
 
             //technical data
-                thisStockData.averageVolumeTenDays = yahooData.data.summaryDetail.averageVolume10days.raw
-                thisStockData.livePrice = yahooData.data.summaryDetail.ask.raw
+            thisStockData.averageVolumeTenDays = yahooData.data.summaryDetail.averageVolume10days.raw
+            thisStockData.livePrice = yahooData.data.summaryDetail.ask.raw
 
             // fundamental data
-                thisStockData.fundamentalData.marketCap = yahooData.data.summaryDetail.marketCap.fmt
-                thisStockData.fundamentalData.sector = yahooData.data.summaryProfile.sector
-                thisStockData.fundamentalData.floatingShares = yahooData.data.defaultKeyStatistics.floatShares.raw
-                thisStockData.fundamentalData.sharesShort = yahooData.data.defaultKeyStatistics.sharesShort.raw
-                thisStockData.fundamentalData.insidersPctHeld = yahooData.data.defaultKeyStatistics.heldPercentInsiders.raw
-                thisStockData.fundamentalData.nextEarningsDate = yahooData.data.calendarEvents.earnings.earningsDate[0].raw
-                thisStockData.fundamentalData.grossMargins = yahooData.data.financialData.grossMargins.raw
-                thisStockData.fundamentalData.profitMargins = yahooData.data.financialData.profitMargins.raw
+            thisStockData.fundamentalData.marketCap = yahooData.data.summaryDetail.marketCap.fmt
+            thisStockData.fundamentalData.sector = yahooData.data.summaryProfile.sector
+            thisStockData.fundamentalData.floatingShares = yahooData.data.defaultKeyStatistics.floatShares.raw
+            thisStockData.fundamentalData.sharesShort = yahooData.data.defaultKeyStatistics.sharesShort.raw
+            thisStockData.fundamentalData.insidersPctHeld = yahooData.data.defaultKeyStatistics.heldPercentInsiders.raw
+            thisStockData.fundamentalData.nextEarningsDate = yahooData.data.calendarEvents.earnings.earningsDate[0].raw
+            thisStockData.fundamentalData.grossMargins = yahooData.data.financialData.grossMargins.raw
+            thisStockData.fundamentalData.profitMargins = yahooData.data.financialData.profitMargins.raw
 
 
-        }).then(()=> {
-            
+        }).then(() => {
             getMacdData()
         })
-    
-      }
+
+    }
 
     const getMacdData = () => {
         $.ajax({
@@ -95,11 +88,8 @@ export function pullStockData(email, stockTicker, stockSector, currentWatchList)
 
 
                 console.log(thisStockData)
-                currentWatchList.push(thisStockData);
-                delete currentWatchList[0].tableData;
-                delete currentWatchList[0]._id;
-                let apiEndpoint = apiUrl + '/updateWatchList'
-                http.put(apiEndpoint, { watchList: currentWatchList, email: email }).then(() => {
+                let apiEndpoint = apiUrl + '/updateWatchList';
+                http.post(apiEndpoint, { thisStockData, email }).then(() => {
                     window.location = "/Watchlist"
                 });
             }
@@ -124,7 +114,15 @@ export function pullStockData(email, stockTicker, stockSector, currentWatchList)
             },
         })
     }
-    getPriceData()
+
+    let apiEndpoint = apiUrl + '/findStockData/'+stockTicker.toUpperCase()+'/'+email;
+    http.get(apiEndpoint).then(({data}) => {
+        if(data) {
+            window.location = "/Watchlist";
+        } else {
+            getPriceData();
+        }
+    })
 }
 
 export async function calcStockHealth(email, thisStockData) {
@@ -216,24 +214,31 @@ export async function getWatchList(email) {
     try {
         let apiEndpoint = apiUrl + '/getWatchList'
         const watchListData = await http.post(apiEndpoint, { email })
-        return watchListData
+        const userDataAndSettings = {
+            userWatchList: watchListData.data.userWatchList,
+            userSettings: watchListData.data.userSettings
+        }
+        return userDataAndSettings
     } catch {
         return []
     }
 }
 
-export async function deleteWatchListItem(email, indexName, currentWatchList) {
+export async function deleteWatchListItem(email, stockName, currentWatchList) {
     try {
-        
-        let updatedWatchList =  currentWatchList.filter(watchListItem => {
-            return watchListItem.indexName != indexName;
+
+        let updatedWatchList = currentWatchList.filter(watchListItem => {
+            return watchListItem.stockName != stockName;
         })
-        
-        console.log(updatedWatchList);
+        let newWatchListArr = [];
+        updatedWatchList.forEach(watchListItem => {
+            newWatchListArr.push(watchListItem._id);
+        })
+
         let apiEndpoint = apiUrl + '/deleteWatchList'
-        http.put(apiEndpoint, { email: email, watchList: updatedWatchList }).then( () => {
+        http.put(apiEndpoint, { email: email, watchList: newWatchListArr }).then(() => {
             window.location = "/Watchlist"
         })
-        
+
     } catch { }
 }

@@ -3,12 +3,14 @@ import Form from 'react-bootstrap/Form'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 
-const Weighting = ({ user, onWeightChange }) => {
+const Weighting = ({ user, onWeightChange, onError }) => {
   const [fastWeight, setFastWeight] = useState();
   const [slowWeight, setSlowWeight] = useState();
   const [fastToSlowWeight, setFastToSlowWeight] = useState();
   const [MACDWeight, setMACDWeight] = useState();
   const [ADXWeight, setADXWeight] = useState();
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
 
   useEffect(() => {
     try {
@@ -20,26 +22,35 @@ const Weighting = ({ user, onWeightChange }) => {
         setADXWeight(user.ADXWeight);
       }
     } catch (ex) { }
+    let totalWeight = parseInt(fastWeight) + parseInt(slowWeight) + parseInt(fastToSlowWeight) + parseInt(MACDWeight) + parseInt(ADXWeight);
+    if (totalWeight != 100) {
+      setError(true);
+      setErrorMessage("Total Weight must equal 100% (currently " + totalWeight + "%)");
+      onError(true);
+    } else {
+      setError(false);
+      onError(false);
+    }
   });
 
   const handleChange = (e) => {
-      switch (e.target.id) {
-        case "FastSMA":
-          e.target.value ? setFastWeight(parseInt(e.target.value)) : setFastWeight(0);
-          break;
-        case "SlowSMA":
-          e.target.value ? setSlowWeight(parseInt(e.target.value)) : setSlowWeight(0);
-          break;
-        case "FasterSlowSMA":
-          e.target.value ? setFastToSlowWeight(parseInt(e.target.value)) : setFastToSlowWeight(0);
-          break;
-        case "MACD":
-          e.target.value ? setMACDWeight(parseInt(e.target.value)) : setMACDWeight(0);
-          break;
-        case "ADX":
-          e.target.value ? setADXWeight(parseInt(e.target.value)) : setADXWeight(0);
-          break;
-      }
+    switch (e.target.id) {
+      case "FastSMA":
+        e.target.value ? setFastWeight(parseInt(e.target.value)) : setFastWeight(0);
+        break;
+      case "SlowSMA":
+        e.target.value ? setSlowWeight(parseInt(e.target.value)) : setSlowWeight(0);
+        break;
+      case "FasterSlowSMA":
+        e.target.value ? setFastToSlowWeight(parseInt(e.target.value)) : setFastToSlowWeight(0);
+        break;
+      case "MACD":
+        e.target.value ? setMACDWeight(parseInt(e.target.value)) : setMACDWeight(0);
+        break;
+      case "ADX":
+        e.target.value ? setADXWeight(parseInt(e.target.value)) : setADXWeight(0);
+        break;
+    }
   }
 
   const handleBlur = () => {
@@ -55,6 +66,13 @@ const Weighting = ({ user, onWeightChange }) => {
 
   return (
     <Form>
+      <Row className="mt-3 ml-1">
+        {error && (
+          <div class="alert alert-danger p-1" role="alert">
+            <strong>{errorMessage}</strong>
+          </div>
+        )}
+      </Row>
       <Row>
         <Col>
           <h3>Moving Averages</h3>
