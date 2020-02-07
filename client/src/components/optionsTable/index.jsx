@@ -1,49 +1,40 @@
-import React, { useEffect, useState } from 'react'
-import MaterialTable from 'material-table'
-import { activeOptionsPull } from '../../services/optionsDashboard'
+import React from 'react'
 
-export function OptionsTable() {
+export function OptionsTable( {optionsData} ) {
 
-  const [state, setState] = useState({
-    columns: [
-      { title: 'Exp. Date', field: 'dates' },
-      { title: 'Sector', field: 'sectorName' },
-      { title: 'Price', field: 'priceTZero' },
-      { title: 'Top Holdings', field: 'topHoldings'},
-      {
-        title: 'Health (%)',
-        field: 'score',
-        type: 'numeric'
-      },
-    ]
-  })
-
-  // const [optionsData, setOptionsData]
-  // const optionsDataPull = activeOptionsPull("SPOT");
-  // setOptionsData(optionsDataPull)
+  console.log("DATA REACHES TABLE")
+  console.log(optionsData)
 
   return (
     <React.Fragment>
-      <h1>hello there</h1> 
-      {/* <MaterialTable
-        title='Sector Health Dashboard'
-        columns={state.columns}
-        data={sectorHealthTableData}
-        // actions={[
-        //   {
-        //     icon: 'save',
-        //     tooltip: 'View Top Holdings',
-        //     onClick: (event, rowData) => {
-        //       console.log("Holdings Data for" + rowData.symbol)
-        //       console.log(rowData.topHoldingsNames)
-        //       console.log(rowData.topHoldingsPcts)
-        //     }
-        //   }
-        // ]}
-        // options={{
-        //   actionsColumnIndex: 3
-        // }}
-      /> */}
+      <table className="table">
+        <thead className="thead-dark">
+          <tr>
+            <th scope="col">Call/Put</th>
+            <th scope="col">Exp. Date</th>
+            <th scope="col">Strike</th>
+            <th scope="col">Ask</th>
+            <th scope="col">Today's Chg.</th>
+            <th scope="col">Volume</th>
+            <th scope="col">Open Int.</th>
+            <th scope="col">Vol/OI %</th>
+          </tr>
+        </thead>
+        <tbody>
+          {optionsData.map((options, index) => {
+            return (<tr>
+              <td>{optionsData[index][1]}</td>
+              <td>{(optionsData[index][0])}</td>
+              <td>{(optionsData[index][2])}</td>
+              <td>{(optionsData[index][3])}</td>
+              <td>{(optionsData[index][4])}</td>
+              <td>{(optionsData[index][5])}</td>
+              <td>{(optionsData[index][6])}</td>
+              <td>{(optionsData[index][7])}</td>
+            </tr>)
+              })}
+        </tbody>
+      </table>
     </React.Fragment>
   )
 }

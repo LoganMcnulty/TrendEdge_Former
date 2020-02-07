@@ -77,8 +77,7 @@ export function calcSectorHealth(sectorData) {
                         </thead>
                         <tbody>
                             {holdingsTableData.companies.map((companies, index) => {
-                                const pctHeldMap = holdingsTableData.pctHeld[index]
-                                return <tr><td>{companies}</td><td>{(pctHeldMap*100).toFixed(2)}</td></tr>
+                                return <tr><td>{companies}</td><td>{(holdingsTableData.pctHeld[index]*100).toFixed(2)}</td></tr>
                             })}
                         </tbody>
                     </div>

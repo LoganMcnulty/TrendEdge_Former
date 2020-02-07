@@ -2,7 +2,18 @@ import React from 'react'
 const axios = require("axios");
 var cheerio = require("cheerio");
 
-export const activeOptionsPull = (ticker) => {
+export async function activeOptionsPull(ticker) {
+// fake data for render testing
+    // let fakeData = {
+    //     optionType:["call","call","put","put"],
+    //     strikePrice: ["1000","900","700","600"],
+    //     contractPrice:["10.00","20.00","15.00","11.00"],
+    //     todayChange:["2.00","4.00","3.00","4.50"],
+    //     volume: ["200","300","150","160"],
+    //     openInt: ["1500", "1800", "450", "500"],
+    //     volOI: [".13", ".17", ".33", ".32"]
+    //     }
+
     let result = {
         dates: [],
         optionType: [],
@@ -10,12 +21,14 @@ export const activeOptionsPull = (ticker) => {
         contractPrice: [],
         todayChange: [],
         volume: [],
-        openInt: []
+        openInt: [],
+        volOI: []
     };
 
-    let tableData = []
+    const resultRows = []
 
-    axios.get(`https://old.nasdaq.com/symbol/${ticker}/option-chain/most-active`).then(response => {
+    console.log("SCRAPING NASDAQ ACTIVE OPTIONS...")
+    const optionsData = await axios.get(`https://old.nasdaq.com/symbol/${ticker}/option-chain/most-active`).then(response => {
         // Then, we load that into cheerio and save it to $ for a shorthand selector
         var $ = cheerio.load(response.data);
         $("tbody tr").each(function (i, element) {
@@ -38,24 +51,18 @@ export const activeOptionsPull = (ticker) => {
         result.todayChange = result.todayChange.filter(el => { return el != ""; });
         result.volume = result.volume.filter(el => { return el != ""; });
         result.openInt = result.openInt.filter(el => { return el != ""; });
-    }).then(() => {
-        console.log("SCRAPING NASDAQ ACTIVE OPTIONS...")
-        console.log(result);
-        // tableData = result.dates.map((options, index) => {
-        //     return (
-        //     <tr>
-        //         <td>{options}</td>
-        //         <td>{result.optionType[index]}</td>
-        //         <td>{result.strikePrice[index]}</td>
-        //         <td>{result.contractPrice[index]}</td>
-        //         <td>{result.todayChange[index]}</td>
-        //         <td>{result.volume[index]}</td>
-        //         <td>{result.openInt[index]}</td>
-        //         <td>{(result.volume[index]/result.openInt[index]).toFixed(2)*100}</td>
-        //         </tr>
-        //         )
-        // })
-        console.log(result)
-        return result
+
+        for (let i = 0; i < result.optionType.length; i++){
+            let volOI = (result.volume[i]/result.openInt[i]*100).toFixed(2)
+            result.volOI.push(volOI + "%")
+        }
+
+        for (let x = 0; x < result.optionType.length; x++){
+            let newResultRow = []
+            newResultRow.push(result.dates[x], result.optionType[x], result.strikePrice[x], result.contractPrice[x], result.todayChange[x], result.volume[x], result.openInt[x], result.volOI[x])
+            resultRows.push(newResultRow)
+        }
+        return resultRows
     })
+    return optionsData
 }
