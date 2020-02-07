@@ -8,7 +8,8 @@ export const Trend = ({ sectorHealthDataPass, user }) => {
   const style = {
     jumbotron: {
       background: "#3f51b5",
-      backgroundSize: "cover"
+      backgroundSize: "cover",
+      backgroundColor: "#4682B4",
     }
   }
 
@@ -20,10 +21,17 @@ export const Trend = ({ sectorHealthDataPass, user }) => {
     <>
       <div className="jumbotron" style={style.jumbotron}>
         <div className="container for-about">
-        <h1 style={{textAlign:"center", color:"white"}}>Sector Health Dashboard</h1>
+        <h1 style={{textAlign:"center", color:"white"}}>Sector Dashboard</h1>
         </div>
       </div>
-      <SectorTable user={user} sectorHealthData={sectorHealthData} />
+      <div className="container">
+            <div className="row justify-content-center">
+                <div className="col-lg-12">
+                  <SectorTable user={user} sectorHealthData={sectorHealthData} />
+                </div>
+            </div>
+        </div>
+      
     </>
   )
 }

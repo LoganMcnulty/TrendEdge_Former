@@ -34,6 +34,7 @@ export async function getSettings(email) {
 }
 
 export function updateSettings(email, userSettings) {
+    console.log(userSettings)
     const apiEndpoint = apiUrl + "/userSettings";
     
     return http.post(apiEndpoint, {email, userSettings});

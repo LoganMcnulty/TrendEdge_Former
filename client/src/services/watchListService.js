@@ -46,10 +46,8 @@ export function pullStockData(email, stockTicker) {
     }
 
     const getFundamentalData = () => {
-        console.log("Yahoo data...")
         yahooDataPull(stockTicker).then((yahooData) => {
             console.log(yahooData)
-
             //technical data
             thisStockData.averageVolumeTenDays = yahooData.data.summaryDetail.averageVolume10days.raw
             thisStockData.livePrice = yahooData.data.summaryDetail.ask.raw

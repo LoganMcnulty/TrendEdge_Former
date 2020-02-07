@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import clsx from 'clsx'
-import { fade, makeStyles, useTheme } from '@material-ui/core/styles'
+import { makeStyles, useTheme } from '@material-ui/core/styles'
 import Drawer from '@material-ui/core/Drawer'
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import List from '@material-ui/core/List'
-import InputBase from '@material-ui/core/InputBase'
 import MenuItem from '@material-ui/core/MenuItem'
 import Menu from '@material-ui/core/Menu'
 import CssBaseline from '@material-ui/core/CssBaseline'
@@ -22,8 +21,6 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
 import ViewListIcon from '@material-ui/icons/ViewList'
 import CheckBoxOutlineBlankIcon from '@material-ui/icons/CheckBoxOutlineBlank'
 import ChevronRightIcon from '@material-ui/icons/ChevronRight'
-import InboxIcon from '@material-ui/icons/MoveToInbox'
-import MailIcon from '@material-ui/icons/Mail'
 import MoreIcon from '@material-ui/icons/MoreVert'
 import AccountCircle from '@material-ui/icons/AccountCircle'
 import SettingsIcon from '@material-ui/icons/Settings'
@@ -101,6 +98,7 @@ export function DrawerMenu({ children }) {
     </Menu>
   )
   const mobileMenuId = 'primary-search-account-menu-mobile'
+
   const renderMobileMenu = (
     <Menu
       anchorEl={mobileMoreAnchorEl}
@@ -164,7 +162,7 @@ export function DrawerMenu({ children }) {
             </Grid>
             <Grid item>
               <Typography variant='h5' noWrap>
-                Trend Health
+                Trend Edge
               </Typography>
             </Grid>
           </Grid>
@@ -180,7 +178,6 @@ export function DrawerMenu({ children }) {
           (<div><a href="/logout"><h3 style={{color:"white"}}>Logout</h3></a></div>)
           }
           
-
           </div>
           <div className={classes.sectionMobile}>
             <IconButton
@@ -223,14 +220,13 @@ export function DrawerMenu({ children }) {
             <ListItemIcon>
               <CheckBoxOutlineBlankIcon />
             </ListItemIcon>
-            <ListItemText primary='Sector' />
+            <ListItemText primary='Sector Dashboard' />
           </ListItemLink>
-
-          <ListItemLink button href='Watchlist' key='Watchlist'>
+          <ListItemLink button href='ActiveOptions' key='Options'>
             <ListItemIcon>
-              <ViewListIcon />
+              <CheckBoxOutlineBlankIcon />
             </ListItemIcon>
-            <ListItemText primary='Watchlist' />
+            <ListItemText primary='Search Active Options ' />
           </ListItemLink>
         </List>
         <Divider />
@@ -240,17 +236,25 @@ export function DrawerMenu({ children }) {
 
         {userLogged ? 
         (<>
+          <ListItemLink button href='Watchlist' key='Watchlist'>
+            <ListItemIcon>
+              <ViewListIcon />
+            </ListItemIcon>
+            <ListItemText primary='User Watchlist' />
+          </ListItemLink>
           <ListItemLink button href='User' key='User'>
           <ListItemIcon>
             <SettingsIcon />
           </ListItemIcon>
           <ListItemText primary='User Settings' />
           </ListItemLink>
+          <Divider />
           </>)
         :
         (<>
         </>)
         }
+          
           <ListItemLink button href='About' key='About'>
           <ListItemIcon>
             <InfoIcon />
@@ -270,6 +274,8 @@ const useStyles = makeStyles(theme => ({
     display: 'flex'
   },
   appBar: {
+    backgroundColor: "#4682B4",
+    //#ab3900 <-- complimentary red color or #ab001d
     zIndex: theme.zIndex.drawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,

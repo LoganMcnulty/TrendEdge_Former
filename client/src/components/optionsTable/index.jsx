@@ -1,16 +1,12 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import MaterialTable from 'material-table'
-import { createSectors } from '../../services/createSectors'
-import { updateSectorData } from '../../services/pullSectors'
+import { activeOptionsPull } from '../../services/optionsDashboard'
 
-export function SectorTable({ sectorHealthData }) {
-
-  const sectorHealthTableData = sectorHealthData
-  console.log(sectorHealthTableData)
+export function OptionsTable() {
 
   const [state, setState] = useState({
     columns: [
-      { title: 'Ticker', field: 'symbol' },
+      { title: 'Exp. Date', field: 'dates' },
       { title: 'Sector', field: 'sectorName' },
       { title: 'Price', field: 'priceTZero' },
       { title: 'Top Holdings', field: 'topHoldings'},
@@ -22,17 +18,14 @@ export function SectorTable({ sectorHealthData }) {
     ]
   })
 
+  // const [optionsData, setOptionsData]
+  // const optionsDataPull = activeOptionsPull("SPOT");
+  // setOptionsData(optionsDataPull)
+
   return (
     <React.Fragment>
-      <div className="row">
-        <div className="col-lg-12">
-          <div>
-            <button class="btn btn-primary" type="submit" onClick={createSectors}>Create Sectors</button>
-            <button class="btn btn-primary" type="submit" onClick={updateSectorData}>update Sector data</button>
-          </div>
-        </div>
-      </div>
-      <MaterialTable
+      <h1>hello there</h1> 
+      {/* <MaterialTable
         title='Sector Health Dashboard'
         columns={state.columns}
         data={sectorHealthTableData}
@@ -50,7 +43,7 @@ export function SectorTable({ sectorHealthData }) {
         // options={{
         //   actionsColumnIndex: 3
         // }}
-      />
+      /> */}
     </React.Fragment>
   )
 }
