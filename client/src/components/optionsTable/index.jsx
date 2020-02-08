@@ -3,19 +3,18 @@ import MaterialTable from 'material-table'
 import { activeOptionsPull } from '../../services/optionsDashboard'
 
 export function OptionsTable() {
-
   const [state, setState] = useState({
     columns: [
       { title: 'Exp. Date', field: 'dates' },
       { title: 'Sector', field: 'sectorName' },
       { title: 'Price', field: 'priceTZero' },
-      { title: 'Top Holdings', field: 'topHoldings'},
+      { title: 'Top Holdings', field: 'topHoldings' },
       {
         title: 'Health (%)',
         field: 'score',
-        type: 'numeric'
+        type: 'numeric',
       },
-    ]
+    ],
   })
 
   // const [optionsData, setOptionsData]
@@ -24,7 +23,7 @@ export function OptionsTable() {
 
   return (
     <React.Fragment>
-      <h1>hello there</h1> 
+      <h1>hello there</h1>
       {/* <MaterialTable
         title='Sector Health Dashboard'
         columns={state.columns}
