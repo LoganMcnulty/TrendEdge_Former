@@ -7,7 +7,7 @@ function ImageZoom({ zoom, src, alt, background }) {
     zoomRef.current.attach(image)
   }
 
-  return <img src={src} alt={alt} ref={attachZoom} style={styles}/>
+  return <img src={src} alt={alt} ref={attachZoom} style={styles} />
 }
 
 export default ImageZoom
@@ -15,5 +15,5 @@ export default ImageZoom
 const styles = {
   textAlign: 'center',
   cursor: 'pointer',
-  width: 600
+  width: 600,
 }
