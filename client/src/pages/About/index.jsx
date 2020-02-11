@@ -27,8 +27,7 @@ export const About = () => {
             About
           </Typography>
         </Grid>
-
-        <Grid item style={{ alignItems: 'center' }}>
+        <Grid item style={{ height: 900, overflowY: 'scroll' }}>
           {page === 1 ? (
             <Introduction />
           ) : page === 2 ? (
@@ -38,6 +37,8 @@ export const About = () => {
           ) : (
             <Conclusion />
           )}
+        </Grid>
+        <Grid item>
           <Pagination count={4} page={page} onChange={handleChange} />
         </Grid>
       </Grid>
