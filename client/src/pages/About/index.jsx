@@ -38,19 +38,6 @@ export const About = () => {
   return (
     <Container>
       <Grid container spacing={4}>
-        <Grid item className={classes.center} xs={12}>
-          <Divider className={classes.divider} />
-          <Typography variant='h1'>Trend Edge</Typography>
-          <Divider className={classes.divider} />
-        </Grid>
-        <Grid item>
-          <Typography paragraph className={classes.definition} xs={12}>
-            <strong>Trend Edge</strong> is a stock market trend monitoring
-            system that applies user-defined weightings to a combination of
-            customizable technical indicators in order to derive a single trend
-            score.
-          </Typography>
-        </Grid>
         <Grid item xs={12}>
           <Typography variant='h3'>
             Market Leadership and Trends in Price
@@ -97,13 +84,13 @@ export const About = () => {
           </Typography>
         </Grid>
 
-        <ImageZoom
-          src={Iwm}
-          alt='Zoom 1'
-          zoom={zoom.current}
-          background='#000'
-        />
         <Typography gutterBottom>
+          <ImageZoom
+            src={Iwm}
+            alt='Zoom 1'
+            zoom={zoom.current}
+            background='#000'
+          />
           Figure 1 is a price history chart of the IWM Small Cap (Cap = Market
           Capitalization. The value of a stock or index, calculated by
           multiplying the number of shares outstanding by the share price)

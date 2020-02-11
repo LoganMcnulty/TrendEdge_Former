@@ -2,16 +2,19 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { DrawerMenu } from 'components'
+import Theme from '../themes'
 
-function Template({ children }) {
+function Template({ children, user }) {
   const classes = useStyles()
   return (
-    <DrawerMenu>
-      <main className={classes.content}>
-        <div className={classes.toolbar} />
-        <Container>{children}</Container>
-      </main>
-    </DrawerMenu>
+    <Theme>
+      <DrawerMenu user={user}>
+        <main className={classes.content}>
+          <div className={classes.toolbar} />
+          <Container>{children}</Container>
+        </main>
+      </DrawerMenu>
+    </Theme>
   )
 }
 

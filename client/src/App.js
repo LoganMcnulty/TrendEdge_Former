@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
 import Template from 'templates'
-import Theme from 'themes'
 import Routes from 'routes'
 import auth from './services/authService'
 import { pullSectorData } from './services/pullSectors'
@@ -35,10 +34,8 @@ export default function App() {
   }
 
   return (
-    <Theme>
-      <Template>
-        <Routes user={user} sectorHealthDataPass={sectorHealthDataPass} />
-      </Template>
-    </Theme>
+    <Template user={user} >
+      <Routes user={user} sectorHealthDataPass={sectorHealthDataPass} />
+    </Template>
   )
 }
