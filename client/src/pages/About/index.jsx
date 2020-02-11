@@ -2,6 +2,9 @@ import React from 'react'
 import mediumZoom from 'medium-zoom'
 import ImageZoom from './ImageZoom'
 import Box from '@material-ui/core/Box'
+import Card from '@material-ui/core/Card'
+import CardContent from '@material-ui/core/CardContent'
+import CardMedia from '@material-ui/core/CardMedia'
 import Container from '@material-ui/core/Container'
 import Divider from '@material-ui/core/Divider'
 import Grid from '@material-ui/core/Grid'
@@ -12,49 +15,19 @@ import Gme from './img/GME.png'
 import Qqq from './img/qqq.png'
 
 const useStyles = makeStyles(theme => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: '1200px',
-    height: '800px',
-  },
-  paper: {
-    position: 'absolute',
-    width: 1300,
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
-  },
-  header: {
-    textAlign: 'center',
-    fontSize: '400%',
-    margin: '5% 0',
-  },
-  paragraph: {
-    marginTop: '1%',
-    fontFamily: "'Roboto', serif",
-    fontSize: '20px',
-    paddingLeft: '1em',
-  },
-  subHeader: {
-    marginTop: '2%',
-    fontWeight: 'bold',
-  },
-  quote: {
-    padding: '.5em 0 0 3em',
-    fontWeight: '100',
-    fontSize: '20px',
-    fontStyle: 'italic',
-  },
-  note: {
-    padding: '0 0 0 3em',
-    fontWeight: 'bold',
-    fontStyle: 'italic',
-  },
   divider: {
     height: 10,
-    margin: 80,
+    margin: 100,
+  },
+  definition: {
+    width: 500,
+    fontSize: 24,
+  },
+  center: {
+    textAlign: 'center',
+  },
+  livermore: {
+    width: 300,
   },
 }))
 
@@ -64,54 +37,73 @@ export const About = () => {
 
   return (
     <Container>
-      <Grid container direction='column' justify='center' alignItems='center'>
-        <Grid item>
+      <Grid container spacing={4}>
+        <Grid item className={classes.center} xs={12}>
           <Divider className={classes.divider} />
           <Typography variant='h1'>Trend Edge</Typography>
           <Divider className={classes.divider} />
         </Grid>
         <Grid item>
-          <Typography paragraph>
-            Trend Edge is a stock market trend monitoring system that applies
-            user-defined weightings to a combination of customizable technical
-            indicators in order to derive a single trend score.
+          <Typography paragraph className={classes.definition} xs={12}>
+            <strong>Trend Edge</strong> is a stock market trend monitoring
+            system that applies user-defined weightings to a combination of
+            customizable technical indicators in order to derive a single trend
+            score.
           </Typography>
         </Grid>
-        <Grid item>
-          <Typography variant='h2'>
+        <Grid item xs={12}>
+          <Typography variant='h3'>
             Market Leadership and Trends in Price
           </Typography>
         </Grid>
-        <Grid item>
-          <blockquote className={classes.quote}>
-            “Watch the Market leaders, the stocks that have led the charge
-            upward in a bull market [...] as the leaders go, so goes the entire
-            market.” - Jesse Livermore
-          </blockquote>
+        <Grid item xs={3}>
+          <Box className={classes.livermore}>
+            <Typography gutterBottom variant='h6' className={classes.center}>
+              Jesse Livermore
+            </Typography>
+            <CardMedia
+              image='https://pbs.twimg.com/profile_images/1202370756/jesse_livermore.jpg'
+              title='Jesse Livermore'
+              component='img'
+            />
+            <Typography paragraph variant='caption'>
+              “Watch the Market leaders, the stocks that have led the charge
+              upward in a bull market [...] as the leaders go, so goes the
+              entire market.”
+            </Typography>
+          </Box>
+        </Grid>
+        <Grid item xs={9}>
+          <Typography className={classes.paragraph}>
+            In investing and speculating in stocks, one can keep a pulse on the
+            health of the market as a whole by monitoring the trends in the
+            price of the current leading sectors and individual stocks. It is
+            common practice to determine the state of a trend (up, down,
+            sideways) via the use of technical indicators;
+            <a
+              href='https://www.investopedia.com/terms/m/movingaverage.asp'
+              target='_blank'
+            >
+              Moving Averages,
+            </a>
+            and the
+            <a
+              href='https://www.investopedia.com/terms/m/macd.asp'
+              target='_blank'
+            >
+              MACD (Moving Average Convergence/Divergence Oscillator)
+            </a>
+            , to name two.
+          </Typography>
         </Grid>
 
-        <Typography className={classes.paragraph}>
-          In investing and speculating in stocks, one can keep a pulse on the
-          health of the market as a whole by monitoring the trends in the price
-          of the current leading sectors and individual stocks. It is common
-          practice to determine the state of a trend (up, down, sideways) via
-          the use of technical indicators;{' '}
-          <a
-            href='https://www.investopedia.com/terms/m/movingaverage.asp'
-            target='_blank'
-          >
-            Moving Averages,
-          </a>{' '}
-          and the{' '}
-          <a
-            href='https://www.investopedia.com/terms/m/macd.asp'
-            target='_blank'
-          >
-            MACD (Moving Average Convergence/Divergence Oscillator)
-          </a>
-          , to name two.
-        </Typography>
-        <Typography className={classes.paragraph}>
+        <ImageZoom
+          src={Iwm}
+          alt='Zoom 1'
+          zoom={zoom.current}
+          background='#000'
+        />
+        <Typography gutterBottom>
           Figure 1 is a price history chart of the IWM Small Cap (Cap = Market
           Capitalization. The value of a stock or index, calculated by
           multiplying the number of shares outstanding by the share price)
@@ -119,45 +111,30 @@ export const About = () => {
           represents one week of price movement. The blue line is the 10 period
           moving average (MA), and the red is the 40 period MA. The indicator in
           the middle pane represents MACD, and the bottom pane represents ADX
-          (Average Directional Index, discussed later)
+          (Average Directional Index, discussed later) In Figure 1, inferences
+          about the trend of the index can be made by observing the state of the
+          MAs and MACD. During periods in which the price of the index is
+          trending up, the “Fast” (10 period), and “Slow” (40 period) MAs have a
+          positive slope, and the Fast MA is above (i.e. maintains a higher
+          value than) the Slow MA. During periods in which the market begins to
+          correct or trade sideways, these indicators fail to maintain a
+          positive slope.
         </Typography>
-
-        <div className='row justify-content-center'>
-          <ImageZoom
-            src={Iwm}
-            alt='Zoom 1'
-            zoom={zoom.current}
-            background='#000'
-          />
-        </div>
-
-        <Typography variant='caption'>
-          In Figure 1, inferences about the trend of the index can be made by
-          observing the state of the MAs and MACD. During periods in which the
-          price of the index is trending up, the “Fast” (10 period), and “Slow”
-          (40 period) MAs have a positive slope, and the Fast MA is above (i.e.
-          maintains a higher value than) the Slow MA. During periods in which
-          the market begins to correct or trade sideways, these indicators fail
-          to maintain a positive slope.{' '}
-        </Typography>
-        <Typography variant='body1'>
+        <Typography gutterBottom variant='body1'>
           The MACD indicator is more sensitive than the MA, and thus more widely
           used for shorter term trends in price. Whereas MAs are a simple way to
-          track a trend over longer time frames.{' '}
-        </Typography>
-        <Typography variant='body1'>
-          Provided these indicators, a single score applicable to all stocks and
-          sectors (via the sectors’ ETFs [exchange traded funds]) can be
-          formulated to reflect the current state of their trends. Leading
-          stocks and sectors historically begin to “roll over” one by one ahead
-          of market corrections, and their formulated scores should reflect this
-          assumption through time.
+          track a trend over longer time frames. Provided these indicators, a
+          single score applicable to all stocks and sectors (via the sectors’
+          ETFs [exchange traded funds]) can be formulated to reflect the current
+          state of their trends. Leading stocks and sectors historically begin
+          to “roll over” one by one ahead of market corrections, and their
+          formulated scores should reflect this assumption through time.
         </Typography>
 
-        <Typography variant='h2' className={classes.subHeader}>
+        <Typography gutterBottom variant='h3'>
           A Simple Formula
         </Typography>
-        <Typography paragraph className={classes.paragraph}>
+        <Typography paragraph>
           The answers to the questions addressing the state of the technical
           indicators (“Does the fast MA have a positive slope?”, “Does the slow
           MA have a positive slope?”, “Is the fast MA greater than the slow
@@ -168,16 +145,16 @@ export const About = () => {
           during bull markets (periods in which the market as a whole is
           trending up), the majority of stocks will have a score of 100%.
         </Typography>
-        <Typography className={classes.note}>
+        <Typography>
           <strong>Note: </strong>
           Currently, the lookback period for determining positive/negative slope
           is 1, this will be enhanced in future builds of Trend Health.
         </Typography>
-        <Typography className={classes.note}>
+        <Typography>
           Additionally, the fast and slow SMA periodicities have default values
           of 10 and 40, but can be modified by the user in their user settings.
         </Typography>
-        <Typography className={classes.paragraph}>
+        <Typography>
           In order to differentiate between two stocks trending at/towards all
           time highs, the ADX indicator can be incorporated into the trend
           formula. Designed by Welles Wilder, the
@@ -191,30 +168,28 @@ export const About = () => {
           The maximum value of the index is 100. A higher value represents a
           stronger trend, and the values are absolute. For example, a stock that
           has been trending downwards at/towards all time lows can have an ADX
-          equal to that of a stock that is trending at/towards all time highs.{' '}
+          equal to that of a stock that is trending at/towards all time highs.
         </Typography>
-        <Typography className={classes.paragraph}>
+        <Typography>
           Refer to Figures 2 & 3. GameStop (GME) has a weekly ADX of 22.78 as it
           trends towards new lows, while the Nasdaq 100 Index (QQQ) has a
           similar weekly ADX of 21.85 while it is trending at all time highs.
         </Typography>
 
-        <div className='row justify-content-center'>
-          <ImageZoom
-            src={Gme}
-            alt='Zoom 2'
-            zoom={zoom.current}
-            background='#000'
-          />
-          <ImageZoom
-            src={Qqq}
-            alt='Zoom 3'
-            zoom={zoom.current}
-            background='#000'
-          />
-        </div>
+        <ImageZoom
+          src={Gme}
+          alt='Zoom 2'
+          zoom={zoom.current}
+          background='#000'
+        />
+        <ImageZoom
+          src={Qqq}
+          alt='Zoom 3'
+          zoom={zoom.current}
+          background='#000'
+        />
 
-        <Typography className={classes.paragraph}>
+        <Typography>
           By incorporating ADX into the Trend Health formula (ADX Value *
           Weighting), a differentiation between the strength of two stocks
           trending at/towards all time highs can be made. Given that this
@@ -222,7 +197,7 @@ export const About = () => {
           value is only included in the formula when the user defined Slow-MA
           has a positive slope.
         </Typography>
-        <Typography className={classes.note}>
+        <Typography>
           Note: In the application, all five measures of the trend have default
           weightings of 20%. The user has the liberty to modify these weightings
           in their user settings. Should a user believe that the only relevant
@@ -231,21 +206,19 @@ export const About = () => {
           factored in.
         </Typography>
 
-        <Typography variant='h2' className={classes.subHeader}>
-          Conclusion
-        </Typography>
-        <Typography paragraph className={classes.paragraph}>
+        <Typography variant='h3'>Conclusion</Typography>
+        <Typography paragraph>
           The goal of Trend Health is not to make recommendations of which
           sectors or stocks to buy based on their score. The application
           specifically allows the user to modify the Fast and Slow MA periods
           and technical indicator weightings, in order to reduce Trend Health’s
           subjectivity to a minimum.
         </Typography>
-        <Typography paragraph className={classes.note}>
+        <Typography paragraph>
           Note: In future builds of Trend Health, additional technical
-          indicators and customization methods will be implemented.{' '}
+          indicators and customization methods will be implemented.
         </Typography>
-        <Typography paragraph className={classes.paragraph}>
+        <Typography paragraph>
           Rather, the goal of Trend Health is to be a place where Trend
           Followers can glance at a single page application and get a clean
           summary of the status of the market and their watchlist of stocks and
@@ -253,9 +226,9 @@ export const About = () => {
           market are made over longer term holding periods. A Trend Follower
           with the knowledge that their portfolio holdings maintain positive
           scores is less likely to sell early in a bull market, and conversely
-          just as likely to know when not to be holding at all.{' '}
+          just as likely to know when not to be holding at all.
         </Typography>
-        <Typography className={classes.quote}>
+        <Typography>
           “It is one of the great paradoxes of the stock market that what seems
           too high usually goes higher and what seems too low usually goes
           lower” - William J. Oneil. Founder, Investor’s Business Daily

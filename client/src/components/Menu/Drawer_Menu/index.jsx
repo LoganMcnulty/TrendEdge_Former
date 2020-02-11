@@ -259,7 +259,7 @@ export function DrawerMenu({ children }) {
           <ListItemIcon>
             <InfoIcon />
           </ListItemIcon>
-          <ListItemText primary='About' />
+          <ListItemText primary='About Trend Health' />
           </ListItemLink>
         </List>
         </div>

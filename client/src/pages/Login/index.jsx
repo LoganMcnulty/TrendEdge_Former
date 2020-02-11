@@ -2,5 +2,5 @@ import React from 'react'
 import { LoginForm } from 'components'
 
 export const Login = () => {
-  return <LoginForm />
+  return <LoginForm text={'log in'} />
 }

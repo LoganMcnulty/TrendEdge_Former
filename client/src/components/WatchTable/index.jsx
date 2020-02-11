@@ -11,7 +11,7 @@ export function WatchTable({ user }) {
       { title: '% From Fast SMA', field: 'pxPctFast' },
       { title: '% From Slow SMA', field: 'pxPctSlow' },
       {
-        title: 'Health (%)',
+        title: 'Trend Health (%)',
         field: 'health',
         type: 'numeric'
       }

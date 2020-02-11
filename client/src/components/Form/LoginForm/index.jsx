@@ -1,15 +1,15 @@
 import { withFormik } from 'formik'
-import auth from "services/authService"
+import auth from 'services/authService'
 import BasicForm from '../_common/BasicForm'
 
 export const LoginForm = withFormik({
   mapPropsToValues({ email, password }) {
     return {
       email: email || '',
-      password: password || ''
+      password: password || '',
     }
   },
-  handleSubmit: async (values, { resetForm, setErrors, setSubmitting }) => {
+  handleSubmit: async values => {
     try {
       const userResponse = await auth.login(values.email, values.password)
 
@@ -18,8 +18,7 @@ export const LoginForm = withFormik({
       } else {
         window.location = '/'
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       if (ex.response && ex.response.status === 400) {
         const errors = { ...this.state.errors }
         errors.username = ex.response.data
@@ -27,6 +26,5 @@ export const LoginForm = withFormik({
       }
     }
     console.log(values)
-  }
+  },
 })(BasicForm)
-

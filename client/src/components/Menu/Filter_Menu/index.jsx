@@ -6,7 +6,6 @@ import ListItemText from '@material-ui/core/ListItemText'
 import { createSectors } from '../../../services/createSectors'
 import { updateSectorData } from '../../../services/pullSectors'
 
-
 // import ListItemIcon from '@material-ui/core/ListItemIcon'
 // import InboxIcon from '@material-ui/icons/Inbox'
 // import DraftsIcon from '@material-ui/icons/Drafts'
@@ -42,6 +41,6 @@ const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
     maxWidth: 120,
-    backgroundColor: theme.palette.background.paper
-  }
+    backgroundColor: theme.palette.background.paper,
+  },
 }))

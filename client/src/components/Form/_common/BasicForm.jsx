@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button'
 import Grid from '@material-ui/core/Grid'
 import Input from './Input'
 
-const BasicForm = () => {
+const BasicForm = ({text}) => {
   return (
     <Form>
       <Grid
@@ -38,7 +38,7 @@ const BasicForm = () => {
             type='submit'
             style={styles.btn}
           >
-            Submit
+            {text}
           </Button>
         </Grid>
       </Grid>

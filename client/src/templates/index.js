@@ -1,5 +1,6 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
+import Container from '@material-ui/core/Container'
 import { DrawerMenu } from 'components'
 
 function Template({ children }) {
@@ -8,7 +9,7 @@ function Template({ children }) {
     <DrawerMenu>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        {children}
+        <Container>{children}</Container>
       </main>
     </DrawerMenu>
   )
