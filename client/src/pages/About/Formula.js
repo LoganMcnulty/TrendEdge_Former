@@ -1,12 +1,12 @@
-import React from 'react'
-import Typography from '@material-ui/core/Typography'
-import ImageZoom from './ImageZoom'
-import mediumZoom from 'medium-zoom'
-import Gme from './img/GME.png'
-import Qqq from './img/qqq.png'
+import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import ImageZoom from './ImageZoom';
+import mediumZoom from 'medium-zoom';
+import Gme from './img/GME.png';
+import Qqq from './img/qqq.png';
 
 export default function Formula() {
-  const zoom = React.useRef(mediumZoom())
+  const zoom = React.useRef(mediumZoom());
   return (
     <>
       <Typography gutterBottom variant='h3'>
@@ -36,7 +36,11 @@ export default function Formula() {
         In order to differentiate between two stocks trending at/towards all
         time highs, the ADX indicator can be incorporated into the trend
         formula. Designed by Welles Wilder, the
-        <a href='https://www.investopedia.com/terms/a/adx.asp' target='_blank'>
+        <a
+          href='https://www.investopedia.com/terms/a/adx.asp'
+          target='_blank'
+          rel='noopener noreferrer'
+        >
           Average Directional Index (ADX)
         </a>
         , is a technical indicator used to determine the strength of a trend.
@@ -71,5 +75,5 @@ export default function Formula() {
         factored in.
       </Typography>
     </>
-  )
+  );
 }

@@ -1,6 +1,5 @@
-import React from 'react'
-import useMediaQuery from '@material-ui/core/useMediaQuery'
-import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles'
+import React from 'react';
+import { ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 export default function Theme({ children }) {
   const theme = createMuiTheme({
@@ -14,7 +13,7 @@ export default function Theme({ children }) {
       contrastThreshold: 3,
       tonalOffset: 0.2,
     },
-  })
+  });
 
-  return <ThemeProvider theme={theme}>{children}</ThemeProvider>
+  return <ThemeProvider theme={theme}>{children}</ThemeProvider>;
 }

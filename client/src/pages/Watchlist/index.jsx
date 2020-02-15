@@ -1,10 +1,7 @@
 import React from 'react'
-import Box from '@material-ui/core/Box'
-import Typography from '@material-ui/core/Typography'
 import { WatchTable } from 'components'
 
 export const Watchlist = ({user}) => {
-
     const style = {
         jumbotron: {
           background: "#3f51b5",

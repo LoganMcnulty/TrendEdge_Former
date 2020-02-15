@@ -1,8 +1,8 @@
-import React from 'react'
-import Grid from '@material-ui/core/Grid'
-import Header from './Header'
-import SignupSection from './SignupSection'
-import Summary from './Summary'
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import { SignupForm } from 'components';
+import Header from './Header';
+import Summary from './Summary';
 
 export function LandingPage() {
   return (
@@ -19,9 +19,9 @@ export function LandingPage() {
           <Summary />
         </Grid>
         <Grid item xs={4}>
-          <SignupSection />
+          <SignupForm label={'sign up'} />
         </Grid>
       </Grid>
     </Grid>
-  )
+  );
 }

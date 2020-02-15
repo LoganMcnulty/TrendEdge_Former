@@ -1,13 +1,15 @@
-import React from 'react'
-import Grid from '@material-ui/core/Grid'
-import Divider from '@material-ui/core/Divider'
-import Typography from '@material-ui/core/Typography'
-import Livermore from './Livermore'
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
+import Typography from '@material-ui/core/Typography';
+import Livermore from './Livermore';
+import IWM from './IWM';
+
 export default function Introduction() {
   return (
     <Grid
       container
-      direction='row'
+      direction='column'
       justify='space-around'
       alignItems='center'
       spacing={2}
@@ -36,6 +38,7 @@ export default function Introduction() {
           <a
             href='https://www.investopedia.com/terms/m/movingaverage.asp'
             target='_blank'
+            rel='noopener noreferrer'
           >
             Moving Averages
           </a>
@@ -44,12 +47,16 @@ export default function Introduction() {
           <a
             href='https://www.investopedia.com/terms/m/macd.asp'
             target='_blank'
+            rel='noopener noreferrer'
             title='Moving Average Convergence/Divergence Oscillator'
           >
             MACD
           </a>
         </Typography>
       </Grid>
+      <Grid item>
+        <IWM />
+      </Grid>
     </Grid>
-  )
+  );
 }
