@@ -26,7 +26,7 @@ export function DrawerMenu({ children, user }) {
         user={user}
       />
 
-      <nav className={classes.drawer} aria-label='mailbox folders'>
+      <nav className={classes.drawer}>
         <Hidden smUp implementation='css'>
           <Drawer
             variant='temporary'
@@ -44,7 +44,7 @@ export function DrawerMenu({ children, user }) {
             <DrawerList />
           </Drawer>
         </Hidden>
-        <Hidden xsDown implementation='css'>
+        <Hidden smDown implementation='css'>
           <Drawer
             classes={{
               paper: classes.drawerPaper,
@@ -67,7 +67,7 @@ const useStyles = makeStyles(theme => ({
     display: 'flex',
   },
   drawer: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       width: drawerWidth,
       flexShrink: 0,
     },

@@ -1,16 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import Form from 'react-bootstrap/Form'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
+import React, { useEffect, useState } from 'react';
+import Grid from '@material-ui/core/Grid';
+import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 const Weighting = ({ user, onWeightChange, onError }) => {
-  const [fastWeight, setFastWeight] = useState()
-  const [slowWeight, setSlowWeight] = useState()
-  const [fastToSlowWeight, setFastToSlowWeight] = useState()
-  const [MACDWeight, setMACDWeight] = useState()
-  const [ADXWeight, setADXWeight] = useState()
-  const [error, setError] = useState(false)
-  const [errorMessage, setErrorMessage] = useState()
+  const [fastWeight, setFastWeight] = useState();
+  const [slowWeight, setSlowWeight] = useState();
+  const [fastToSlowWeight, setFastToSlowWeight] = useState();
+  const [MACDWeight, setMACDWeight] = useState();
+  const [ADXWeight, setADXWeight] = useState();
+  const [error, setError] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
 
   useEffect(() => {
     try {
@@ -21,11 +22,11 @@ const Weighting = ({ user, onWeightChange, onError }) => {
         !MACDWeight &&
         !ADXWeight
       ) {
-        setFastWeight(user.fastWeight)
-        setSlowWeight(user.slowWeight)
-        setFastToSlowWeight(user.fastToSlowWeight)
-        setMACDWeight(user.MACDWeight)
-        setADXWeight(user.ADXWeight)
+        setFastWeight(user.fastWeight);
+        setSlowWeight(user.slowWeight);
+        setFastToSlowWeight(user.fastToSlowWeight);
+        setMACDWeight(user.MACDWeight);
+        setADXWeight(user.ADXWeight);
       }
     } catch (ex) {}
     let totalWeight =
@@ -33,48 +34,48 @@ const Weighting = ({ user, onWeightChange, onError }) => {
       parseInt(slowWeight) +
       parseInt(fastToSlowWeight) +
       parseInt(MACDWeight) +
-      parseInt(ADXWeight)
+      parseInt(ADXWeight);
     if (totalWeight != 100) {
-      setError(true)
+      setError(true);
       setErrorMessage(
         'Total Weight must equal 100% (currently ' + totalWeight + '%)'
-      )
-      onError(true)
+      );
+      onError(true);
     } else {
-      setError(false)
-      onError(false)
+      setError(false);
+      onError(false);
     }
-  })
+  });
 
   const handleChange = e => {
     switch (e.target.id) {
       case 'FastSMA':
         e.target.value
           ? setFastWeight(parseInt(e.target.value))
-          : setFastWeight(0)
-        break
+          : setFastWeight(0);
+        break;
       case 'SlowSMA':
         e.target.value
           ? setSlowWeight(parseInt(e.target.value))
-          : setSlowWeight(0)
-        break
+          : setSlowWeight(0);
+        break;
       case 'FasterSlowSMA':
         e.target.value
           ? setFastToSlowWeight(parseInt(e.target.value))
-          : setFastToSlowWeight(0)
-        break
+          : setFastToSlowWeight(0);
+        break;
       case 'MACD':
         e.target.value
           ? setMACDWeight(parseInt(e.target.value))
-          : setMACDWeight(0)
-        break
+          : setMACDWeight(0);
+        break;
       case 'ADX':
         e.target.value
           ? setADXWeight(parseInt(e.target.value))
-          : setADXWeight(0)
-        break
+          : setADXWeight(0);
+        break;
     }
-  }
+  };
 
   const handleBlur = () => {
     let newWeightObject = {
@@ -83,12 +84,12 @@ const Weighting = ({ user, onWeightChange, onError }) => {
       fastToSlowWeight: fastToSlowWeight,
       MACDWeight: MACDWeight,
       ADXWeight: ADXWeight,
-    }
-    onWeightChange(newWeightObject)
-  }
+    };
+    onWeightChange(newWeightObject);
+  };
 
   return (
-    <Form>
+    <Grid container direction='row'>
       <Row className='mt-3 ml-1'>
         {error && (
           <div class='alert alert-danger p-1' role='alert'>
@@ -96,8 +97,8 @@ const Weighting = ({ user, onWeightChange, onError }) => {
           </div>
         )}
       </Row>
-      <Row>
-        <Col>
+      <Grid item>
+        <Grid container direction='column'>
           <h3>Moving Averages</h3>
           <Form.Group controlId='FastSMA'>
             <Form.Label>Fast</Form.Label>
@@ -126,7 +127,9 @@ const Weighting = ({ user, onWeightChange, onError }) => {
               onBlur={handleBlur}
             />
           </Form.Group>
-        </Col>
+        </Grid>
+      </Grid>
+      <Grid item>
         <Col>
           <h3>Other</h3>
           <Form.Group controlId='MACD'>
@@ -148,9 +151,9 @@ const Weighting = ({ user, onWeightChange, onError }) => {
             />
           </Form.Group>
         </Col>
-      </Row>
-    </Form>
-  )
-}
+      </Grid>
+    </Grid>
+  );
+};
 
-export default Weighting
+export default Weighting;

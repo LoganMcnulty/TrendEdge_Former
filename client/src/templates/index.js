@@ -2,7 +2,7 @@ import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import { DrawerMenu } from 'components'
-import Theme from '../themes'
+import Theme from 'themes'
 
 function Template({ children, user }) {
   const classes = useStyles()

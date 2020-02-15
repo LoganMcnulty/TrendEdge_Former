@@ -24,6 +24,7 @@ export function AppBarMenu({
   const classes = useStyles();
   const handleLogout = () => {
     auth.logout();
+    window.location.href = '/';
   };
   return (
     <AppBar
@@ -60,8 +61,8 @@ export function AppBarMenu({
         <div className={classes.grow} />
         <div className={classes.sectionDesktop}>
           {user ? (
-            <Button onClick={handleLogout}>
-              <a href='/'>Logout</a>
+            <Button onClick={handleLogout} variant='outlined' color='inherit'>
+              Logout
             </Button>
           ) : (
             <DialogForm />
@@ -85,7 +86,7 @@ export function AppBarMenu({
 
 const useStyles = makeStyles(theme => ({
   appBar: {
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       width: `calc(100% - ${drawerWidth}px)`,
       marginLeft: drawerWidth,
     },
@@ -100,7 +101,7 @@ const useStyles = makeStyles(theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
-    [theme.breakpoints.up('sm')]: {
+    [theme.breakpoints.up('md')]: {
       display: 'none',
     },
   },
