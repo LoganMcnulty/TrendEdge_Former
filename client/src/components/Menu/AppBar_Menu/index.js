@@ -2,24 +2,29 @@ import React from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
+import Button from '@material-ui/core/Button';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
-import MoreIcon from '@material-ui/icons/More';
+import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Logo, DialogForm } from 'components';
+import auth from 'services/authService';
 
 const drawerWidth = 240;
 
 export function AppBarMenu({
   open,
-  handleDrawerOpen,
+  handleDrawerToggle,
   handleMobileMenuOpen,
   mobileMenuId,
   user,
 }) {
   const classes = useStyles();
+  const handleLogout = () => {
+    auth.logout();
+  };
   return (
     <AppBar
       position='fixed'
@@ -31,11 +36,9 @@ export function AppBarMenu({
         <IconButton
           color='inherit'
           aria-label='open drawer'
-          onClick={handleDrawerOpen}
           edge='start'
-          className={clsx(classes.menuButton, {
-            [classes.hide]: open,
-          })}
+          onClick={handleDrawerToggle}
+          className={classes.menuButton}
         >
           <MenuIcon />
         </IconButton>
@@ -56,12 +59,12 @@ export function AppBarMenu({
         </Grid>
         <div className={classes.grow} />
         <div className={classes.sectionDesktop}>
-          {user.email ? (
-            <DialogForm />
+          {user ? (
+            <Button onClick={handleLogout}>
+              <a href='/'>Logout</a>
+            </Button>
           ) : (
-            <a href='/'>
-              <h3 style={{ color: 'white' }}>Logout</h3>
-            </a>
+            <DialogForm />
           )}
         </div>
         <div className={classes.sectionMobile}>
@@ -72,7 +75,7 @@ export function AppBarMenu({
             onClick={handleMobileMenuOpen}
             color='inherit'
           >
-            <MoreIcon />
+            <MoreVertIcon />
           </IconButton>
         </div>
       </Toolbar>
@@ -81,21 +84,15 @@ export function AppBarMenu({
 }
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    display: 'flex',
-  },
   appBar: {
-    backgroundColor: '#4682B4',
-    //#ab3900 <-- complimentary red color or #ab001d
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
+    [theme.breakpoints.up('sm')]: {
+      width: `calc(100% - ${drawerWidth}px)`,
+      marginLeft: drawerWidth,
+    },
   },
   appBarShift: {
     marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
+    width: `100% - ${drawerWidth}px)`,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
@@ -103,9 +100,9 @@ const useStyles = makeStyles(theme => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
-  },
-  hide: {
-    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'none',
+    },
   },
   logo: {
     width: 40,
@@ -122,23 +119,6 @@ const useStyles = makeStyles(theme => ({
     [theme.breakpoints.up('md')]: {
       display: 'none',
     },
-  },
-  title: {
-    display: 'none',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: theme.spacing(0, 1),
-    ...theme.mixins.toolbar,
-  },
-  content: {
-    flexGrow: 1,
-    padding: theme.spacing(3),
   },
   grow: {
     flexGrow: 1,

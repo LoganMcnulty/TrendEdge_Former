@@ -14,7 +14,7 @@ export default function Routes({ user, sectorHealthDataPass }) {
   return (
     <Router>
       <Switch>
-        <Route exact path='/' component={LandingPage} />
+        <Route exact path='/' component={LandingPage}  />
         <Route exact path='/About' component={About} />
         <Route exact path='/ActiveOptions' component={ActiveOptions} />
         <Route
