@@ -13,6 +13,7 @@ export const ActiveOptions = () => {
       background: '#3f51b5',
       backgroundSize: 'cover',
       backgroundColor: '#4682B4',
+      color: 'white',
     },
   };
   const [optionsData, setOptionsData] = useState();
@@ -40,7 +41,6 @@ export const ActiveOptions = () => {
         justify='center'
         alignItems='center'
         direction='column'
-        lg={12}
         spacing={4}
       >
         <Grid item style={style.jumbotron}>

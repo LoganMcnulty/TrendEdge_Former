@@ -13,7 +13,6 @@ export const Trend = ({ sectorHealthDataPass, user }) => {
       background: '#3f51b5',
       backgroundSize: 'cover',
       backgroundColor: '#4682B4',
-      padding: 100,
       color: 'white',
     },
   };
@@ -24,7 +23,6 @@ export const Trend = ({ sectorHealthDataPass, user }) => {
       direction='column'
       justify='center'
       alignItems='center'
-      lg={12}
       spacing={4}
     >
       <Grid item>

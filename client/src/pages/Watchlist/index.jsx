@@ -1,29 +1,29 @@
-import React from 'react'
-import { WatchTable } from 'components'
+import React from 'react';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import { WatchTable } from 'components';
+import { StylesProvider } from '@material-ui/core';
 
-export const Watchlist = ({user}) => {
-    const style = {
-        jumbotron: {
-          background: "#3f51b5",
-          backgroundSize: "cover",
-          backgroundColor: "#4682B4",
-        }
-      }
-return (
-    <>
-        <div className="jumbotron" style={style.jumbotron}>
-            <div className="container for-about">
-            <h1 style={{textAlign:"center", color:"white"}}>Your Watchlist</h1>
-            </div>
-        </div>
-        <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-lg-12">
-                    <WatchTable user={user} />
-                </div>
-            </div>
-        </div>
-        
-    </>
-)}
-
+export const Watchlist = ({ user }) => {
+  const style = {
+    jumbotron: {
+      background: '#3f51b5',
+      backgroundSize: 'cover',
+      backgroundColor: '#4682B4',
+      color: 'white',
+    },
+  };
+  return (
+    <Grid container direction='column' justify='flex-start' alignItems='center'>
+      <Grid item>
+        <Box className={style.jumbotron}>
+          <Typography variant='h4'>Your Watchlist</Typography>
+        </Box>
+      </Grid>
+      <Grid item>
+        <WatchTable user={user} />
+      </Grid>
+    </Grid>
+  );
+};
