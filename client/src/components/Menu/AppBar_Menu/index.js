@@ -22,6 +22,7 @@ export function AppBarMenu({
   user,
 }) {
   const classes = useStyles();
+
   const handleLogout = () => {
     auth.logout();
     window.location.href = '/';
@@ -68,17 +69,6 @@ export function AppBarMenu({
             <DialogForm />
           )}
         </div>
-        <div className={classes.sectionMobile}>
-          <IconButton
-            aria-label='show more'
-            aria-controls={mobileMenuId}
-            aria-haspopup='true'
-            onClick={handleMobileMenuOpen}
-            color='inherit'
-          >
-            <MoreVertIcon />
-          </IconButton>
-        </div>
       </Toolbar>
     </AppBar>
   );
@@ -110,16 +100,7 @@ const useStyles = makeStyles(theme => ({
     marginRight: 5,
   },
   sectionDesktop: {
-    display: 'none',
-    [theme.breakpoints.up('md')]: {
-      display: 'flex',
-    },
-  },
-  sectionMobile: {
     display: 'flex',
-    [theme.breakpoints.up('md')]: {
-      display: 'none',
-    },
   },
   grow: {
     flexGrow: 1,
