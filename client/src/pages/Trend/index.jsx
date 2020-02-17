@@ -18,13 +18,7 @@ export const Trend = ({ sectorHealthDataPass, user }) => {
   };
 
   return (
-    <Grid
-      container
-      direction='column'
-      justify='center'
-      alignItems='center'
-      spacing={4}
-    >
+    <>
       <Grid item>
         <Box style={styles.jumbotron}>
           <Typography variant='h3'>Sector Dashboard</Typography>
@@ -33,6 +27,6 @@ export const Trend = ({ sectorHealthDataPass, user }) => {
       <Grid item>
         <SectorTable user={user} sectorHealthData={sectorHealthData} />
       </Grid>
-    </Grid>
+    </>
   );
 };

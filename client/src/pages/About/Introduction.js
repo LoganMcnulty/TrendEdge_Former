@@ -13,7 +13,6 @@ export default function Introduction() {
       justify='space-around'
       alignItems='center'
       spacing={2}
-      xs={12}
     >
       <Grid item>
         <Typography variant='h4'>

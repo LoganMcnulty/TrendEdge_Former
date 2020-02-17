@@ -36,59 +36,49 @@ export const ActiveOptions = () => {
 
   return (
     <>
-      <Grid
-        container
-        justify='center'
-        alignItems='center'
-        direction='column'
-        spacing={4}
-      >
-        <Grid item style={style.jumbotron}>
-          <Box>
-            <Typography variant='h4'>Active Options Dashboard</Typography>
-          </Box>
-        </Grid>
-        <Grid item>
-          <div className='searchbar'>
-            <input
-              onChange={e => {
-                setSearchTerm(e.target.value);
-                console.log(searchTerm);
-              }}
-              className='search_input'
-              type='text'
-              name=''
-              placeholder='Search...'
-            />
-            <a onClick={handleOptionSearch} href='#' className='search_icon'>
-              <i className='fas fa-search'></i>
-            </a>
-          </div>
-        </Grid>
-        <Grid item>
-          <Paper>
-            {!optionsData ? (
-              <>
-                <h2 style={{ textAlign: 'center' }}>
-                  Enter a ticker to see today's most actively traded options
-                </h2>
-                <br></br>
-                <h6 style={{ textAlign: 'center', fontStyle: 'italic' }}>
-                  This feature is unavailable outside of options market hours
-                </h6>
-                <h6 style={{ textAlign: 'center', fontStyle: 'italic' }}>
-                  If no results are returned during market hours, the ticker may
-                  be illiquid, or not yet actively trading for the day
-                </h6>
-              </>
-            ) : (
-              <>
-                <h1 style={{ textAlign: 'center' }}>{searchTermConst}</h1>
-                <OptionsTable optionsData={optionsData} />
-              </>
-            )}
-          </Paper>
-        </Grid>
+      <Grid item style={style.jumbotron}>
+        <Box>
+          <Typography variant='h4'>Active Options Dashboard</Typography>
+        </Box>
+      </Grid>
+      <Grid item>
+        <div className='searchbar'>
+          <input
+            onChange={e => {
+              setSearchTerm(e.target.value);
+              console.log(searchTerm);
+            }}
+            className='search_input'
+            type='text'
+            name=''
+            placeholder='Search...'
+          />
+          <a onClick={handleOptionSearch} href='#' className='search_icon'>
+            <i className='fas fa-search'></i>
+          </a>
+        </div>
+      </Grid>
+      <Grid item>
+        {!optionsData ? (
+          <>
+            <h2 style={{ textAlign: 'center' }}>
+              Enter a ticker to see today's most actively traded options
+            </h2>
+            <br></br>
+            <h6 style={{ textAlign: 'center', fontStyle: 'italic' }}>
+              This feature is unavailable outside of options market hours
+            </h6>
+            <h6 style={{ textAlign: 'center', fontStyle: 'italic' }}>
+              If no results are returned during market hours, the ticker may be
+              illiquid, or not yet actively trading for the day
+            </h6>
+          </>
+        ) : (
+          <>
+            <h1 style={{ textAlign: 'center' }}>{searchTermConst}</h1>
+            <OptionsTable optionsData={optionsData} />
+          </>
+        )}
       </Grid>
     </>
   );

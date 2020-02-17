@@ -1,17 +1,23 @@
-import React from 'react'
-import Box from '@material-ui/core/Box'
-import Grid from '@material-ui/core/Grid'
-import Typography from '@material-ui/core/Typography'
-import ImageZoom from './ImageZoom'
-import mediumZoom from 'medium-zoom'
-import Iwm from './img/IWM.png'
+import React from 'react';
+import Box from '@material-ui/core/Box';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import ImageZoom from './ImageZoom';
+import mediumZoom from 'medium-zoom';
+import Iwm from './img/IWM.png';
 
 export default function IWM() {
-  const zoom = React.useRef(mediumZoom())
+  const zoom = React.useRef(mediumZoom());
   return (
-    <Grid container direction='row' xs={12}>
+    <Grid container item direction='row'>
       <Box style={{ float: 'left', margin: '4px' }}>
-        <Grid container direction='column' alignItems='center'>
+        <Grid
+          container
+          item
+          direction='column'
+          alignItems='center'
+          justify='center'
+        >
           <Grid item>
             <Typography variant='h6'>Figure 1</Typography>
           </Grid>
@@ -58,5 +64,5 @@ export default function IWM() {
         scores should reflect this assumption through time.
       </Typography>
     </Grid>
-  )
+  );
 }

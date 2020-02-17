@@ -3,7 +3,6 @@ import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { WatchTable } from 'components';
-import { StylesProvider } from '@material-ui/core';
 
 export const Watchlist = ({ user }) => {
   const style = {
@@ -15,7 +14,7 @@ export const Watchlist = ({ user }) => {
     },
   };
   return (
-    <Grid container direction='column' justify='flex-start' alignItems='center'>
+    <>
       <Grid item>
         <Box className={style.jumbotron}>
           <Typography variant='h4'>Your Watchlist</Typography>
@@ -24,6 +23,6 @@ export const Watchlist = ({ user }) => {
       <Grid item>
         <WatchTable user={user} />
       </Grid>
-    </Grid>
+    </>
   );
 };

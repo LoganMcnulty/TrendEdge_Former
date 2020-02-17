@@ -13,7 +13,7 @@ export const About = () => {
   return (
     <Container>
       <Grid container spacing={6} direction='column' alignItems='center'>
-        <Grid item xs={12}>
+        <Grid item>
           <Typography variant='h2' style={{ textAlign: 'center' }}>
             About
           </Typography>

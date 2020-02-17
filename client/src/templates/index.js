@@ -1,7 +1,10 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import Grid from '@material-ui/core/Grid';
+
 import { DrawerMenu } from 'components';
+
 import Theme from 'themes';
 
 function Template({ children, user }) {
@@ -11,7 +14,17 @@ function Template({ children, user }) {
       <DrawerMenu user={user}>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Container maxWidth='false'>{children}</Container>
+          <Container maxWidth='false'>
+            <Grid
+              container
+              justify='center'
+              alignItems='center'
+              direction='column'
+              spacing={4}
+            >
+              {children}
+            </Grid>
+          </Container>
         </main>
       </DrawerMenu>
     </Theme>
