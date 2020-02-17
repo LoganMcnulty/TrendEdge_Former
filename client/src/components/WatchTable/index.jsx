@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import MaterialTable from 'material-table';
+import Button from '@material-ui/core/Button';
 import {
   getWatchList,
   pullStockData,
@@ -93,13 +94,13 @@ export function WatchTable({ user }) {
             onChange={e => setAddWatchList(e.target.value)}
           />
         </div>
-        <button
+        <Button
           type='submit'
           class='btn btn-primary mb-2 ml-2 mr-2'
           onClick={handleWatchlistAdd}
         >
           Add Stock
-        </button>
+        </Button>
         {pullSpinner && <div class='spinner-border text-primary mb-1'></div>}
       </form>
       <MaterialTable

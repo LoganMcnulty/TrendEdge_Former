@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 
 const Weighting = ({ user, onWeightChange, onError }) => {
   const [fastWeight, setFastWeight] = useState();
@@ -89,68 +88,64 @@ const Weighting = ({ user, onWeightChange, onError }) => {
   };
 
   return (
-    <Grid container direction='row'>
-      <Row className='mt-3 ml-1'>
+    <Grid container item direction='row' justify='center' alignItems='center' >
+      <Grid item>
         {error && (
           <div class='alert alert-danger p-1' role='alert'>
             <strong>{errorMessage}</strong>
           </div>
         )}
-      </Row>
-      <Grid item>
-        <Grid container direction='column'>
-          <h3>Moving Averages</h3>
-          <Form.Group controlId='FastSMA'>
-            <Form.Label>Fast</Form.Label>
-            <Form.Control
-              type='input'
-              value={fastWeight}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Group>
-          <Form.Group controlId='SlowSMA'>
-            <Form.Label>Slow</Form.Label>
-            <Form.Control
-              type='input'
-              value={slowWeight}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Group>
-          <Form.Group controlId='FasterSlowSMA'>
-            <Form.Label>Faster > Slow </Form.Label>
-            <Form.Control
-              type='input'
-              value={fastToSlowWeight}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Group>
-        </Grid>
       </Grid>
-      <Grid item>
-        <Col>
-          <h3>Other</h3>
-          <Form.Group controlId='MACD'>
-            <Form.Label>Weekly MACD Pos. Crossover</Form.Label>
-            <Form.Control
-              type='input'
-              value={MACDWeight}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Group>
-          <Form.Group controlId='ADX'>
-            <Form.Label>ADX</Form.Label>
-            <Form.Control
-              type='input'
-              value={ADXWeight}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Group>
-        </Col>
+      <Grid container item direction='column' justify='center' alignItems='center'>
+        <Typography variant='h3'>Moving Averages</Typography>
+        <Form.Group controlId='FastSMA'>
+          <Form.Label>Fast</Form.Label>
+          <Form.Control
+            type='input'
+            value={fastWeight}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </Form.Group>
+        <Form.Group controlId='SlowSMA'>
+          <Form.Label>Slow</Form.Label>
+          <Form.Control
+            type='input'
+            value={slowWeight}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </Form.Group>
+        <Form.Group controlId='FasterSlowSMA'>
+          <Form.Label>Faster > Slow </Form.Label>
+          <Form.Control
+            type='input'
+            value={fastToSlowWeight}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </Form.Group>
+      </Grid>
+      <Grid container item direction='column' justify='center' alignItems='center'>
+        <Typography variant='h3'>Other</Typography>
+        <Form.Group controlId='MACD'>
+          <Form.Label>Weekly MACD Pos. Crossover</Form.Label>
+          <Form.Control
+            type='input'
+            value={MACDWeight}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </Form.Group>
+        <Form.Group controlId='ADX'>
+          <Form.Label>ADX</Form.Label>
+          <Form.Control
+            type='input'
+            value={ADXWeight}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </Form.Group>
       </Grid>
     </Grid>
   );

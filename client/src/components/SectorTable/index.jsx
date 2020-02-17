@@ -1,12 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import Button from '@material-ui/core/Button'
-import MaterialTable from 'material-table'
-import { createSectors } from '../../services/createSectors'
-import { updateSectorData } from '../../services/pullSectors'
+import React, { useState } from 'react';
+import Button from '@material-ui/core/Button';
+import MaterialTable from 'material-table';
+import { createSectors } from 'services/createSectors';
+import { updateSectorData } from 'services/pullSectors';
 
 export function SectorTable({ sectorHealthData }) {
-  const sectorHealthTableData = sectorHealthData
-  console.log(sectorHealthTableData)
+  const sectorHealthTableData = sectorHealthData;
+  console.log(sectorHealthTableData);
 
   const [state, setState] = useState({
     columns: [
@@ -16,14 +16,14 @@ export function SectorTable({ sectorHealthData }) {
       },
       { title: 'Sector', field: 'sectorName' },
       { title: 'Price', field: 'priceTZero' },
-      { title: 'Top Holdings', field: 'topHoldings'},
+      { title: 'Top Holdings', field: 'topHoldings' },
       {
         title: 'Trend Health (%)',
         field: 'score',
         type: 'numeric',
       },
     ],
-  })
+  });
   return (
     <>
       <MaterialTable
@@ -45,7 +45,6 @@ export function SectorTable({ sectorHealthData }) {
           // actionsColumnIndex: 3
           toolbar: false,
           draggable: false,
-         
         }}
       />
 
@@ -66,5 +65,5 @@ export function SectorTable({ sectorHealthData }) {
         Update
       </Button>
     </>
-  )
+  );
 }

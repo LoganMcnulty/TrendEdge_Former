@@ -96,12 +96,12 @@ const AveragePeriod = ({
   };
 
   return (
-    <>
-      <Grid container spacing={2} alignItems='center'>
+    <Grid container item direction='column' spacing={2}>
+      <Grid container item direction='row' spacing={2}>
         <Grid item>
           <Typography variant='h5'>Fast SMA:</Typography>
         </Grid>
-        <Grid item xs>
+        <Grid item style={{ width: 200 }}>
           <Slider
             value={typeof fastSMA === 'number' ? fastSMA : 0}
             onChange={handleFastSliderChange}
@@ -127,20 +127,15 @@ const AveragePeriod = ({
           />
         </Grid>
       </Grid>
-      <hr />
-      <Grid
-        container
-        spacing={2}
-        alignItems='center'
-        className='justify-content-center'
-      >
+      <Grid container item direction='row' spacing={2}>
         <Grid item>
           <Typography variant='h5'>Slow SMA:</Typography>
         </Grid>
-        <Grid item xs>
+        <Grid item>
           <Slider
             value={typeof slowSMA === 'number' ? slowSMA : 0}
             onChange={handleSlowSliderChange}
+            style={{ width: 200 }}
             min={10}
             max={200}
             aria-labelledby='input-slider'
@@ -163,23 +158,22 @@ const AveragePeriod = ({
             }}
           />
         </Grid>
-        {error && (
-          <Grid>
-            <div class='alert alert-danger p-1' role='alert'>
-              <strong>{errorMessage}</strong>
-            </div>
-          </Grid>
-        )}
       </Grid>
-      <hr />
-      <Grid container spacing={2} alignItems='center'>
+
+      {error && (
+        <div class='alert alert-danger p-1' role='alert'>
+          <strong>{errorMessage}</strong>
+        </div>
+      )}
+      <Grid container item direction='row' spacing={2}>
         <Grid item>
           <Typography variant='h5'>Lookback for SMA Slope:</Typography>
         </Grid>
-        <Grid item xs>
+        <Grid item>
           <Slider
             value={typeof lookback === 'number' ? lookback : 0}
             onChange={handleLookbackSliderChange}
+            style={{ width: 200 }}
             min={1}
             max={40}
             aria-labelledby='input-slider'
@@ -202,87 +196,8 @@ const AveragePeriod = ({
           />
         </Grid>
       </Grid>
-    </>
+    </Grid>
   );
-
-  // return (
-  //   <Form>
-  //     <fieldset>
-  //       <Form.Group>
-  //         <Form.Label as='legend'>Fast Moving</Form.Label>
-  //         <Col>
-  //           <Form.Check
-  //             inline
-  //             type='radio'
-  //             label='5'
-  //             value='5'
-  //             name='fastRadio'
-  //             id='fastRadio1'
-  //             checked={fastSMA == 5}
-  //             onChange={handleFastChange}
-  //           />
-  //           <Form.Check
-  //             inline
-  //             type='radio'
-  //             label='10'
-  //             value='10'
-  //             name='fastRadio'
-  //             id='fastRadio2'
-  //             checked={fastSMA == 10}
-  //             onChange={handleFastChange}
-  //           />
-  //           <Form.Check
-  //             inline
-  //             type='radio'
-  //             label='15'
-  //             value='15'
-  //             name='fastRadio'
-  //             id='fastRadio3'
-  //             checked={fastSMA == 15}
-  //             onChange={handleFastChange}
-  //           />
-  //         </Col>
-  //       </Form.Group>
-  //     </fieldset>
-  //     <fieldset>
-  //       <Form.Group>
-  //         <Form.Label as='legend'>Slow Moving</Form.Label>
-  //         <Col>
-  //           <Form.Check
-  //             inline
-  //             type='radio'
-  //             label='40'
-  //             value='40'
-  //             name='slowRadio'
-  //             id='slowRadio1'
-  //             onChange={handleSlowChange}
-  //             checked={slowSMA == 40}
-  //           />
-  //           <Form.Check
-  //             inline
-  //             type='radio'
-  //             label='60'
-  //             value='60'
-  //             name='slowRadio'
-  //             id='slowRadio2'
-  //             onChange={handleSlowChange}
-  //             checked={slowSMA == 60}
-  //           />
-  //           <Form.Check
-  //             inline
-  //             type='radio'
-  //             label='80'
-  //             value='80'
-  //             name='slowRadio'
-  //             id='slowRadio3'
-  //             onChange={handleSlowChange}
-  //             checked={slowSMA == 80}
-  //           />
-  //         </Col>
-  //       </Form.Group>
-  //     </fieldset>
-  //   </Form>
-  // )
 };
 
 export default AveragePeriod;
