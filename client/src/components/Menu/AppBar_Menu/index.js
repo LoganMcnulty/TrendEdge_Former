@@ -8,7 +8,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
-import MoreVertIcon from '@material-ui/icons/MoreVert';
 import { Logo, DialogForm } from 'components';
 import auth from 'services/authService';
 
@@ -27,6 +26,7 @@ export function AppBarMenu({
     auth.logout();
     window.location.href = '/';
   };
+  
   return (
     <AppBar
       position='fixed'
