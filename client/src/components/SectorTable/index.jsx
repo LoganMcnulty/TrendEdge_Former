@@ -35,6 +35,7 @@ export function SectorTable({ sectorHealthData }) {
       <MaterialTable
         title='Sector Health Dashboard'
         columns={state.columns}
+        options={{pageSize:20}}
         data={sectorHealthTableData}
         // actions={[
         //   {

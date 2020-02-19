@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import  { OptionsTable } from 'components'
-import { activeOptionsPull } from '../../services/activeOptionsPull'
 import Paper from '@material-ui/core/Paper'
 import $ from 'jquery'
+import { apiUrl } from '../../config.json'
+import http from '../../services/httpService'
 
 
 export const ActiveOptions = () => {
@@ -21,10 +22,10 @@ export const ActiveOptions = () => {
   const handleOptionSearch = (e) => {
     e.preventDefault();
     try {
-      
-      console.log(searchTerm)
-      activeOptionsPull(searchTerm).then((data) => {
-        setOptionsData(data)
+      let apiEndpoint = apiUrl + '/optionsPull/' + searchTerm;
+      http.get(apiEndpoint).then(({data}) => {
+      console.log(data)
+      setOptionsData(data)
       })
       setSearchTermConst(searchTerm.toUpperCase())
       $(".search_input").val("")
@@ -46,7 +47,6 @@ export const ActiveOptions = () => {
           <div className="searchbar">
             <input onChange={e => {
               setSearchTerm(e.target.value)
-              console.log(searchTerm)
               }} className="search_input" type="text" name="" placeholder="Search..." />
             <a onClick={handleOptionSearch} href="#" className="search_icon"><i className="fas fa-search"></i></a>
           </div>
