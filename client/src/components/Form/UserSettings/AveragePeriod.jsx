@@ -50,7 +50,6 @@ const AveragePeriod = ({
       <Grid item>
         <Slider
           defaultValue={10}
-          style={{ width: 200 }}
           value={typeof fastSMA === 'number' ? fastSMA : 0}
           onChange={handleFastChange}
           min={2}
@@ -70,7 +69,6 @@ const AveragePeriod = ({
           defaultValue={40}
           value={typeof slowSMA === 'number' ? slowSMA : 0}
           onChange={handleSlowChange}
-          style={{ width: 200 }}
           min={fastSMA}
           max={200}
           aria-labelledby='input-slider'
@@ -88,7 +86,6 @@ const AveragePeriod = ({
           defaultValue={1}
           value={typeof lookback === 'number' ? lookback : 0}
           onChange={handleLookbackChange}
-          style={{ width: 200 }}
           min={1}
           max={40}
           aria-labelledby='input-slider'
