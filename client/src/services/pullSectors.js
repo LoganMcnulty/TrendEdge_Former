@@ -10,7 +10,7 @@ export function updateSectorData() {
   // const job = new CronJob('0 18 * * 5', function() {
     
     const apiKey = '07S5MN2IBXDCQAGB'
-    let counter = 0
+    let counter = 15
     let thisStockData = {
       name: testsData[counter].Company,
       symbol: testsData[counter].Stock,
@@ -43,8 +43,8 @@ export function updateSectorData() {
     console.log("Yahoo data...")
     yahooDataPull(thisStockData.symbol).then((yahooData) => {
       for (let i = 0; i < 10; i++){
-        thisStockData.topHoldingsNames.push(yahooData.data.topHoldings.holdings[i].symbol)
-        thisStockData.topHoldingsPcts.push(yahooData.data.topHoldings.holdings[i].holdingPercent.raw)
+        !yahooData.data.defaultKeyStatistics.err ? thisStockData.topHoldingsNames.push(yahooData.data.topHoldings.holdings[i].symbol) : thisStockData.topHoldingsNames.push("")
+        !yahooData.data.defaultKeyStatistics.err ? thisStockData.topHoldingsPcts.push(yahooData.data.topHoldings.holdings[i].holdingPercent.raw) : thisStockData.topHoldingsPcts.push("")
       }
     }).then(()=> {
       getMacdData()
@@ -69,7 +69,6 @@ export function updateSectorData() {
         console.log(thisStockData)
         let apiEndpoint = apiUrl + '/updateSectors'
         http.put(apiEndpoint, thisStockData)
-
         counter++
         if (counter < testsData.length) {
 
@@ -92,7 +91,6 @@ export function updateSectorData() {
   const getPriceData = () => {
     //price data first
     $.ajax({
-      /* The whisperingforest.org URL is not longer valid, I found a new one that is similar... */
       url: `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${testsData[counter].Stock}&apikey=${apiKey}`,
       async: true,
       dataType: 'json',
