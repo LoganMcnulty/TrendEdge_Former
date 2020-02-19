@@ -3,9 +3,10 @@ import UserContext from 'contexts/UserContext';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Form from 'react-bootstrap/Form';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
-const Weighting = ({ onWeightChange, onError }) => {
-  const { user } = useContext(UserContext);
+const Weighting = ({ user, onWeightChange, onError }) => {
   const [fastWeight, setFastWeight] = useState();
   const [slowWeight, setSlowWeight] = useState();
   const [fastToSlowWeight, setFastToSlowWeight] = useState();
@@ -13,7 +14,7 @@ const Weighting = ({ onWeightChange, onError }) => {
   const [ADXWeight, setADXWeight] = useState();
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
-  
+
   useEffect(() => {
     try {
       if (
@@ -80,76 +81,78 @@ const Weighting = ({ onWeightChange, onError }) => {
 
   const handleBlur = () => {
     let newWeightObject = {
-      fastWeight,
-      slowWeight,
-      fastToSlowWeight,
-      MACDWeight,
-      ADXWeight,
+      fastWeight: fastWeight,
+      slowWeight: slowWeight,
+      fastToSlowWeight: fastToSlowWeight,
+      MACDWeight: MACDWeight,
+      ADXWeight: ADXWeight,
     };
     onWeightChange(newWeightObject);
   };
 
   return (
-    <Grid container item direction='row' justify='center' alignItems='center' >
-      <Grid item>
+    <Form>
+      <Row className='mt-3 ml-1'>
         {error && (
           <div class='alert alert-danger p-1' role='alert'>
             <strong>{errorMessage}</strong>
           </div>
         )}
-      </Grid>
-      <Grid container item direction='column' justify='center' alignItems='center'>
-        <Typography variant='h3'>Moving Averages</Typography>
-        <Form.Group controlId='FastSMA'>
-          <Form.Label>Fast</Form.Label>
-          <Form.Control
-            type='input'
-            value={fastWeight}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </Form.Group>
-        <Form.Group controlId='SlowSMA'>
-          <Form.Label>Slow</Form.Label>
-          <Form.Control
-            type='input'
-            value={slowWeight}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </Form.Group>
-        <Form.Group controlId='FasterSlowSMA'>
-          <Form.Label>Faster > Slow </Form.Label>
-          <Form.Control
-            type='input'
-            value={fastToSlowWeight}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </Form.Group>
-      </Grid>
-      <Grid container item direction='column' justify='center' alignItems='center'>
-        <Typography variant='h3'>Other</Typography>
-        <Form.Group controlId='MACD'>
-          <Form.Label>Weekly MACD Pos. Crossover</Form.Label>
-          <Form.Control
-            type='input'
-            value={MACDWeight}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </Form.Group>
-        <Form.Group controlId='ADX'>
-          <Form.Label>ADX</Form.Label>
-          <Form.Control
-            type='input'
-            value={ADXWeight}
-            onChange={handleChange}
-            onBlur={handleBlur}
-          />
-        </Form.Group>
-      </Grid>
-    </Grid>
+      </Row>
+      <Row>
+        <Col>
+          <h3>Moving Averages</h3>
+          <Form.Group controlId='FastSMA'>
+            <Form.Label>Fast</Form.Label>
+            <Form.Control
+              type='input'
+              value={fastWeight}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </Form.Group>
+          <Form.Group controlId='SlowSMA'>
+            <Form.Label>Slow</Form.Label>
+            <Form.Control
+              type='input'
+              value={slowWeight}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </Form.Group>
+          <Form.Group controlId='FasterSlowSMA'>
+            <Form.Label>Faster > Slow </Form.Label>
+            <Form.Control
+              type='input'
+              value={fastToSlowWeight}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </Form.Group>
+        </Col>
+        <Col>
+          <h3>Other</h3>
+          <Form.Group controlId='MACD'>
+            <Form.Label>Weekly MACD Pos. Crossover</Form.Label>
+            <Form.Control
+              type='input'
+              value={MACDWeight}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </Form.Group>
+          <Form.Group controlId='ADX'>
+            <Form.Label>ADX</Form.Label>
+            <Form.Control
+              type='input'
+              value={ADXWeight}
+              onChange={handleChange}
+              onBlur={handleBlur}
+            />
+          </Form.Group>
+        </Col>
+      </Row>
+    </Form>
   );
 };
 
