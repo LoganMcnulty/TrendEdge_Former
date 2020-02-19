@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import TextField from '@material-ui/core/TextField';
+import { ErrorAlert } from 'components';
 
 const Weighting = ({ user, onWeightChange, onError }) => {
   const [fastWeight, setFastWeight] = useState();
@@ -81,7 +82,7 @@ const Weighting = ({ user, onWeightChange, onError }) => {
     <>
       <Grid container item direction='column' spacing={4}>
         <Grid item>
-          <Typography variant='h5'>Moving Averages</Typography>
+          <Typography variant='h5'>Weighting</Typography>
         </Grid>
         <Grid item>
           <TextField
@@ -116,12 +117,7 @@ const Weighting = ({ user, onWeightChange, onError }) => {
             onBlur={handleBlur}
           />
         </Grid>
-      </Grid>
 
-      <Grid container item direction='column' spacing={4}>
-        <Grid item>
-          <Typography variant='h5'>Other</Typography>
-        </Grid>
         <Grid item>
           <TextField
             helperText='MACD'
@@ -145,13 +141,7 @@ const Weighting = ({ user, onWeightChange, onError }) => {
           />
         </Grid>
       </Grid>
-      <Grid item>
-        {error && (
-          <div class='alert alert-danger p-1' role='alert'>
-            <strong>{errorMessage}</strong>
-          </div>
-        )}
-      </Grid>
+      <Grid item>{error && <ErrorAlert>{errorMessage}</ErrorAlert>}</Grid>
     </>
   );
 };

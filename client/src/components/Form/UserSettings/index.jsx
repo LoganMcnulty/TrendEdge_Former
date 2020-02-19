@@ -92,24 +92,11 @@ export function UserSettings() {
   };
 
   return (
-    <Grid
-      container
-      direction='column'
-      alignItems='center'
-      justify='center'
-      spacing={5}
-    >
+    <Grid container direction='column' spacing={5}>
       <Grid item>
         <Typography variant='h3'>User Settings</Typography>
       </Grid>
-      <Grid
-        container
-        item
-        direction='row'
-        alignItems='center'
-        justify='center'
-        spacing={6}
-      >
+      <Grid container item direction='row' spacing={6}>
         <Grid item>
           <AveragePeriod
             user={currentUserSettings}
@@ -127,18 +114,16 @@ export function UserSettings() {
           />
         </Grid>
       </Grid>
-      <Button item>
+      <Grid item>
         {!SMAError && !weightError && (
           <Button variant='contained' color='primary' onClick={handleSave}>
             Save User Options
           </Button>
         )}
         {(SMAError || weightError) && (
-          <Button variant='contained' disabled>
-            Save User Options
-          </Button>
+          <Button disabled>Save User Options</Button>
         )}
-      </Button>
+      </Grid>
     </Grid>
   );
 }

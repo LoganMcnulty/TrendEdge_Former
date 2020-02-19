@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
 import UserContext from 'contexts/UserContext';
 import MaterialTable from 'material-table';
-import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import { AddSpinner } from 'components';
+import TextField from '@material-ui/core/TextField';
 import {
   getWatchList,
   pullStockData,
@@ -26,11 +28,14 @@ export function WatchTable() {
     data: [],
   });
   const [addWatchList, setAddWatchList] = useState();
-  const [pullSpinner, setPullSpinner] = useState();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
   const { user } = useContext(UserContext);
+  const timer = React.useRef();
+
   useEffect(() => {
     try {
-      setPullSpinner(false);
+      clearTimeout(timer.current);
       getWatchList(user.email).then(loadWatchList => {
         console.log(loadWatchList);
         if (loadWatchList.userWatchList.length > 0) {
@@ -66,71 +71,86 @@ export function WatchTable() {
             });
           });
         }
-      });
+      }, []);
     } catch (ex) {
       console.log('ERROR: ' + ex);
     }
   }, [user]);
 
+  /* FIXME:  
+  *   Fix handlewatchlistadd
+  *   add error to spinner - reducer?
+  *   make into hook
+  */
+ 
   const handleWatchlistAdd = e => {
     e.preventDefault();
-    try {
-      setPullSpinner(true);
-      pullStockData(user.email, addWatchList);
-    } catch (err) {
-      alert('stock ticker not found - ' + err);
-    }
+    if (!loading) {
+      setSuccess(false);
+      setLoading(true);
+      timer.current = setTimeout(() => {
+        pullStockData(user.email, addWatchList);
+        setSuccess(true);
+        setLoading(false);
+      }, 2000);
+    } 
   };
 
   return (
-    <React.Fragment>
-      <form class='form-inline'>
-        <div class='form-group mb-2'>
-          <label for='stockTicker'>Add Ticker to Watchlist: </label>
-          <input
-            type='text'
-            class='form-control'
-            id='stockTicker'
-            placeholder='ex: AAPL'
-            onChange={e => setAddWatchList(e.target.value)}
-          />
-        </div>
-        <Button
-          type='submit'
-          class='btn btn-primary mb-2 ml-2 mr-2'
-          onClick={handleWatchlistAdd}
-        >
-          Add Stock
-        </Button>
-        {pullSpinner && <div class='spinner-border text-primary mb-1'></div>}
-      </form>
-      <MaterialTable
-        title='Watch List'
-        columns={state.columns}
-        data={state.data}
-        options={{ draggable: false }}
-        editable={{
-          onRowAdd: newData =>
-            new Promise(resolve => {
-              setTimeout(() => {
-                resolve();
-                setState(prevState => {
-                  const data = [...prevState.data];
-                  data.push(newData);
+    <>
+      <Grid container item direction='column' spacing={3}>
+        <Grid container item direction='row' spacing={2}>
+          <Grid item>
+            <TextField
+              helperText='Add Ticker to Watchlist'
+              type='text'
+              id='stockTicker'
+              placeholder='ex: AAPL'
+              onChange={e => setAddWatchList(e.target.value)}
+            />
+          </Grid>
+          <Grid item>
+            <AddSpinner
+              handleWatchlistAdd={handleWatchlistAdd}
+              loading={loading}
+              success={success}
+            />
+          </Grid>
+        </Grid>
+        <Grid item>
+          <MaterialTable
+            title='Watch List'
+            columns={state.columns}
+            data={state.data}
+            options={{ draggable: false }}
+            editable={{
+              onRowAdd: newData =>
+                new Promise(resolve => {
+                  setTimeout(() => {
+                    resolve();
+                    setState(prevState => {
+                      const data = [...prevState.data];
+                      data.push(newData);
 
-                  return { ...prevState, data };
-                });
-              }, 600);
-            }),
-          onRowDelete: oldData =>
-            new Promise(resolve => {
-              setTimeout(() => {
-                resolve();
-                deleteWatchListItem(user.email, oldData.stockName, state.data);
-              }, 600);
-            }),
-        }}
-      />
-    </React.Fragment>
+                      return { ...prevState, data };
+                    });
+                  }, 600);
+                }),
+              onRowDelete: oldData =>
+                new Promise(resolve => {
+                  setTimeout(() => {
+                    resolve();
+                    deleteWatchListItem(
+                      user.email,
+                      oldData.stockName,
+                      state.data
+                    );
+                  }, 600);
+                }),
+            }}
+          />
+        </Grid>
+      </Grid>
+    </>
   );
 }
