@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState, useReducer } from 'react';
 import UserContext from 'contexts/UserContext';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -52,29 +52,19 @@ const Weighting = ({ user, onWeightChange, onError }) => {
   const handleChange = e => {
     switch (e.target.id) {
       case 'FastSMA':
-        e.target.value
-          ? setFastWeight(parseInt(e.target.value))
-          : setFastWeight(0);
+        setFastWeight(e.target.value);
         break;
       case 'SlowSMA':
-        e.target.value
-          ? setSlowWeight(parseInt(e.target.value))
-          : setSlowWeight(0);
+        setSlowWeight(e.target.value);
         break;
       case 'FasterSlowSMA':
-        e.target.value
-          ? setFastToSlowWeight(parseInt(e.target.value))
-          : setFastToSlowWeight(0);
+        setFastToSlowWeight(e.target.value);
         break;
       case 'MACD':
-        e.target.value
-          ? setMACDWeight(parseInt(e.target.value))
-          : setMACDWeight(0);
+        setMACDWeight(e.target.value);
         break;
       case 'ADX':
-        e.target.value
-          ? setADXWeight(parseInt(e.target.value))
-          : setADXWeight(0);
+        setADXWeight(e.target.value);
         break;
     }
   };
@@ -105,7 +95,8 @@ const Weighting = ({ user, onWeightChange, onError }) => {
           <Form.Group controlId='FastSMA'>
             <Form.Label>Fast</Form.Label>
             <Form.Control
-              type='input'
+              type='number'
+              required
               value={fastWeight}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -114,7 +105,8 @@ const Weighting = ({ user, onWeightChange, onError }) => {
           <Form.Group controlId='SlowSMA'>
             <Form.Label>Slow</Form.Label>
             <Form.Control
-              type='input'
+              type='number'
+              required
               value={slowWeight}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -123,7 +115,8 @@ const Weighting = ({ user, onWeightChange, onError }) => {
           <Form.Group controlId='FasterSlowSMA'>
             <Form.Label>Faster > Slow </Form.Label>
             <Form.Control
-              type='input'
+              type='number'
+              required
               value={fastToSlowWeight}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -135,7 +128,8 @@ const Weighting = ({ user, onWeightChange, onError }) => {
           <Form.Group controlId='MACD'>
             <Form.Label>Weekly MACD Pos. Crossover</Form.Label>
             <Form.Control
-              type='input'
+              type='number'
+              required
               value={MACDWeight}
               onChange={handleChange}
               onBlur={handleBlur}
@@ -144,7 +138,8 @@ const Weighting = ({ user, onWeightChange, onError }) => {
           <Form.Group controlId='ADX'>
             <Form.Label>ADX</Form.Label>
             <Form.Control
-              type='input'
+              type='number'
+              required
               value={ADXWeight}
               onChange={handleChange}
               onBlur={handleBlur}

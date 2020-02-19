@@ -91,28 +91,18 @@ export function UserSettings() {
       direction='column'
       alignItems='center'
       justify='center'
-      spacing={3}
+      spacing={6}
     >
       <Grid item>
         <Typography variant='h1'>User Settings</Typography>
       </Grid>
-      <Grid item>
-        {!SMAError && !weightError && (
-          <Button variant='contained' color='primary' onClick={handleSave}>
-            Save User Options
-          </Button>
-        )}
-        {(SMAError || weightError) && (
-          <Button variant='contained' disabled>
-            Save User Options
-          </Button>
-        )}
-      </Grid>
+
       <Grid item>
         <Tabs
           id='controlled-tab-example'
           activeKey={key}
           onSelect={k => setKey(k)}
+          style={styles}
         >
           <Tab eventKey='AveragePeriod' title='Average Period (Weekly)'>
             <AveragePeriod
@@ -132,6 +122,22 @@ export function UserSettings() {
           </Tab>
         </Tabs>
       </Grid>
+      <Grid item>
+        {!SMAError && !weightError && (
+          <Button variant='contained' color='primary' onClick={handleSave}>
+            Save User Options
+          </Button>
+        )}
+        {(SMAError || weightError) && (
+          <Button variant='contained' disabled>
+            Save User Options
+          </Button>
+        )}
+      </Grid>
     </Grid>
   );
 }
+
+const styles = {
+  marginBottom: 60,
+};
