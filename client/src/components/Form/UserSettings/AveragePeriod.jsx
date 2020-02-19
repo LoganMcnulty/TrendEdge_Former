@@ -6,13 +6,11 @@ const AveragePeriod = ({
   onFastSMAChange,
   onSlowSMAChange,
   onLookbackChange,
-  onError,
 }) => {
   const [fastSMA, setFastSMA] = useState();
   const [slowSMA, setSlowSMA] = useState();
   const [lookback, setLookback] = useState();
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState();
+
 
   useEffect(() => {
     try {
@@ -25,14 +23,6 @@ const AveragePeriod = ({
         onLookbackChange(user.lookback);
       }
     } catch (ex) {}
-    if (fastSMA > slowSMA) {
-      setError(true);
-      setErrorMessage('Slow SMA must be larger than Fast SMA');
-      onError(true);
-    } else {
-      setError(false);
-      onError(false);
-    }
   });
 
   const handleFastChange = (event, newValue) => {
@@ -87,12 +77,6 @@ const AveragePeriod = ({
           valueLabelDisplay='on'
         />
       </Grid>
-
-      {error && (
-        <div class='alert alert-danger p-1' role='alert'>
-          <strong>{errorMessage}</strong>
-        </div>
-      )}
 
       <Grid item>
         <Typography variant='h5' >
