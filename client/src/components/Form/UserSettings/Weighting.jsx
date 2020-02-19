@@ -1,10 +1,7 @@
-import React, { useEffect, useState, useReducer } from 'react';
-import UserContext from 'contexts/UserContext';
+import React, { useEffect, useState } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import TextField from '@material-ui/core/TextField';
 
 const Weighting = ({ user, onWeightChange, onError }) => {
   const [fastWeight, setFastWeight] = useState();
@@ -81,73 +78,81 @@ const Weighting = ({ user, onWeightChange, onError }) => {
   };
 
   return (
-    <Form>
-      <Row className='mt-3 ml-1'>
+    <>
+      <Grid container item direction='column' spacing={4}>
+        <Grid item>
+          <Typography variant='h5'>Moving Averages</Typography>
+        </Grid>
+        <Grid item>
+          <TextField
+            helperText='Fast'
+            id='FastSMA'
+            type='number'
+            required
+            value={fastWeight}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            helperText='Slow'
+            id='SlowSMA'
+            type='number'
+            required
+            value={slowWeight}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            helperText='Faster > Slow'
+            id='FasterSlowSMA'
+            type='number'
+            required
+            value={fastToSlowWeight}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </Grid>
+      </Grid>
+
+      <Grid container item direction='column' spacing={4}>
+        <Grid item>
+          <Typography variant='h5'>Other</Typography>
+        </Grid>
+        <Grid item>
+          <TextField
+            helperText='MACD'
+            id='MACD'
+            type='number'
+            required
+            value={MACDWeight}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </Grid>
+        <Grid item>
+          <TextField
+            helperText='ADX'
+            id='ADX'
+            type='number'
+            required
+            value={ADXWeight}
+            onChange={handleChange}
+            onBlur={handleBlur}
+          />
+        </Grid>
+      </Grid>
+      <Grid item>
         {error && (
           <div class='alert alert-danger p-1' role='alert'>
             <strong>{errorMessage}</strong>
           </div>
         )}
-      </Row>
-      <Row>
-        <Col>
-          <h3>Moving Averages</h3>
-          <Form.Group controlId='FastSMA'>
-            <Form.Label>Fast</Form.Label>
-            <Form.Control
-              type='number'
-              required
-              value={fastWeight}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Group>
-          <Form.Group controlId='SlowSMA'>
-            <Form.Label>Slow</Form.Label>
-            <Form.Control
-              type='number'
-              required
-              value={slowWeight}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Group>
-          <Form.Group controlId='FasterSlowSMA'>
-            <Form.Label>Faster > Slow </Form.Label>
-            <Form.Control
-              type='number'
-              required
-              value={fastToSlowWeight}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Group>
-        </Col>
-        <Col>
-          <h3>Other</h3>
-          <Form.Group controlId='MACD'>
-            <Form.Label>Weekly MACD Pos. Crossover</Form.Label>
-            <Form.Control
-              type='number'
-              required
-              value={MACDWeight}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Group>
-          <Form.Group controlId='ADX'>
-            <Form.Label>ADX</Form.Label>
-            <Form.Control
-              type='number'
-              required
-              value={ADXWeight}
-              onChange={handleChange}
-              onBlur={handleBlur}
-            />
-          </Form.Group>
-        </Col>
-      </Row>
-    </Form>
+      </Grid>
+    </>
   );
 };
 

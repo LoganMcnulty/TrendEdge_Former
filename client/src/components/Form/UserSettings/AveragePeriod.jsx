@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Grid, Slider, Input, Typography } from '@material-ui/core';
+import { Grid, Slider, Typography } from '@material-ui/core';
 
 const AveragePeriod = ({
   user,
@@ -10,7 +10,6 @@ const AveragePeriod = ({
   const [fastSMA, setFastSMA] = useState();
   const [slowSMA, setSlowSMA] = useState();
   const [lookback, setLookback] = useState();
-
 
   useEffect(() => {
     try {

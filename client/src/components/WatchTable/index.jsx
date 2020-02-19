@@ -117,6 +117,7 @@ export function WatchTable() {
                 setState(prevState => {
                   const data = [...prevState.data];
                   data.push(newData);
+
                   return { ...prevState, data };
                 });
               }, 600);
