@@ -81,11 +81,11 @@ const Weighting = ({ user, onWeightChange, onError }) => {
 
   const handleBlur = () => {
     let newWeightObject = {
-      fastWeight: fastWeight,
-      slowWeight: slowWeight,
-      fastToSlowWeight: fastToSlowWeight,
-      MACDWeight: MACDWeight,
-      ADXWeight: ADXWeight,
+      fastWeight,
+      slowWeight,
+      fastToSlowWeight,
+      MACDWeight,
+      ADXWeight,
     };
     onWeightChange(newWeightObject);
   };
