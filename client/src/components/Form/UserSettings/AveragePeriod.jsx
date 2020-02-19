@@ -53,10 +53,11 @@ const AveragePeriod = ({
   return (
     <Grid container item direction='column' spacing={6}>
       <Grid item>
-        <Typography variant='h5' style={styles} >
+        <Typography variant='h5' >
           Fast SMA
         </Typography>
-
+      </Grid>
+      <Grid item>
         <Slider
           defaultValue={10}
           style={{ width: 200 }}
@@ -68,11 +69,13 @@ const AveragePeriod = ({
           aria-labelledby='input-slider'
         />
       </Grid>
+
       <Grid item>
-        <Typography variant='h5' style={styles}>
+        <Typography variant='h5' >
           Slow SMA
         </Typography>
-
+      </Grid>
+      <Grid item>
         <Slider
           defaultValue={40}
           value={typeof slowSMA === 'number' ? slowSMA : 0}
@@ -90,11 +93,13 @@ const AveragePeriod = ({
           <strong>{errorMessage}</strong>
         </div>
       )}
+
       <Grid item>
-        <Typography variant='h5' style={styles}>
+        <Typography variant='h5' >
           Lookback for SMA Slope
         </Typography>
-
+      </Grid>
+      <Grid item>
         <Slider
           defaultValue={1}
           value={typeof lookback === 'number' ? lookback : 0}
@@ -111,7 +116,3 @@ const AveragePeriod = ({
 };
 
 export default AveragePeriod;
-
-const styles = {
-  marginBottom: 35
-}
