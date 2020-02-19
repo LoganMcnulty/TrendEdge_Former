@@ -14,7 +14,7 @@ function Template({ children}) {
       <DrawerMenu >
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Container maxWidth='false'>
+          <Container>
             <Grid
               container
               justify='center'

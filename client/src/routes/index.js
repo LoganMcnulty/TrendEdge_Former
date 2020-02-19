@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import UserContext from 'contexts/UserContext';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {
   About,
@@ -11,6 +12,12 @@ import {
 } from 'pages';
 
 export default function Routes() {
+  const { sectorHealthDataPass } = useContext(UserContext);
+  // wait until sector healths finish calcing to pass to Routes
+  if (!sectorHealthDataPass) {
+    return null;
+  }
+
   return (
     <Router>
       <Switch>

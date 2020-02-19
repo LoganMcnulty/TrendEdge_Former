@@ -3,7 +3,6 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { SectorTable } from 'components';
-import { withTheme } from '@material-ui/core';
 
 export const Trend = () => {
 

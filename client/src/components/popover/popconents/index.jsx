@@ -16,7 +16,7 @@ export function PopoverItem (props) {
             id={"Popover-" + id}
             type="button"
         >
-            <i class="fas fa-info-circle"></i>
+            <i className="fas fa-info-circle"></i>
         </Button>
         <Popover
             placement="left"

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { OptionsTable } from 'components';
 import { activeOptionsPull } from '../../services/activeOptionsPull';
 import Box from '@material-ui/core/Box';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import $ from 'jquery';

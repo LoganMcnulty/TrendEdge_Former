@@ -40,7 +40,6 @@ export const Filter = props => {
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%',
-    maxWidth: 120,
     backgroundColor: theme.palette.background.paper,
   },
 }))
