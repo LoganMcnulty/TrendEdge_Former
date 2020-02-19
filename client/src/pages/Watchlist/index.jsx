@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import { WatchTable } from 'components';
 
-export const Watchlist = ({ user }) => {
+export const Watchlist = () => {
   const style = {
     jumbotron: {
       background: '#3f51b5',
@@ -21,7 +21,7 @@ export const Watchlist = ({ user }) => {
         </Box>
       </Grid>
       <Grid item>
-        <WatchTable user={user} />
+        <WatchTable />
       </Grid>
     </>
   );

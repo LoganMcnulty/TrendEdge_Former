@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import UserContext from 'contexts/UserContext';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -16,17 +17,14 @@ const drawerWidth = 240;
 export function AppBarMenu({
   open,
   handleDrawerToggle,
-  handleMobileMenuOpen,
-  mobileMenuId,
-  user,
 }) {
   const classes = useStyles();
-
+  const { user } = useContext(UserContext);
   const handleLogout = () => {
     auth.logout();
     window.location.href = '/';
   };
-  
+
   return (
     <AppBar
       position='fixed'

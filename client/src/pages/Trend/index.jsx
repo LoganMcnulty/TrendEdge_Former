@@ -5,8 +5,7 @@ import Box from '@material-ui/core/Box';
 import { SectorTable } from 'components';
 import { withTheme } from '@material-ui/core';
 
-export const Trend = ({ sectorHealthDataPass, user }) => {
-  const sectorHealthData = sectorHealthDataPass;
+export const Trend = () => {
 
   const styles = {
     jumbotron: {
@@ -25,7 +24,7 @@ export const Trend = ({ sectorHealthDataPass, user }) => {
         </Box>
       </Grid>
       <Grid item>
-        <SectorTable user={user} sectorHealthData={sectorHealthData} />
+        <SectorTable />
       </Grid>
     </>
   );

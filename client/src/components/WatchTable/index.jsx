@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import UserContext from 'contexts/UserContext';
 import MaterialTable from 'material-table';
 import Button from '@material-ui/core/Button';
 import {
@@ -9,7 +10,7 @@ import {
 } from '../../services/watchListService';
 import { yahooDataPull } from '../../services/yahooFinance';
 
-export function WatchTable({ user }) {
+export function WatchTable() {
   const [state, setState] = useState({
     columns: [
       { title: 'Ticker', field: 'stockName' },
@@ -26,7 +27,7 @@ export function WatchTable({ user }) {
   });
   const [addWatchList, setAddWatchList] = useState();
   const [pullSpinner, setPullSpinner] = useState();
-
+  const { user } = useContext(UserContext);
   useEffect(() => {
     try {
       setPullSpinner(false);

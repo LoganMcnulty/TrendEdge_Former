@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import UserContext from 'contexts/UserContext';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
@@ -8,7 +9,7 @@ import AveragePeriod from './AveragePeriod';
 import Weighting from './Weighting';
 import { updateSettings, getSettings } from 'services/userService';
 
-export function UserSettings({ user }) {
+export function UserSettings() {
   const [key, setKey] = useState('AveragePeriod');
   const [fastSMA, setFastSMA] = useState();
   const [slowSMA, setSlowSMA] = useState();
@@ -17,7 +18,7 @@ export function UserSettings({ user }) {
   const [currentUserSettings, setcurrentUserSettings] = useState();
   const [SMAError, setSMAError] = useState();
   const [weightError, setWeightError] = useState();
-
+  const { user } = useContext(UserContext);
   useEffect(() => {
     try {
       getSettings(user.email).then(
@@ -104,7 +105,6 @@ export function UserSettings({ user }) {
         <Typography variant='h1'>User Settings</Typography>
       </Grid>
       <Grid item>
-        
         {!SMAError && !weightError && (
           <Button onClick={handleSave}>Save User Options</Button>
         )}

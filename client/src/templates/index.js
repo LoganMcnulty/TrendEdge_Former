@@ -7,11 +7,11 @@ import { DrawerMenu } from 'components';
 
 import Theme from 'themes';
 
-function Template({ children, user }) {
+function Template({ children}) {
   const classes = useStyles();
   return (
     <Theme>
-      <DrawerMenu user={user}>
+      <DrawerMenu >
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Container maxWidth='false'>

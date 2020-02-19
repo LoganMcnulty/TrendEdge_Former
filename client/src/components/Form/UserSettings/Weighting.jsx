@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import UserContext from 'contexts/UserContext';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import Form from 'react-bootstrap/Form';
 
-const Weighting = ({ user, onWeightChange, onError }) => {
+const Weighting = ({ onWeightChange, onError }) => {
+  const { user } = useContext(UserContext);
   const [fastWeight, setFastWeight] = useState();
   const [slowWeight, setSlowWeight] = useState();
   const [fastToSlowWeight, setFastToSlowWeight] = useState();
@@ -11,7 +13,7 @@ const Weighting = ({ user, onWeightChange, onError }) => {
   const [ADXWeight, setADXWeight] = useState();
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
-
+  
   useEffect(() => {
     try {
       if (

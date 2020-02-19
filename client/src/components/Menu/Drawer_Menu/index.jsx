@@ -1,5 +1,4 @@
 import React from 'react';
-
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import Hidden from '@material-ui/core/Hidden';
@@ -8,7 +7,7 @@ import { DrawerList } from './DrawerList';
 
 const drawerWidth = 240;
 
-export function DrawerMenu({ children, user }) {
+export function DrawerMenu({ children}) {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -23,7 +22,6 @@ export function DrawerMenu({ children, user }) {
       <AppBarMenu
         open={open}
         handleDrawerToggle={handleDrawerToggle}
-        user={user}
       />
 
       <nav className={classes.drawer}>

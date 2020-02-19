@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
+import UserContext from 'contexts/UserContext';
 import { Divider, Grid, Slider, Input, Typography } from '@material-ui/core';
 
 const AveragePeriod = ({
-  user,
   onFastSMAChange,
   onSlowSMAChange,
   onLookbackChange,
@@ -13,7 +13,7 @@ const AveragePeriod = ({
   const [lookback, setLookback] = useState();
   const [error, setError] = useState(false);
   const [errorMessage, setErrorMessage] = useState();
-
+  const { user } = useContext(UserContext);
   useEffect(() => {
     try {
       if (!fastSMA && !slowSMA) {

@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import UserContext from 'contexts/UserContext';
 import Button from '@material-ui/core/Button';
 import MaterialTable from 'material-table';
 import { createSectors } from 'services/createSectors';
 import { updateSectorData } from 'services/pullSectors';
 
-export function SectorTable({ sectorHealthData }) {
-  const sectorHealthTableData = sectorHealthData;
-  console.log(sectorHealthTableData);
+export function SectorTable() {
+  const { sectorHealthDataPass } = useContext(UserContext);
 
   const [state, setState] = useState({
     columns: [
@@ -29,7 +29,7 @@ export function SectorTable({ sectorHealthData }) {
       <MaterialTable
         title='Sector Health Dashboard'
         columns={state.columns}
-        data={sectorHealthTableData}
+        data={sectorHealthDataPass}
         // actions={[
         //   {
         //     icon: 'save',
