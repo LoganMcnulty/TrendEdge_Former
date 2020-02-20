@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import UserContext from 'contexts/UserContext';
 import Button from '@material-ui/core/Button';
 import MaterialTable from 'material-table';
+import columns from 'models/SectorColumns';
 import { createSectors } from 'services/createSectors';
 import { updateSectorData } from 'services/pullSectors';
 
@@ -9,20 +10,7 @@ export function SectorTable() {
   const { sectorHealthDataPass } = useContext(UserContext);
 
   const [state, setState] = useState({
-    columns: [
-      {
-        title: 'Ticker',
-        field: 'symbol',
-      },
-      { title: 'Sector', field: 'sectorName' },
-      { title: 'Price', field: 'priceTZero' },
-      { title: 'Top Holdings', field: 'topHoldings' },
-      {
-        title: 'Trend Health (%)',
-        field: 'score',
-        type: 'numeric',
-      },
-    ],
+    columns,
   });
   return (
     <>
@@ -45,6 +33,7 @@ export function SectorTable() {
           // actionsColumnIndex: 3
           toolbar: false,
           draggable: false,
+          pageSize: 20,
         }}
       />
 

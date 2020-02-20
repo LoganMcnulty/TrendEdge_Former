@@ -1,16 +1,16 @@
-import http from './httpService'
-import { apiUrl } from '../config.json'
-import { yahooDataPull } from './yahooFinance'
-import testsData from '../model/testSector.json'
-import $ from 'jquery'
-var CronJob = require('cron').CronJob
+import http from './httpService';
+import { apiUrl } from 'config.json';
+import { yahooDataPull } from './yahooFinance';
+import testsData from 'models/testSector';
+import $ from 'jquery';
+var CronJob = require('cron').CronJob;
 
 export function updateSectorData() {
   //cron job runs every Friday at 18:00
   // const job = new CronJob('0 18 * * 5', function() {
 
-  const apiKey = process.env.REACT_APP_ALPHA_VANTAGE_API_KEY
-  let counter = 0
+  const apiKey = process.env.REACT_APP_ALPHA_VANTAGE_API_KEY;
+  let counter = 0;
   let thisStockData = {
     name: testsData[counter].Company,
     symbol: testsData[counter].Stock,
@@ -19,7 +19,7 @@ export function updateSectorData() {
     priceData: [],
     adxData: [],
     macdData: [],
-  }
+  };
 
   //kick off
   const getAdxData = () => {
@@ -31,31 +31,31 @@ export function updateSectorData() {
       success: function(res) {
         Object.entries(res['Technical Analysis: ADX']).forEach(
           ([key, value], index) => {
-            thisStockData.adxData.push(Number(value['ADX']))
+            thisStockData.adxData.push(Number(value['ADX']));
           }
-        )
-        getTopHoldings()
+        );
+        getTopHoldings();
       },
-    })
-  }
+    });
+  };
 
   const getTopHoldings = () => {
-    console.log('Yahoo data...')
+    console.log('Yahoo data...');
     yahooDataPull(thisStockData.symbol)
       .then(yahooData => {
         for (let i = 0; i < 10; i++) {
           thisStockData.topHoldingsNames.push(
             yahooData.data.topHoldings.holdings[i].symbol
-          )
+          );
           thisStockData.topHoldingsPcts.push(
             yahooData.data.topHoldings.holdings[i].holdingPercent.raw
-          )
+          );
         }
       })
       .then(() => {
-        getMacdData()
-      })
-  }
+        getMacdData();
+      });
+  };
 
   const getMacdData = () => {
     $.ajax({
@@ -66,18 +66,18 @@ export function updateSectorData() {
       success: function(res) {
         Object.entries(res['Technical Analysis: MACD']).forEach(
           ([key, value], index) => {
-            thisStockData.macdData.push(Number(value['MACD']))
+            thisStockData.macdData.push(Number(value['MACD']));
           }
-        )
+        );
 
-        console.log('PASSING WASHED SECTORS TO Update sectors API')
-        console.log(thisStockData)
-        let apiEndpoint = apiUrl + '/updateSectors'
-        http.put(apiEndpoint, thisStockData)
+        console.log('PASSING WASHED SECTORS TO Update sectors API');
+        console.log(thisStockData);
+        let apiEndpoint = apiUrl + '/updateSectors';
+        http.put(apiEndpoint, thisStockData);
 
-        counter++
+        counter++;
         if (counter < testsData.length) {
-          getPriceData()
+          getPriceData();
 
           thisStockData = {
             name: testsData[counter].Company,
@@ -87,11 +87,11 @@ export function updateSectorData() {
             macdData: [],
             topHoldingsNames: [],
             topHoldingsPcts: [],
-          }
+          };
         }
       },
-    })
-  }
+    });
+  };
 
   const getPriceData = () => {
     //price data first
@@ -103,15 +103,15 @@ export function updateSectorData() {
       success: function(res) {
         Object.entries(res['Weekly Time Series']).forEach(
           ([key, value], index) => {
-            thisStockData.priceData.push(Number(value['4. close']))
+            thisStockData.priceData.push(Number(value['4. close']));
           }
-        )
-        getAdxData()
+        );
+        getAdxData();
       },
-    })
-  }
+    });
+  };
 
-  getPriceData()
+  getPriceData();
 
   //commenting out cron job for now for Dev purposes
   // });
@@ -119,8 +119,8 @@ export function updateSectorData() {
 }
 
 export async function pullSectorData() {
-  let apiEndpoint = apiUrl + '/pullSectors'
-  const sectorData = await http.get(apiEndpoint)
+  let apiEndpoint = apiUrl + '/pullSectors';
+  const sectorData = await http.get(apiEndpoint);
   // console.log(sectorData)
-  return sectorData
+  return sectorData;
 }

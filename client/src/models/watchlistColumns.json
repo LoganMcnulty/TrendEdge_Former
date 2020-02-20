@@ -1,0 +1,11 @@
+[
+  { "title": "Ticker", "field": "stockName" },
+  { "title": "Price", "field": "livePrice", "type": "currency" },
+  { "title": "% From Fast SMA", "field": "pxPctFast" },
+  { "title": "% From Slow SMA", "field": "pxPctSlow" },
+  {
+    "title": "Trend Health (%)",
+    "field": "health",
+    "type": "numeric"
+  }
+]

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import CircularProgress from '@material-ui/core/CircularProgress';
@@ -41,9 +41,36 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export function AddSpinner({ handleWatchlistAdd, success, loading }) {
-  const classes = useStyles();
 
+
+export function AddSpinner({ pullStockData, user, addWatchList }) {
+  const classes = useStyles();
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  /* FIXME:
+   *   Fix handlewatchlistadd
+   *   add error to spinner - reducer?
+   *   make into hook
+   */
+
+  const handleWatchlistAdd = e => {
+    e.preventDefault();
+    if (!loading) {
+      setSuccess(false);
+      setLoading(true);
+
+      try {
+        pullStockData(user.email, addWatchList);
+        setSuccess(true);
+        setLoading(false);
+      } catch {
+        alert('error is caught here!');
+        setSuccess(false);
+        setLoading(false);
+      }
+    }
+  };
   const buttonClassname = clsx({
     [classes.buttonSuccess]: success,
   });

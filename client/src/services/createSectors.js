@@ -1,6 +1,6 @@
 import http from "./httpService";
-import { apiUrl } from "../config.json";
-import sectorData from "../model/testSector.json"
+import { apiUrl } from "config.json";
+import sectorData from "models/testSector.json"
 
 export function createSectors() {
 

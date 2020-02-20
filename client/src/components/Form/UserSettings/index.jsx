@@ -5,6 +5,7 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import AveragePeriod from './AveragePeriod';
 import Weighting from './Weighting';
+
 import { updateSettings, getSettings } from 'services/userService';
 
 export function UserSettings() {
@@ -66,7 +67,7 @@ export function UserSettings() {
     };
     updateSettings(user.email, userSettings);
   };
-
+  
   const handleWeightChange = newWeightObject => {
     setWeightObject(newWeightObject);
   };
