@@ -17,7 +17,10 @@ export const ActiveOptions = () => {
   }
   const [optionsData, setOptionsData] = useState()
   const [searchTerm, setSearchTerm] = useState()
-  const [searchTermConst, setSearchTermConst] = useState()
+
+  const handleChange = event => {
+    setSearchTerm(event.target.value);
+  }
 
   const handleOptionSearch = (e) => {
     e.preventDefault();
@@ -27,7 +30,6 @@ export const ActiveOptions = () => {
       console.log(data)
       setOptionsData(data)
       })
-      setSearchTermConst(searchTerm.toUpperCase())
       $(".search_input").val("")
     } catch (err) {
       alert('stock ticker not found - ' + err)
@@ -44,12 +46,23 @@ export const ActiveOptions = () => {
 
       <div className="container">
         <div className="d-flex justify-content-center h-100" style={{padding:"2%"}}>
-          <div className="searchbar">
-            <input onChange={e => {
-              setSearchTerm(e.target.value)
-              }} className="search_input" type="text" name="" placeholder="Search..." />
-            <a onClick={handleOptionSearch} href="#" className="search_icon"><i className="fas fa-search"></i></a>
-          </div>
+        <form onSubmit={handleOptionSearch} className='searchbar'>
+            <input
+              value={searchTerm}
+              onChange={handleChange}
+              className='search_input'
+              type='text'
+              name='searchTerm'
+              placeholder='Search...'
+            />
+            <a
+              onClick={handleOptionSearch}
+              href='#'
+              className='search_icon'
+            >
+            <i className='fas fa-search'></i>
+            </a>
+          </form>
         </div>
       </div>
 
@@ -66,7 +79,7 @@ export const ActiveOptions = () => {
               </>
               :
               <>
-              <h1 style={{textAlign:"center"}}>{searchTermConst}</h1>
+              <h1 style={{textAlign:"center"}}>{searchTerm.toUpperCase()}</h1>
               <OptionsTable optionsData={optionsData}/>
               </>
               } 

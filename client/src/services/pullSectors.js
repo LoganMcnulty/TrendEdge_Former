@@ -3,14 +3,15 @@ import { apiUrl } from '../config.json'
 import { yahooDataPull } from './yahooFinance'
 import testsData from '../model/testSector.json'
 import $ from 'jquery'
+
 var CronJob = require('cron').CronJob;
 
 export function updateSectorData() {
   //cron job runs every Friday at 18:00
   // const job = new CronJob('0 18 * * 5', function() {
     
-    const apiKey = '07S5MN2IBXDCQAGB'
-    let counter = 15
+    const apiKey = 'EG1B4JUOHK5U6LNR'
+    let counter = 0
     let thisStockData = {
       name: testsData[counter].Company,
       symbol: testsData[counter].Stock,

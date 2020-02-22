@@ -5,7 +5,7 @@ import { getSettings } from '../services/userService'
 import { yahooDataPull } from './yahooFinance'
 
 export function pullStockData(email, stockTicker) {
-    const apiKey = '07S5MN2IBXDCQAGB'
+    const apiKey = 'EG1B4JUOHK5U6LNR'
     let thisStockData = {
         livePrice: 0,
         stockName: stockTicker.toUpperCase(),
@@ -48,6 +48,14 @@ export function pullStockData(email, stockTicker) {
     const getFundamentalData = () => {
         yahooDataPull(stockTicker).then((yahooData) => {
             console.log(yahooData)
+
+        if(!yahooData.data.summaryDetail) {
+            let sectorTicker = Object.keys(yahooData.data.quoteData)[0]
+            thisStockData.averageVolumeTenDays = yahooData.data.quoteData[sectorTicker].regularMarketVolume.raw
+            thisStockData.livePrice = yahooData.data.quoteData[sectorTicker].regularMarketPrice.raw
+        }
+
+        if (yahooData.data.summaryDetail) {
             //technical data
             thisStockData.averageVolumeTenDays = yahooData.data.summaryDetail.averageVolume10days.raw
             thisStockData.livePrice = yahooData.data.summaryDetail.ask.raw
@@ -61,7 +69,7 @@ export function pullStockData(email, stockTicker) {
             thisStockData.fundamentalData.nextEarningsDate = yahooData.data.calendarEvents.earnings.earningsDate[0].raw
             thisStockData.fundamentalData.grossMargins = yahooData.data.financialData.grossMargins.raw
             thisStockData.fundamentalData.profitMargins = yahooData.data.financialData.profitMargins.raw
-
+        }
 
         }).then(() => {
             getMacdData()
@@ -83,8 +91,6 @@ export function pullStockData(email, stockTicker) {
                         thisStockData.macdData.push(Number(value['MACD']))
                     }
                 )
-
-
                 console.log(thisStockData)
                 let apiEndpoint = apiUrl + '/updateWatchList';
                 http.post(apiEndpoint, { thisStockData, email }).then(() => {
@@ -141,32 +147,32 @@ export async function calcStockHealth(email, thisStockData) {
         // console.log("macd weight: " + macdWeight)
         let adxWeight = Number(userSettings.ADXWeight) / 100
         // console.log("adx Weight: " + adxWeight)
+        let lookback = Number(userSettings.lookback)
+        // console.log("lookback: " + lookback)
 
         // calculated values 
-        let fastSMAValue
-        let slowSMAValue
-        let fastSMALookbackValue
-        let slowSMALookbackValue
-        let macdValue
+            let fastSMAValue
+            let slowSMAValue
+            let fastSMALookbackValue
+            let slowSMALookbackValue
 
         // values with weightings applied
-        let fastSMAPositiveSlopeWeighted
-        let slowSMAPositiveSlopeWeighted
-        let fastGreaterSlowWeighted
-        let macdPositiveSlopeWeighted
-        let adxValueWeighted
-
-        let fastSMASum = 0
-        let fastSMALookbackSum = 0
-        let slowSMASum = 0
-        let slowSMALookbackSum = 0
+            let fastSMAPositiveSlopeWeighted
+            let slowSMAPositiveSlopeWeighted
+            let fastGreaterSlowWeighted
+            let macdPositiveSlopeWeighted
+            let adxValueWeighted
+            let fastSMASum = 0
+            let fastSMALookbackSum = 0
+            let slowSMASum = 0
+            let slowSMALookbackSum = 0
 
         //fast SMA pos slope?
         for (let i = 0; i < fastSMA; i++) { fastSMASum += thisStockData.priceData[i] }
         fastSMAValue = fastSMASum / fastSMA
         // console.log("fastSMA Value: " + fastSMAValue)
         //fast SMA Lookback
-        for (let i = 1; i < fastSMA + 1; i++) { fastSMALookbackSum += thisStockData.priceData[i] }
+        for (let i = lookback; i < fastSMA + lookback; i++) { fastSMALookbackSum += thisStockData.priceData[i] }
         fastSMALookbackValue = fastSMALookbackSum / fastSMA
         // console.log("fastSMA Lookback Value: " + fastSMALookbackValue)
 
@@ -180,7 +186,7 @@ export async function calcStockHealth(email, thisStockData) {
         slowSMAValue = slowSMASum / slowSMA
         // console.log("slowSMA Value: " + slowSMAValue)
         //slow SMA Lookback
-        for (let i = 1; i < slowSMA + 1; i++) { slowSMALookbackSum += thisStockData.priceData[i] }
+        for (let i = lookback; i < slowSMA + lookback; i++) { slowSMALookbackSum += thisStockData.priceData[i] }
         slowSMALookbackValue = slowSMALookbackSum / slowSMA
         // console.log("slowSMA Lookback Value: " + slowSMALookbackValue)
         // slow SMA Positive slope check
@@ -194,7 +200,7 @@ export async function calcStockHealth(email, thisStockData) {
         // console.log("fast greater Slow weighted: " + fastGreaterSlowWeighted)
 
         //MACD Pos slope?
-        if (thisStockData.macdData[0] > thisStockData.macdData[1]) { macdPositiveSlopeWeighted = (1 * macdWeight) }
+        if (thisStockData.macdData[0] > thisStockData.macdData[lookback]) { macdPositiveSlopeWeighted = (1 * macdWeight) }
         else { macdPositiveSlopeWeighted = 0 }
         // console.log("macd pos slope weighted: " + macdPositiveSlopeWeighted)
 
@@ -204,7 +210,6 @@ export async function calcStockHealth(email, thisStockData) {
 
         return (fastSMAPositiveSlopeWeighted + slowSMAPositiveSlopeWeighted + fastGreaterSlowWeighted + macdPositiveSlopeWeighted + adxValueWeighted)
     })
-
     return stockScore
 }
 
@@ -237,6 +242,5 @@ export async function deleteWatchListItem(email, stockName, currentWatchList) {
         http.put(apiEndpoint, { email: email, watchList: newWatchListArr }).then(() => {
             window.location = "/Watchlist"
         })
-
     } catch { }
 }

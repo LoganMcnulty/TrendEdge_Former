@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import MaterialTable from 'material-table'
 import { getWatchList, pullStockData, calcStockHealth, deleteWatchListItem } from '../../services/watchListService'
-import { yahooDataPull } from '../../services/yahooFinance'
+import { PopoverExampleMulti } from '../../components/popover'
 
 export function WatchTable({ user }) {
   const [state, setState] = useState({
@@ -10,6 +10,7 @@ export function WatchTable({ user }) {
       { title: 'Price', field: 'livePrice', type: 'currency' },
       { title: '% From Fast SMA', field: 'pxPctFast' },
       { title: '% From Slow SMA', field: 'pxPctSlow' },
+      { title: 'Fundamentals', field: 'fundamentalsPop'},
       {
         title: 'Trend Health (%)',
         field: 'health',
@@ -39,6 +40,39 @@ export function WatchTable({ user }) {
               for (let i = 0; i < loadWatchList.userSettings.slowSMA; i++) { slowSMASum += stockData.priceData[i] }
               stockData.pxPctSlow = (( stockData.priceData[0] - (slowSMASum / loadWatchList.userSettings.slowSMA) ) / (slowSMASum / loadWatchList.userSettings.slowSMA) * 100).toFixed(2) + "%";
 
+              stockData.fundamentalsPop = 
+              <PopoverExampleMulti 
+                key={index} 
+                id = {index}
+                purpose={"Fundamental Data"}
+                popoverBody={
+                  stockData.fundamentalData.marketCap != "0" ?
+                  <div className="table">
+                    <thead>
+                      <tr>
+                      <th scope="col">Measure</th>
+                      <th scope="col">Value</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {
+                        <>
+                        <tr><td>Market Cap: </td><td>{stockData.fundamentalData.marketCap}</td></tr>
+                        <tr><td>Sector: </td><td>{stockData.fundamentalData.sector}</td></tr>
+                        <tr><td>Pct. Float Short: </td><td>{(stockData.fundamentalData.sharesShort / stockData.fundamentalData.floatingShares*100).toFixed(2)}%</td></tr>
+                        <tr><td>Pct. Float Insider Owned: </td><td>{(stockData.fundamentalData.insidersPctHeld*100).toFixed(2)}%</td></tr>
+                        <tr><td>Gross Margins: </td><td>{(stockData.fundamentalData.grossMargins*100).toFixed(2)}%</td></tr>
+                        <tr><td>Profit Margins: </td><td>{(stockData.fundamentalData.profitMargins*100).toFixed(2)}%</td></tr>
+                        </>
+                      }
+                    </tbody>
+                  </div>
+                  : 
+                  <div>
+                    <p>Fundamental Data is not available for sectors, or data is not available for this stock</p>
+                  </div>
+                }
+              />
               setState({ ...state, data: loadWatchList.userWatchList });
             })
           })
