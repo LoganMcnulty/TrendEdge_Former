@@ -3,6 +3,7 @@ import { apiUrl } from '../config.json'
 import { yahooDataPull } from './yahooFinance'
 import testsData from '../model/testSector.json'
 import $ from 'jquery'
+
 var CronJob = require('cron').CronJob;
 
 export function updateSectorData() {

@@ -8,8 +8,6 @@ export function PopoverExampleMulti (props) {
       key={props.id} 
       item={props.id} 
       id={props.id}
-      holdingsNames = {props.holdingsNames}
-      holdingsPcts = {props.holdingsPcts}
       purpose = {props.purpose}
       popoverBody = {props.popoverBody}
       />

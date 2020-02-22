@@ -51,10 +51,8 @@ export function pullStockData(email, stockTicker) {
 
         if(!yahooData.data.summaryDetail) {
             let sectorTicker = Object.keys(yahooData.data.quoteData)[0]
-            console.log(sectorTicker)
-            thisStockData.averageVolumeTenDays = null
-            console.log(yahooData.data.quoteData.sectorTicker)
-            // thisStockData.livePrice = yahooData.data.quoteData.sectorTicker
+            thisStockData.averageVolumeTenDays = yahooData.data.quoteData[sectorTicker].regularMarketVolume.raw
+            thisStockData.livePrice = yahooData.data.quoteData[sectorTicker].regularMarketPrice.raw
         }
 
         if (yahooData.data.summaryDetail) {
@@ -212,7 +210,6 @@ export async function calcStockHealth(email, thisStockData) {
 
         return (fastSMAPositiveSlopeWeighted + slowSMAPositiveSlopeWeighted + fastGreaterSlowWeighted + macdPositiveSlopeWeighted + adxValueWeighted)
     })
-
     return stockScore
 }
 
