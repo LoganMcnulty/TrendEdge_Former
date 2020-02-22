@@ -13,6 +13,6 @@ export const useChange = () => {
   const handleChange = e => {
     dispatch({ field: e.target.name, value: e.target.value });
   };
-  return 
+  return handleChange
 };
 
