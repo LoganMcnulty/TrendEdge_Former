@@ -1,3 +1,4 @@
-export * from './LoginForm'
-export * from './SignupForm'
-export * from './UserSettings'
+export * from './DialogForm';
+export * from './LoginForm';
+export * from './SignupForm';
+export * from './UserSettings';

@@ -1,37 +1,30 @@
-import React from 'react'
-import { SectorTable } from 'components'
+import React from 'react';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import Box from '@material-ui/core/Box';
+import { SectorTable } from 'components';
 
-export const Trend = ({ sectorHealthDataPass, user }) => {
+const styles = {
+  jumbotron: {
+    background: '#3f51b5',
+    backgroundSize: 'cover',
+    backgroundColor: '#4682B4',
+    color: 'white',
+  },
+};
 
-  const sectorHealthData=sectorHealthDataPass
-  
-  const style = {
-    jumbotron: {
-      background: "#3f51b5",
-      backgroundSize: "cover",
-      backgroundColor: "#4682B4",
-    }
-  }
+export const Trend = () => {
 
-  if(!sectorHealthDataPass){
-    return(null)
-  }
-  
   return (
     <>
-      <div className="jumbotron" style={style.jumbotron}>
-        <div className="container for-about">
-        <h1 style={{textAlign:"center", color:"white"}}>Sector Dashboard</h1>
-        </div>
-      </div>
-      <div className="container">
-            <div className="row justify-content-center">
-                <div className="col-lg-12">
-                  <SectorTable user={user} sectorHealthData={sectorHealthData} />
-                </div>
-            </div>
-        </div>
-      
+      <Grid item>
+        <Box style={styles.jumbotron}>
+          <Typography variant='h3'>Sector Dashboard</Typography>
+        </Box>
+      </Grid>
+      <Grid item>
+        <SectorTable />
+      </Grid>
     </>
-  )
-}
+  );
+};

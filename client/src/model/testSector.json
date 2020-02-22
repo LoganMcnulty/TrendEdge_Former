@@ -1,4 +1,10 @@
-[
+[  {
+  "id": 99,
+  "Company": "ARKK Innovation",
+  "Stock": "ARKK",
+  "Health": 90,
+  "userPreference": true
+  },
   {
     "id": 1,
     "Company": "Nasdaq 100",

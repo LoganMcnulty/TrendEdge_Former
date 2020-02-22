@@ -1,19 +1,22 @@
-import React from 'react'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import React, { useContext } from 'react';
+import UserContext from 'contexts/UserContext';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import {
   About,
   User,
-  Login,
-  Signup,
   Trend,
   Watchlist,
   PageNotFound,
   LandingPage,
-  Logout,
-  ActiveOptions
-} from 'pages'
+  ActiveOptions,
+} from 'pages';
 
-export default function Routes({ user, sectorHealthDataPass }) {
+export default function Routes() {
+  const { sectorHealthDataPass } = useContext(UserContext);
+  // wait until sector healths finish calcing to pass to Routes
+  if (!sectorHealthDataPass) {
+    return null;
+  }
 
   return (
     <Router>
@@ -21,25 +24,11 @@ export default function Routes({ user, sectorHealthDataPass }) {
         <Route exact path='/' component={LandingPage} />
         <Route exact path='/About' component={About} />
         <Route exact path='/ActiveOptions' component={ActiveOptions} />
-        <Route
-          exact path='/User'
-          render={props => <User {...props} user={user} />}
-        />
-        <Route 
-        exact path='/Sector' 
-        render = {props => <Trend {...props} sectorHealthDataPass={sectorHealthDataPass}
-        />}
-        />
-        <Route
-          exact
-          path='/Watchlist'
-          render={props => <Watchlist {...props} user={user} />}
-        />
-        <Route exact path='/Login' component={Login} />
-        <Route exact path='/Logout' component={Logout} />
-        <Route exact path='/Signup' component={Signup} />
+        <Route exact path='/User' component={User} />
+        <Route exact path='/Sector' component={Trend} />
+        <Route exact path='/Watchlist' component={Watchlist} />
         <Route component={PageNotFound} />
       </Switch>
     </Router>
-  )
+  );
 }

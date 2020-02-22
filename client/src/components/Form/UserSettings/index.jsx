@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import Tab from 'react-bootstrap/Tab'
-import Tabs from 'react-bootstrap/Tabs'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import AveragePeriod from './AveragePeriod'
-import Weighting from './Weighting'
-import { updateSettings, getSettings } from '../../../services/userService'
+import React, { useState, useEffect, useContext } from 'react';
+import UserContext from 'contexts/UserContext';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
+import Typography from '@material-ui/core/Typography';
+import AveragePeriod from './AveragePeriod';
+import Weighting from './Weighting';
 
-export function UserSettings({ user }) {
-  const [key, setKey] = useState('AveragePeriod');
+import { updateSettings, getSettings } from 'services/userService';
+
+export function UserSettings() {
+  const { user } = useContext(UserContext);
   const [fastSMA, setFastSMA] = useState();
   const [slowSMA, setSlowSMA] = useState();
   const [lookback, setLookback] = useState();
@@ -19,87 +20,111 @@ export function UserSettings({ user }) {
 
   useEffect(() => {
     try {
-      getSettings(user.email).then((loadUserSettings) => {
-        if (!weightObject) {
-          setFastSMA(loadUserSettings.fastSMA);
-          setSlowSMA(loadUserSettings.slowSMA);
-          setLookback(loadUserSettings.lookback);
-          setWeightObject({
-            fastWeight: loadUserSettings.fastWeight,
-            slowWeight: loadUserSettings.slowWeight,
-            fastToSlowWeight: loadUserSettings.fastToSlowWeight,
-            MACDWeight: loadUserSettings.MACDWeight,
-            ADXWeight: loadUserSettings.ADXWeight
-          })
-          setcurrentUserSettings(
-            {
-              fastSMA: loadUserSettings.fastSMA,
-              slowSMA: loadUserSettings.slowSMA,
-              lookback: loadUserSettings.lookback,
-              fastWeight: loadUserSettings.fastWeight,
-              slowWeight: loadUserSettings.slowWeight,
-              fastToSlowWeight: loadUserSettings.fastToSlowWeight,
-              MACDWeight: loadUserSettings.MACDWeight,
-              ADXWeight: loadUserSettings.ADXWeight
-            }
-          )
+      getSettings(user.email).then(
+        ({
+          fastSMA,
+          slowSMA,
+          lookback,
+          fastWeight,
+          slowWeight,
+          fastToSlowWeight,
+          MACDWeight,
+          ADXWeight,
+        }) => {
+          if (!weightObject) {
+            setFastSMA(fastSMA);
+            setSlowSMA(slowSMA);
+            setLookback(lookback);
+            setWeightObject({
+              fastWeight,
+              slowWeight,
+              fastToSlowWeight,
+              MACDWeight,
+              ADXWeight,
+            });
+            setcurrentUserSettings({
+              fastSMA,
+              slowSMA,
+              lookback,
+              fastWeight,
+              slowWeight,
+              fastToSlowWeight,
+              MACDWeight,
+              ADXWeight,
+            });
+          }
         }
-      })
-    } catch (ex) { }
-  }, [user])
+      );
+    } catch (ex) {}
+  }, [user]);
 
   const handleSave = () => {
-    const userSettings = { ...weightObject, "fastSMA": fastSMA, "slowSMA": slowSMA, "lookback": lookback }
+    const userSettings = {
+      ...weightObject,
+      fastSMA,
+      slowSMA,
+      lookback,
+    };
     updateSettings(user.email, userSettings);
-  }
-
-  const handleWeightChange = (newWeightObject) => {
+  };
+  
+  const handleWeightChange = newWeightObject => {
     setWeightObject(newWeightObject);
-  }
+  };
 
-  const handleFastSMAChange = (newFastSMA) => {
+  const handleFastSMAChange = newFastSMA => {
     setFastSMA(newFastSMA);
-  }
+  };
 
-  const handleSlowSMAChange = (newSlowSMA) => {
+  const handleSlowSMAChange = newSlowSMA => {
     setSlowSMA(newSlowSMA);
-  }
+  };
 
-  const handleLookbackChange = (newLookback) => {
+  const handleLookbackChange = newLookback => {
     setLookback(newLookback);
-  }
+  };
 
-  const handleSMAError = (newError) => {
+  const handleSMAError = newError => {
     setSMAError(newError);
-  }
+  };
 
-  const handleWeightError = (newError) => {
+  const handleWeightError = newError => {
     setWeightError(newError);
-  }
+  };
 
   return (
-    <React.Fragment>
-      <Row className="align-items-center">
-        <Col className="col-sm-auto">
-          <h1>User Settings</h1>
-        </Col>
-        <Col>
-          {!SMAError && !weightError && < button className="btn btn-primary" onClick={handleSave}>Save User Options</button>}
-          {(SMAError || weightError) && <button className="btn btn-danger" disabled={true}>Save User Options</button>}
-        </Col>
-      </Row>
-    <Tabs
-      id='controlled-tab-example'
-      activeKey={key}
-      onSelect={k => setKey(k)}
-    >
-      <Tab eventKey='AveragePeriod' title='Average Period (Weekly)'>
-        <AveragePeriod user={currentUserSettings} onFastSMAChange={handleFastSMAChange} onSlowSMAChange={handleSlowSMAChange} onLookbackChange={handleLookbackChange} onError={handleSMAError} />
-      </Tab>
-      <Tab eventKey='Weighting' title='Weighting (%)'>
-        <Weighting user={currentUserSettings} onWeightChange={handleWeightChange} onError={handleWeightError} />
-      </Tab>
-    </Tabs>
-    </React.Fragment >
-  )
+    <Grid container direction='column' spacing={5}>
+      <Grid item>
+        <Typography variant='h3'>User Settings</Typography>
+      </Grid>
+      <Grid container item direction='row' spacing={6}>
+        <Grid item>
+          <AveragePeriod
+            user={currentUserSettings}
+            onFastSMAChange={handleFastSMAChange}
+            onSlowSMAChange={handleSlowSMAChange}
+            onLookbackChange={handleLookbackChange}
+            onError={handleSMAError}
+          />
+        </Grid>
+        <Grid item>
+          <Weighting
+            user={currentUserSettings}
+            onWeightChange={handleWeightChange}
+            onError={handleWeightError}
+          />
+        </Grid>
+      </Grid>
+      <Grid item>
+        {!SMAError && !weightError && (
+          <Button variant='contained' color='primary' onClick={handleSave}>
+            Save User Options
+          </Button>
+        )}
+        {(SMAError || weightError) && (
+          <Button disabled>Save User Options</Button>
+        )}
+      </Grid>
+    </Grid>
+  );
 }

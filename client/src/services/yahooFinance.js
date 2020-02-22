@@ -1,10 +1,9 @@
-const axios = require("axios");
+const axios = require('axios')
 
-export async function yahooDataPull (stockTicker) {
-
+export async function yahooDataPull(stockTicker) {
   const yahooData = await axios({
     "method":"GET",
-    "url":"https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary",
+    "url":"https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/get-detail",
     "headers":{
     "content-type":"application/octet-stream",
     "x-rapidapi-host":"apidojo-yahoo-finance-v1.p.rapidapi.com",
@@ -14,7 +13,5 @@ export async function yahooDataPull (stockTicker) {
     "symbol": `${stockTicker}`
     }
     })
-    .then((response)=>{return(response)})
-    .catch((error)=>{console.log(error)})
-    return (yahooData)
+  return yahooData
 }

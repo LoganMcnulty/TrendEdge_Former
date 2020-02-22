@@ -1,42 +1,23 @@
-import React, { useState, useEffect } from 'react'
-import MaterialTable from 'material-table'
-import { createSectors } from '../../services/createSectors'
-import { updateSectorData } from '../../services/pullSectors'
+import React, { useState, useContext } from 'react';
+import UserContext from 'contexts/UserContext';
+import Button from '@material-ui/core/Button';
+import MaterialTable from 'material-table';
+import columns from 'model/SectorColumns';
+import { createSectors } from 'services/createSectors';
+import { updateSectorData } from 'services/pullSectors';
 
-export function SectorTable({ sectorHealthData }) {
-
-  const sectorHealthTableData = sectorHealthData
-  console.log(sectorHealthTableData)
+export function SectorTable() {
+  const { sectorHealthDataPass } = useContext(UserContext);
 
   const [state, setState] = useState({
-    columns: [
-      { title: 'Ticker', field: 'symbol' },
-      { title: 'Sector', field: 'sectorName' },
-      { title: 'Price', field: 'priceTZero' },
-      { title: 'Top Holdings', field: 'topHoldings'},
-      {
-        title: 'Trend Health (%)',
-        field: 'score',
-        type: 'numeric'
-      },
-    ]
-  })
-
+    columns,
+  });
   return (
-    <React.Fragment>
-      <div className="row">
-        <div className="col-lg-12">
-          <div>
-            <button class="btn btn-primary" type="submit" onClick={createSectors}>Create Sectors</button>
-            <button class="btn btn-primary" type="submit" onClick={updateSectorData}>update Sector data</button>
-          </div>
-        </div>
-      </div>
+    <>
       <MaterialTable
         title='Sector Health Dashboard'
         columns={state.columns}
-        options={{pageSize:20}}
-        data={sectorHealthTableData}
+        data={sectorHealthDataPass}
         // actions={[
         //   {
         //     icon: 'save',
@@ -48,10 +29,30 @@ export function SectorTable({ sectorHealthData }) {
         //     }
         //   }
         // ]}
-        // options={{
-        //   actionsColumnIndex: 3
-        // }}
+        options={{
+          // actionsColumnIndex: 3
+          toolbar: false,
+          draggable: false,
+          pageSize: 20,
+        }}
       />
-    </React.Fragment>
-  )
+
+      <Button
+        variant='contained'
+        color='primary'
+        type='submit'
+        onClick={createSectors}
+      >
+        Create
+      </Button>
+      <Button
+        variant='contained'
+        color='primary'
+        type='submit'
+        onClick={updateSectorData}
+      >
+        Update
+      </Button>
+    </>
+  );
 }
