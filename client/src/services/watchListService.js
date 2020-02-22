@@ -5,7 +5,7 @@ import { getSettings } from '../services/userService'
 import { yahooDataPull } from './yahooFinance'
 
 export function pullStockData(email, stockTicker) {
-    const apiKey = '07S5MN2IBXDCQAGB'
+    const apiKey = 'EG1B4JUOHK5U6LNR'
     let thisStockData = {
         livePrice: 0,
         stockName: stockTicker.toUpperCase(),

@@ -24,7 +24,7 @@ export function calcSectorHealth(sectorData) {
         // console.log("macd weight: " + macdWeight)
         let adxWeight = Number(userData ? userData.userSettings.ADXWeight : 20)/100
         // console.log("adx Weight: " + adxWeight)
-        let lookback = Number(userData ? userData.userSettings.lookbabck : 1)
+        let lookback = Number(userData ? userData.userSettings.lookback : 1)
         // console.log("lookback: " + lookback)
 
     // calculated values 
@@ -96,7 +96,7 @@ export function calcSectorHealth(sectorData) {
             //fast SMA Lookback
                 for(let i = lookback; i < fastSMA + lookback;i++) { fastSMALookbackSum += sectorData.data[x].priceData[i]}
                 fastSMALookbackValue = fastSMALookbackSum/fastSMA
-                // console.log("fastSMA Lookback Value: " + fastSMALookbackValue)
+                console.log("fastSMA Lookback Value: " + fastSMALookbackValue)
 
             // fast SMA Positive slope check
                 if((fastSMAValue) > (fastSMALookbackValue)){fastSMAPositiveSlopeWeighted=(1*fastWeight)}
@@ -110,7 +110,8 @@ export function calcSectorHealth(sectorData) {
             //slow SMA Lookback
                 for(let i = lookback; i < slowSMA+lookback; i++){slowSMALookbackSum+=sectorData.data[x].priceData[i]}
                 slowSMALookbackValue = slowSMALookbackSum/slowSMA
-                // console.log("slowSMA Lookback Value: " + slowSMALookbackValue)
+                console.log("slowSMA Lookback Value: " + slowSMALookbackValue)
+
             // slow SMA Positive slope check
                 if((slowSMAValue) > (slowSMALookbackValue)){slowSMAPositiveSlopeWeighted=(1*slowWeight)}
                 else{slowSMAPositiveSlopeWeighted=0}
@@ -155,5 +156,4 @@ export function calcSectorHealth(sectorData) {
             }            
         }
     return allSectorHealthData
-
   }
