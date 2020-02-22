@@ -26,7 +26,7 @@ export function LandingPage() {
                 <h1>{`Welcome Back ${userLogged.email}`}!</h1>
                 <div className="row justify-content-center" style={{marginTop:"2%"}}>
                   <div className="col-lg-8">
-                  <h5>Use the navbar to the left to visit the TrendHealth Sector Page, or your Personal Watchlist</h5>
+                  <h5>Use the menu to the left to navigate</h5>
                   </div>
                 </div>
                 </Paper>
