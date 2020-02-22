@@ -7,11 +7,11 @@ import { DrawerMenu } from 'components';
 
 import Theme from 'themes';
 
-function Template({ children}) {
+function Template({ children }) {
   const classes = useStyles();
   return (
     <Theme>
-      <DrawerMenu >
+      <DrawerMenu>
         <main className={classes.content}>
           <div className={classes.toolbar} />
           <Container>
@@ -21,6 +21,7 @@ function Template({ children}) {
               alignItems='center'
               direction='column'
               spacing={4}
+              xs={12}
             >
               {children}
             </Grid>
@@ -46,6 +47,6 @@ const useStyles = makeStyles(theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing(3),
+    padding: theme.spacing(5, 0),
   },
 }));

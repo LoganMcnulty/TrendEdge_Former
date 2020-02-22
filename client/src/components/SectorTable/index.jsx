@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react';
 import UserContext from 'contexts/UserContext';
 import Button from '@material-ui/core/Button';
 import MaterialTable from 'material-table';
-import columns from 'models/SectorColumns';
+import columns from 'model/SectorColumns';
 import { createSectors } from 'services/createSectors';
 import { updateSectorData } from 'services/pullSectors';
 

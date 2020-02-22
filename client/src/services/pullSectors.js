@@ -1,7 +1,7 @@
 import http from './httpService';
 import { apiUrl } from 'config.json';
 import { yahooDataPull } from './yahooFinance';
-import testsData from 'models/testSector';
+import testsData from 'model/testSector.json';
 import $ from 'jquery';
 var CronJob = require('cron').CronJob;
 
@@ -44,12 +44,16 @@ export function updateSectorData() {
     yahooDataPull(thisStockData.symbol)
       .then(yahooData => {
         for (let i = 0; i < 10; i++) {
-          thisStockData.topHoldingsNames.push(
-            yahooData.data.topHoldings.holdings[i].symbol
-          );
-          thisStockData.topHoldingsPcts.push(
-            yahooData.data.topHoldings.holdings[i].holdingPercent.raw
-          );
+          !yahooData.data.defaultKeyStatistics.err
+            ? thisStockData.topHoldingsNames.push(
+                yahooData.data.topHoldings.holdings[i].symbol
+              )
+            : thisStockData.topHoldingsNames.push('');
+          !yahooData.data.defaultKeyStatistics.err
+            ? thisStockData.topHoldingsPcts.push(
+                yahooData.data.topHoldings.holdings[i].holdingPercent.raw
+              )
+            : thisStockData.topHoldingsPcts.push('');
         }
       })
       .then(() => {
@@ -74,8 +78,8 @@ export function updateSectorData() {
         console.log(thisStockData);
         let apiEndpoint = apiUrl + '/updateSectors';
         http.put(apiEndpoint, thisStockData);
-
         counter++;
+
         if (counter < testsData.length) {
           getPriceData();
 
@@ -96,7 +100,6 @@ export function updateSectorData() {
   const getPriceData = () => {
     //price data first
     $.ajax({
-      /* The whisperingforest.org URL is not longer valid, I found a new one that is similar... */
       url: `https://www.alphavantage.co/query?function=TIME_SERIES_WEEKLY&symbol=${testsData[counter].Stock}&apikey=${apiKey}`,
       async: true,
       dataType: 'json',

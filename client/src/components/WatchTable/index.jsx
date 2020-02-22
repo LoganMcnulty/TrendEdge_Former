@@ -11,7 +11,7 @@ import {
   calcStockHealth,
   deleteWatchListItem,
 } from 'services/watchListService';
-import columns from 'models/watchlistColumns';
+import columns from 'model/watchlistColumns';
 import { yahooDataPull } from 'services/yahooFinance';
 
 export function WatchTable() {

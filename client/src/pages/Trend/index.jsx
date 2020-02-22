@@ -4,16 +4,16 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import { SectorTable } from 'components';
 
-export const Trend = () => {
+const styles = {
+  jumbotron: {
+    background: '#3f51b5',
+    backgroundSize: 'cover',
+    backgroundColor: '#4682B4',
+    color: 'white',
+  },
+};
 
-  const styles = {
-    jumbotron: {
-      background: '#3f51b5',
-      backgroundSize: 'cover',
-      backgroundColor: '#4682B4',
-      color: 'white',
-    },
-  };
+export const Trend = () => {
 
   return (
     <>

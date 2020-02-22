@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Ticker",
+    "field": "symbol"
+  },
+  { "title": "Sector", "field": "sectorName" },
+  { "title": "Price", "field": "priceTZero" },
+  { "title": "Top Holdings", "field": "topHoldings" },
+  {
+    "title": "Trend Health (%)",
+    "field": "score",
+    "type": "numeric"
+  }
+]
