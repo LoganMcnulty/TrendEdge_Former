@@ -4,7 +4,7 @@ export async function yahooDataPull (stockTicker) {
 
   const yahooData = await axios({
     "method":"GET",
-    "url":"https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/v2/get-summary",
+    "url":"https://apidojo-yahoo-finance-v1.p.rapidapi.com/stock/get-detail",
     "headers":{
     "content-type":"application/octet-stream",
     "x-rapidapi-host":"apidojo-yahoo-finance-v1.p.rapidapi.com",

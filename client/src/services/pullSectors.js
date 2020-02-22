@@ -10,7 +10,7 @@ export function updateSectorData() {
   // const job = new CronJob('0 18 * * 5', function() {
     
     const apiKey = '07S5MN2IBXDCQAGB'
-    let counter = 15
+    let counter = 0
     let thisStockData = {
       name: testsData[counter].Company,
       symbol: testsData[counter].Stock,
