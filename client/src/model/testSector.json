@@ -37,5 +37,65 @@
     "id": 8,
     "Company": "Semiconductors",
     "Stock": "SMH"
+  },	
+  {	
+    "id": 9,	
+    "Company": "Microcaps",	
+    "Stock": "IWC"
+  },	
+  {	
+    "id": 10,	
+    "Company": "SP-500",	
+    "Stock": "SPY"
+  },	
+  {	
+    "id": 11,	
+    "Company": "Dow Jones Industrials",	
+    "Stock": "DIA"
+  },	
+  {	
+    "id": 12,	
+    "Company": "Motley Fool Small Cap Growth",	
+    "Stock": "MFMS"
+  },	
+  {	
+    "id": 13,	
+    "Company": "Financials",	
+    "Stock": "XLF"
+  },	
+  {	
+    "id": 14,	
+    "Company": "Technology",	
+    "Stock": "XLK"
+  },	
+  {	
+    "id": 15,	
+    "Company": "Nasdaq Biotech Index",	
+    "Stock": "IBB"
+  },	
+  {	
+    "id": 16,	
+    "Company": "Emerging Markets",	
+    "Stock": "EEM"
+  },
+  {	
+    "id": 17,	
+    "Company": "Cyber Security",	
+    "Stock": "HACK"
+  },	
+  {	
+    "id": 18,	
+    "Company": "Mobile Payments ETF",	
+    "Stock": "IPAY"
+  },	
+  {	
+    "id": 19,	
+    "Company": "Pet Care ETF",	
+    "Stock": "PAWZ"
+  },	
+  {	
+    "id": 20,	
+    "Company": "Cloud Computing ETF",	
+    "Stock": "CLOU"
   }
 ]

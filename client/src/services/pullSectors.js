@@ -8,7 +8,8 @@ var CronJob = require('cron').CronJob;
 
 export function updateSectorData() {
   //cron job runs every Friday at 18:00
-  // const job = new CronJob('0 18 * * 5', function() {
+
+  const job = new CronJob('0 18 * * 5', function() {
     
     const apiKey = 'EG1B4JUOHK5U6LNR'
     let counter = 0
@@ -66,15 +67,15 @@ export function updateSectorData() {
           }
         )
         
-        console.log("PASSING WASHED SECTORS TO Update sectors API")
+        console.log("PASSING WASHED SECTOR TO Update sectors API")
         console.log(thisStockData)
+
         let apiEndpoint = apiUrl + '/updateSectors'
         http.put(apiEndpoint, thisStockData)
         counter++
+        
         if (counter < testsData.length) {
-
           getPriceData()
-
           thisStockData = {
             name: testsData[counter].Company,
             symbol: testsData[counter].Stock,
@@ -109,8 +110,8 @@ export function updateSectorData() {
   getPriceData()
 
 //commenting out cron job for now for Dev purposes
-  // });
-  // job.start();
+  });
+  job.start();
 
 }
 
