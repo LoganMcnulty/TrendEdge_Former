@@ -3,8 +3,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import {
   About,
   User,
-  Login,
-  Signup,
   Trend,
   Watchlist,
   PageNotFound,
@@ -35,9 +33,6 @@ export default function Routes({ user, sectorHealthDataPass }) {
           path='/Watchlist'
           render={props => <Watchlist {...props} user={user} />}
         />
-        <Route exact path='/Login' component={Login} />
-        <Route exact path='/Logout' component={Logout} />
-        <Route exact path='/Signup' component={Signup} />
         <Route component={PageNotFound} />
       </Switch>
     </Router>

@@ -77,25 +77,5 @@
     "id": 16,	
     "Company": "Emerging Markets",	
     "Stock": "EEM"
-  },
-  {	
-    "id": 17,	
-    "Company": "Cyber Security",	
-    "Stock": "HACK"
-  },	
-  {	
-    "id": 18,	
-    "Company": "Mobile Payments ETF",	
-    "Stock": "IPAY"
-  },	
-  {	
-    "id": 19,	
-    "Company": "Pet Care ETF",	
-    "Stock": "PAWZ"
-  },	
-  {	
-    "id": 20,	
-    "Company": "Cloud Computing ETF",	
-    "Stock": "CLOU"
   }
 ]
