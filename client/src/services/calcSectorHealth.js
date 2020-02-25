@@ -96,7 +96,7 @@ export function calcSectorHealth(sectorData) {
             //fast SMA Lookback
                 for(let i = lookback; i < fastSMA + lookback;i++) { fastSMALookbackSum += sectorData.data[x].priceData[i]}
                 fastSMALookbackValue = fastSMALookbackSum/fastSMA
-                console.log("fastSMA Lookback Value: " + fastSMALookbackValue)
+                // console.log("fastSMA Lookback Value: " + fastSMALookbackValue)
 
             // fast SMA Positive slope check
                 if((fastSMAValue) > (fastSMALookbackValue)){fastSMAPositiveSlopeWeighted=(1*fastWeight)}
@@ -110,7 +110,7 @@ export function calcSectorHealth(sectorData) {
             //slow SMA Lookback
                 for(let i = lookback; i < slowSMA+lookback; i++){slowSMALookbackSum+=sectorData.data[x].priceData[i]}
                 slowSMALookbackValue = slowSMALookbackSum/slowSMA
-                console.log("slowSMA Lookback Value: " + slowSMALookbackValue)
+                // console.log("slowSMA Lookback Value: " + slowSMALookbackValue)
 
             // slow SMA Positive slope check
                 if((slowSMAValue) > (slowSMALookbackValue)){slowSMAPositiveSlopeWeighted=(1*slowWeight)}

@@ -2,7 +2,7 @@
 - Single Page React Web Application, hosted on heroku via an express server; data posts and pulls required for the application are made via communication with an MLab Mongo database. 
 
 **ABOUT THIS APP** 
-- Trend Health is a stock market trend monitoring system. The system generates scoring metrics by analyzing the price history and technical indicators of a given stock or sector (ETF), applies a user-defined weighting for each of the scoring metrics, and outputs a "Trend Health". 
+- Trend Edge is a stock market trend monitoring system. The system generates scoring metrics by analyzing the price history and technical indicators of a given stock or sector (ETF), applies a user-defined weighting for each of the scoring metrics, and outputs a "Trend Health". 
 
 (For an in depth explanation of the scoring system, please see the white paper available at Trend Health's About page.)
 

@@ -1,40 +1,38 @@
-import React from 'react'
-
+import React, { useState } from 'react'
+import MaterialTable from 'material-table'
 export function OptionsTable( {optionsData} ) {
-
-  console.log("DATA REACHES TABLE")
+  console.log("OPTIONS DATA REACHES TABLE")
   console.log(optionsData)
-
+  let rowSize 
+  const rowSizeFunc = () => {
+    if (optionsData.length < 10){
+      rowSize = 10
+    }
+    else {
+      rowSize = 20
+    }
+  }
+  rowSizeFunc()
+  const [state, setState] = useState({
+    columns: [
+      { title: 'Call/Put', field: 'callPut' },
+      { title: 'Exp. Date', field: 'expDate' },
+      { title: 'Strike', field: 'strike', type: 'numeric' },
+      { title: 'Ask', field: 'ask'},
+      { title: "Today's Chg.", field: 'todayChg', type: 'numeric'},
+      { title: 'Volume', field: 'volume', type: 'numeric'},
+      { title: 'Open Int.', field: 'oI', type: 'numeric'},
+      { title: 'Vol/OI %', field: 'volOi', type: 'numeric'},
+    ]
+  })
   return (
     <React.Fragment>
-      <table className="table">
-        <thead className="thead-dark">
-          <tr>
-            <th scope="col">Call/Put</th>
-            <th scope="col">Exp. Date</th>
-            <th scope="col">Strike</th>
-            <th scope="col">Ask</th>
-            <th scope="col">Today's Chg.</th>
-            <th scope="col">Volume</th>
-            <th scope="col">Open Int.</th>
-            <th scope="col">Vol/OI %</th>
-          </tr>
-        </thead>
-        <tbody>
-          {optionsData.map((options, index) => {
-            return (<tr>
-              <td>{optionsData[index][1]}</td>
-              <td>{optionsData[index][0]}</td>
-              <td>{optionsData[index][2]}</td>
-              <td>{optionsData[index][3]}</td>
-              <td>{optionsData[index][4]}</td>
-              <td>{optionsData[index][5]}</td>
-              <td>{optionsData[index][6]}</td>
-              <td>{optionsData[index][7]}</td>
-            </tr>)
-              })}
-        </tbody>
-      </table>
+      <MaterialTable
+        title='Active Options Dashboard'
+        columns={state.columns}
+        options={{pageSize:rowSize}}
+        data={optionsData}
+      />
     </React.Fragment>
   )
 }

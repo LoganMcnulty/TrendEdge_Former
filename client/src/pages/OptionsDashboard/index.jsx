@@ -74,8 +74,8 @@ export const ActiveOptions = () => {
               <>
               <h2 style={{textAlign:"center"}}>Enter a ticker to see today's most actively traded options</h2>
               <br></br>
-              <h6 style={{textAlign:"center", fontStyle:"italic"}}>This feature is unavailable outside of options market hours</h6>
-              <h6 style={{textAlign:"center", fontStyle:"italic"}}>If no results are returned during market hours, the ticker may be illiquid, or not yet actively trading for the day</h6>
+              <h6 style={{textAlign:"center", fontStyle:"italic"}}>Data is available after 09:45 EST</h6>
+              <h6 style={{textAlign:"center", fontStyle:"italic"}}>If no results are returned during market hours, the ticker may be illiquid</h6>
               </>
               :
               <>

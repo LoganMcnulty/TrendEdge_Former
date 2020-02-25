@@ -3,7 +3,6 @@ const db = require("../models");
 const jwt = require('jsonwebtoken');
 var cheerio = require("cheerio");
 const axios = require("axios");
-
 router.route("/api/user").post((req, res, next) => {
     db.User.create(req.body)
         .then(function () {
@@ -11,7 +10,6 @@ router.route("/api/user").post((req, res, next) => {
             userDataScrubbed.email = req.body.email;
             userDataScrubbed.name = req.body.name;
             userDataScrubbed.userSettings = req.body.userSettings;
-
             jwt.sign(userDataScrubbed, 'privatekey', { expiresIn: '1h' }, (err, token) => {
                 if (err) { console.log(err) }
                 res.send(token);
@@ -25,12 +23,10 @@ router.route("/api/user").post((req, res, next) => {
             // res.send(err);
         })
 })
-
 router.route("/api/auth").post((req, res, next) => {
     let userData = {
         email: req.body.email
     }
-
     db.User.findOne(userData, function (err, userData) {
         if (err) {
             console.log("ERROR");
@@ -46,7 +42,6 @@ router.route("/api/auth").post((req, res, next) => {
                     userDataScrubbed.email = userData.email;
                     userDataScrubbed.name = userData.name;
                     userDataScrubbed.userSettings = userData.userSettings;
-
                     jwt.sign(userDataScrubbed, 'privatekey', { expiresIn: '1h' }, (err, token) => {
                         if (err) { console.log(err) }
                         res.send(token);
@@ -60,12 +55,10 @@ router.route("/api/auth").post((req, res, next) => {
             res.json(err);
         })
 })
-
 router.route("/api/getUserSettings").post((req, res, next) => {
     let userData = {
         email: req.body.email
     }
-
     db.User.findOne(userData, function (err, { userSettings }) {
         if (err) {
             res.json(err)
@@ -74,12 +67,10 @@ router.route("/api/getUserSettings").post((req, res, next) => {
         }
     })
 })
-
 router.route("/api/userSettings").post((req, res, next) => {
     let userData = {
         email: req.body.email
     }
-
     db.User.findOneAndUpdate(userData, { "userSettings": req.body.userSettings })
         .then(function () {
             //add response for User watchlist update
@@ -89,7 +80,6 @@ router.route("/api/userSettings").post((req, res, next) => {
             res.json(err);
         })
 })
-
 router.route("/api/getWatchList").post((req, res, next) => {
     let userData = {
         email: req.body.email
@@ -98,7 +88,6 @@ router.route("/api/getWatchList").post((req, res, next) => {
         res.json(returnData);
     })
 })
-
 router.route("/api/updateWatchList").post((req, res, next) => {
     let userData = {
         email: req.body.email
@@ -116,12 +105,10 @@ router.route("/api/updateWatchList").post((req, res, next) => {
             res.json(err);
         })
 })
-
 router.route("/api/deleteWatchList").put((req, res, next) => {
     let userData = {
         email: req.body.email
     }
-
     db.User.findOneAndUpdate(userData, { "userWatchList": req.body.watchList })
         .then(function () {
             console.log("Watch List Updated!");
@@ -134,8 +121,6 @@ router.route("/api/deleteWatchList").put((req, res, next) => {
             res.json(err);
         })
 })
-
-
 router.route("/api/createSectors").post((req, res) => {
     let sectors = req.body.mainSectors
     db.Sector.create(sectors, function (err, docs) {
@@ -146,7 +131,6 @@ router.route("/api/createSectors").post((req, res) => {
         }
     })
 })
-
 router.route("/api/pullSectors").get((req, res) => {
     console.log("Pulling Sector Data from global sector DB")
     db.Sector.find({}, function (err, data) {
@@ -157,7 +141,6 @@ router.route("/api/pullSectors").get((req, res) => {
         }
     })
 })
-
 router.route("/api/findStockData/:stockTicker/:email").get((req, res) => {
     console.log("Checking if Stock Data Exists")
     let stockData = {
@@ -178,7 +161,6 @@ router.route("/api/findStockData/:stockTicker/:email").get((req, res) => {
         }
     })
 })
-
 router.route("/api/updateSectors").put((req, res) => {
     console.log("UPDATING SECTOR " + req.body.symbol);
     sectorData = {
@@ -198,7 +180,6 @@ router.route("/api/updateSectors").put((req, res) => {
             res.json(err);
     })
 })
-
 router.route("/api/optionsPull/:stockTicker").get((req, res) => {
     let ticker = req.params.stockTicker
     let result = {
@@ -211,10 +192,8 @@ router.route("/api/optionsPull/:stockTicker").get((req, res) => {
         openInt: [],
         volOI: []
     };
-    const resultRows = []
-
+    const resultObjects = []
     console.log("SCRAPING NASDAQ ACTIVE OPTIONS...")
-
     async function optPull () {
         const optionsData = axios.get(`https://old.nasdaq.com/symbol/${ticker}/option-chain/most-active`).then(response => {
             var $ = cheerio.load(response.data);
@@ -238,18 +217,24 @@ router.route("/api/optionsPull/:stockTicker").get((req, res) => {
             result.todayChange = result.todayChange.filter(el => { return el != ""; });
             result.volume = result.volume.filter(el => { return el != ""; });
             result.openInt = result.openInt.filter(el => { return el != ""; });
-    
             for (let i = 0; i < result.optionType.length; i++){
                 let volOI = (result.volume[i]/result.openInt[i]*100).toFixed(2)
-                result.volOI.push(volOI + "%")
+                result.volOI.push(volOI)
             }
-    
             for (let x = 0; x < result.optionType.length; x++){
-                let newResultRow = []
-                newResultRow.push(result.dates[x], result.optionType[x], result.strikePrice[x], result.contractPrice[x], result.todayChange[x], result.volume[x], result.openInt[x], result.volOI[x])
-                resultRows.push(newResultRow)
+                let newResultObject = {}
+                newResultObject.callPut = result.optionType[x]
+                newResultObject.expDate = result.dates[x]
+                newResultObject.strike = result.strikePrice[x]
+                newResultObject.ask = result.contractPrice[x]
+                newResultObject.todayChg = result.todayChange[x]
+                newResultObject.volume = result.volume[x]
+                newResultObject.oI = result.openInt[x]
+                newResultObject.volOi = result.volOI[x]
+                resultObjects.push(newResultObject)
             }
-            return resultRows
+            console.log(resultObjects)
+            return resultObjects
         }).then(data => {
             res.json(data)
         }).catch(function (err){
@@ -258,5 +243,4 @@ router.route("/api/optionsPull/:stockTicker").get((req, res) => {
     }
     optPull()
 })
-
 module.exports = router;

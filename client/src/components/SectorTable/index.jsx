@@ -24,14 +24,15 @@ export function SectorTable({ sectorHealthData }) {
 
   return (
     <React.Fragment>
-      <div className="row">
+      {/* create / update bottons for dev purposes */}
+      {/* <div className="row">
         <div className="col-lg-12">
           <div>
             <button class="btn btn-primary" type="submit" onClick={createSectors}>Create Sectors</button>
             <button class="btn btn-primary" type="submit" onClick={updateSectorData}>update Sector data</button>
           </div>
         </div>
-      </div>
+      </div> */}
       <MaterialTable
         title='Sector Health Dashboard'
         columns={state.columns}

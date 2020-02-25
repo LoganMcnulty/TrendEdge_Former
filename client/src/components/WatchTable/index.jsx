@@ -105,6 +105,7 @@ export function WatchTable({ user }) {
         title='Watch List'
         columns={state.columns}
         data={state.data}
+        options={{pageSize:10}}
         editable={{
           onRowAdd: newData =>
             new Promise(resolve => {
