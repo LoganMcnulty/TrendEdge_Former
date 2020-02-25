@@ -195,7 +195,7 @@ router.route("/api/optionsPull/:stockTicker").get((req, res) => {
     const resultObjects = []
     console.log("SCRAPING NASDAQ ACTIVE OPTIONS...")
     async function optPull () {
-        const optionsData = axios.get(`https://old.nasdaq.com/symbol/${ticker}/option-chain/most-active`).then(response => {
+        const optionsData = axios.get(`http://old.nasdaq.com/symbol/${ticker}/option-chain/most-active`).then(response => {
             var $ = cheerio.load(response.data);
             $("tbody tr").each(function (i, element) {
                 result.dates.push($("td.most-active-col1").find("a").text());
