@@ -4,6 +4,7 @@ import logo from './img/logo.png'
 import amzn from './img/amzn.PNG'
 import Paper from '@material-ui/core/Paper'
 import auth from '../../services/authService'
+import { DialogForm } from '../../components/Form/DialogForm';
 
 export function LandingPage() {
 
@@ -70,7 +71,7 @@ export function LandingPage() {
                                   <div className="card-body">
                                     <div style={{marginTop:"22%"}}>
                                       <h2 className="card-title">Data Driven</h2>
-                                      <h3 className="card-title">Trend Follower Approved</h3>
+                                      <h2 className="card-title">Trend Ridden</h2>
                                       <br></br>
                                       <a href="#" class="btn btn-primary">About Trend Health<sup style={{verticalAlign:"super", fontSize:"70%"}}>™</sup> Scoring</a>
                                     </div>
@@ -118,7 +119,7 @@ export function LandingPage() {
                                         <div className="card-body">
                                           <div style={{marginTop:"22%"}}>
                                             <h2 className="card-title">Data Driven</h2>
-                                            <h2 className="card-title">Trend Follower Approved</h2>
+                                            <h2 className="card-title">Trend Ridden</h2>
                                             <br></br>
                                             <a href="#" class="btn btn-primary">About Trend Health<sup style={{verticalAlign:"super", fontSize:"70%"}}>™</sup> Scoring</a>
                                           </div>
@@ -127,7 +128,7 @@ export function LandingPage() {
                                 </div>
 
                                 <div className="card-footer text-muted">
-                                  <h3>Sign up, modify your user settings, and start adding to your watchlist.</h3>
+                                  <h3><DialogForm />, modify your user settings, and start adding to your watchlist.</h3>
                                 </div>
                               
                               </div>
