@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper'
 import $ from 'jquery'
 import { apiUrl } from '../../config.json'
 import http from '../../services/httpService'
+
 export const ActiveOptions = () => {
   const style = {
     jumbotron: {
@@ -13,9 +14,9 @@ export const ActiveOptions = () => {
       marginBottom: "0"
     }
   }
+
   const [optionsData, setOptionsData] = useState()
   const [searchTerm, setSearchTerm] = useState()
-  const [searchTermConst, setSearchTermConst] = useState()
   
   const handleOptionSearch = (e) => {
     e.preventDefault();
@@ -25,7 +26,6 @@ export const ActiveOptions = () => {
       // console.log(data)
       setOptionsData(data)
       })
-      setSearchTermConst(searchTerm.toUpperCase())
       $(".search_input").val("")
     } catch (err) {
       alert('stock ticker not found - ' + err)
@@ -41,6 +41,7 @@ export const ActiveOptions = () => {
       <div className="container">
         <div className="d-flex justify-content-center h-100" style={{padding:"2%"}}>
           <form 
+          onSubmit={handleOptionSearch}
           className="searchbar">
             <input onChange={e => {
               setSearchTerm(e.target.value)
@@ -62,7 +63,7 @@ export const ActiveOptions = () => {
               </>
               :
               <>
-              <h1 style={{textAlign:"center"}}>{searchTermConst}</h1>
+              <h1 style={{textAlign:"center"}}>{searchTerm.toUpperCase()}</h1>
               <OptionsTable optionsData={optionsData}/>
               </>
               } 

@@ -28,7 +28,7 @@ const styles = {
   header: {
     textAlign: 'center',
     fontSize: '400%',
-    margin: '5% 0'
+    margin: '2% 0'
   },
   paragraph: {
     marginTop: '1%',
@@ -63,22 +63,41 @@ export const About = () => {
       <Paper elevation={6} style={{ marginBottom: '2%' }}>
         <div className='container fluid'>
           <div className='row justify-content-center'>
-            <div className='col-lg-6'>
+          <div className='col-lg-8'>
               <h1 style={styles.header}>Trend Health Scoring</h1>
             </div>
-          </div>
-
-          <div className='row justify-content-center'>
-            <div className='col-lg-12'>
-              <div className='row justify-content-center'>
-                <div className='col-lg-10'>
+            <div className='col-lg-10'>
                   <p style={styles.paragraph}>
                     Trend Health is a stock market trend monitoring system that
                     applies user-defined weightings to a combination of
                     customizable technical indicators in order to derive a
                     single trend score.
                   </p>
+                  <div className="row justify-content-center" style={{marginBottom:"2%"}}>
+                    <div className="col-lg-10">
+                    <ul className="list-group">
+                    <li className="list-group-item list-group-item-secondary"><p style={{fontWeight:"bold"}}>User Defines:</p> "Fast" weekly SMA, "Slow" weekly SMA, SMA/MACD lookback, and score Weightings</li>
+                    <li className="list-group-item list-group-item">Apply Lookback to Fast SMA. Fast SMA Positive Slope? Yes = 1, No = 0.</li>
+                    <li className="list-group-item list-group-item">Apply Lookback to Slow SMA. Slow SMA Positive Slope? Yes = 1, No = 0.</li>
+                    <li className="list-group-item list-group-item">Fast SMA Value > Slow SMA Value? Yes = 1, No = 0.</li>
+                    <li className="list-group-item list-group-item">Weekly MACD Positive Slope? Yes = 1, No = 0.</li>
+                    <li className="list-group-item list-group-item">ADX: IF, Slow SMA Has Positive Slope = weekly ADX Value. Else, 0.</li>
+                    <li className="list-group-item list-group-item">TrendHealth = (FastPos.Slope*Weight) + (SlowPos.Slope*Weight) + (FastGreaterSlow*Weight) + (MACDPosSlope*Weight) + (ADX/100*Weight)</li>
+                    <li className="list-group-item list-group-item">Example, $WFC As Of 2/25/2020 with user settings: FastSMA = 10, SlowSMA = 40, Lookback = 5, All Weightings = 20% </li>
+                    <li className="list-group-item list-group-item-primary">(0.00*.20) + (1.00*.20) + (1.00*.20) + (0.00*.20) + (.2698*.20) = <p style={{fontWeight:"bold"}}>45.40% Trend Health</p></li>
+                  </ul>
+                    </div>
+                  </div>
                 </div>
+            
+          </div>
+        </div>
+      </Paper>
+      <Paper elevation={6} style={{ marginBottom: '2%' }}>
+        <div className='container fluid'>
+          <div className='row justify-content-center'>
+            <div className='col-lg-10'>
+              <div className='row justify-content-center'>
               </div>
 
               <h2 style={styles.subHeader}>
@@ -164,7 +183,7 @@ export const About = () => {
       <Paper elevation={6} style={{ marginBottom: '2%' }}>
         <div className='container fluid'>
           <div className='row justify-content-center'>
-            <div className='col-lg-12'>
+            <div className='col-lg-10'>
               <h2 style={styles.subHeader}>A Simple Formula</h2>
               <p style={styles.paragraph}>
                 The answers to the questions addressing the state of the
@@ -179,14 +198,8 @@ export const About = () => {
                 majority of stocks will have a score of 100%.{' '}
               </p>
               <p style={styles.note}>
-                Note: Currently, the lookback period for determining
-                positive/negative slope is 1, this will be enhanced in future
-                builds of Trend Health.{' '}
-              </p>
-              <p style={styles.note}>
-                Additionally, the fast and slow SMA periodicities have default
-                values of 10 and 40, but can be modified by the user in their
-                user settings.{' '}
+                Note: Default lookback period for determining
+                positive/negative slope is 10. Fast/Slow SMA Periodicities default to 10 and 40.
               </p>
               <p style={styles.paragraph}>
                 In order to differentiate between two stocks trending at/towards
@@ -236,12 +249,8 @@ export const About = () => {
                 defined Slow-MA has a positive slope.{' '}
               </p>
               <p style={styles.note}>
-                Note: In the application, all five measures of the trend have
-                default weightings of 20%. The user has the liberty to modify
-                these weightings in their user settings. Should a user believe
-                that the only relevant measure of a trend’s health is a positive
-                sloping Slow MA, they can set the weighting to be 100%, and the
-                remaining indicators will not be factored in.
+                Note: All five technical indicators have
+                default weightings of 20%.
               </p>
             </div>
           </div>
@@ -250,29 +259,18 @@ export const About = () => {
       <Paper elevation={6} style={{ marginBottom: '2%' }}>
         <div className='container fluid'>
           <div className='row justify-content-center'>
-            <div className='col-lg-12'>
+            <div className='col-lg-10'>
               <h2 style={styles.subHeader}>Conclusion</h2>
               <p style={styles.paragraph}>
                 The goal of Trend Health is not to make recommendations of which
                 sectors or stocks to buy based on their score. The application
-                specifically allows the user to modify the Fast and Slow MA
-                periods and technical indicator weightings, in order to reduce
-                Trend Health’s subjectivity to a minimum.
-              </p>
-              <p style={styles.note}>
-                Note: In future builds of Trend Health, additional technical
-                indicators and customization methods will be implemented.{' '}
+                grants the user the ability to modify the values in order to reduce Trend Health's subjectivity.
               </p>
               <p style={styles.paragraph}>
-                Rather, the goal of Trend Health is to be a place where Trend
+                The goal of Trend Health is to be a place where Trend
                 Followers can glance at a single page application and get a
                 clean summary of the status of the market and their watchlist of
-                stocks and sectors. It has been shown that the bulk of returns
-                in the stock market are made over longer term holding periods. A
-                Trend Follower with the knowledge that their portfolio holdings
-                maintain positive scores is less likely to sell early in a bull
-                market, and conversely just as likely to know when not to be
-                holding at all.{' '}
+                stocks and sectors.
               </p>
               <blockquote style={styles.quote}>
                 “It is one of the great paradoxes of the stock market that what

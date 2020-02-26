@@ -30,14 +30,19 @@ export function LandingPage() {
 
                     <div className="col-lg-12">
                         <div className="row justify-conent-around" style={{}}>
-                          <div className="col-lg-6">
+                          <div className="col-lg-4">
                             <div>
-                            <a href="/watchlist"> <button type="button" className="btn btn-primary btn-lg btn-block">Visit Your Watchlist</button></a>
+                            <a href="/watchlist"> <button type="button" className="btn btn-primary btn-secondary btn-lg btn-block">Visit Your Watchlist</button></a>
                             </div>
                           </div>
-                          <div className="col-lg-6">
+                          <div className="col-lg-4">
                             <div>
-                              <a href="/activeoptions"><button type="button" className="btn btn-primary btn-lg btn-block">Search Active Options</button></a>
+                              <a href="/sector"><button type="button" className="btn btn-primary btn-secondary btn-lg btn-block">Check Sector Health</button></a>
+                            </div>
+                          </div>
+                          <div className="col-lg-4">
+                            <div>
+                              <a href="/activeoptions"><button type="button" className="btn btn-primary btn-danger btn-lg btn-block">Search Active Options</button></a>
                             </div>
                           </div>
                         </div>
@@ -71,9 +76,10 @@ export function LandingPage() {
                                   <div className="card-body">
                                     <div style={{marginTop:"22%"}}>
                                       <h2 className="card-title">Data Driven</h2>
+                                      <h3 className="card-title">For A</h3>
                                       <h2 className="card-title">Trend Ridden</h2>
                                       <br></br>
-                                      <a href="#" class="btn btn-primary">About Trend Health<sup style={{verticalAlign:"super", fontSize:"70%"}}>™</sup> Scoring</a>
+                                      <a href="#" class="btn btn-info">About Trend Health<sup style={{verticalAlign:"super", fontSize:"70%"}}>™</sup> Scoring</a>
                                     </div>
                                   </div>
                               </div>
@@ -119,16 +125,17 @@ export function LandingPage() {
                                         <div className="card-body">
                                           <div style={{marginTop:"22%"}}>
                                             <h2 className="card-title">Data Driven</h2>
+                                            <h3 className="card-title">For A</h3>
                                             <h2 className="card-title">Trend Ridden</h2>
                                             <br></br>
-                                            <a href="#" class="btn btn-primary">About Trend Health<sup style={{verticalAlign:"super", fontSize:"70%"}}>™</sup> Scoring</a>
+                                            <a target="_blank" href="/about" class="btn btn-info">About Trend Health<sup style={{verticalAlign:"super", fontSize:"70%"}}>™</sup> Scoring</a>
                                           </div>
                                         </div>
                                     </div>
                                 </div>
 
                                 <div className="card-footer text-muted">
-                                  <h3><DialogForm />, modify your user settings, and start adding to your watchlist.</h3>
+                                  <h3><DialogForm />, verify your user settings, and start adding to your watchlist.</h3>
                                 </div>
                               
                               </div>
