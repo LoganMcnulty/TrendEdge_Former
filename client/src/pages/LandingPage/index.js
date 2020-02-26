@@ -5,9 +5,11 @@ import amzn from './img/amzn.PNG'
 import Paper from '@material-ui/core/Paper'
 import auth from '../../services/authService'
 import { DialogForm } from '../../components/Form/DialogForm';
+import mediumZoom from 'medium-zoom'
+import ImageZoom from './../About/ImageZoom'
 
 export function LandingPage() {
-
+  const zoom = React.useRef(mediumZoom())
   const [userLogged, setUserLogged] = useState();
 
   useEffect(() => {
@@ -59,7 +61,7 @@ export function LandingPage() {
                           <div className="card-header">
                             <div className="row justify-content-center">
                               <div className="col-lg-2">
-                                <CardMedia src={logo} component='img' title='logo' style={{width:"150%", margin:"auto"}}/>
+                                <CardMedia src={logo} component='img' title='Trend Edge' style={{width:"150%", margin:"auto"}}/>
                               </div>
                               <div className="col-lg-2">  
                                 <h1 style={{marginTop:"9%"}}>Trend Edge<sup style={{verticalAlign:"super", fontSize:"30%"}}>™</sup></h1>
@@ -69,7 +71,12 @@ export function LandingPage() {
 
                           <div className="row justify-content-around">
                               <div className="col-lg-7">
-                                <CardMedia src={amzn} component='img' title='amazon' style={{width:"100%", margin:"2%"}}/>
+                              <ImageZoom
+                                      src={amzn}
+                                      alt='Zoom 2'
+                                      zoom={zoom.current}
+                                      background='#000'
+                                    />
                               </div>
 
                               <div className="col-lg-5">
@@ -108,7 +115,7 @@ export function LandingPage() {
                                 <div className="card-header">
                                   <div className="row justify-content-center">
                                     <div className="col-lg-2">
-                                      <CardMedia src={logo} component='img' title='logo' style={{width:"150%", margin:"auto"}}/>
+                                      <CardMedia src={logo} component='img' title='Trend Edge' style={{width:"150%", margin:"auto"}}/>
                                     </div>
                                     <div className="col-lg-2">  
                                       <h1 style={{marginTop:"9%"}}>Trend Edge<sup style={{verticalAlign:"super", fontSize:"30%"}}>™</sup></h1>
@@ -118,7 +125,12 @@ export function LandingPage() {
 
                                 <div className="row justify-content-around">
                                     <div className="col-lg-7">
-                                      <CardMedia src={amzn} component='img' title='amazon' style={{width:"100%", margin:"2%"}}/>
+                                    <ImageZoom
+                                      src={amzn}
+                                      alt='Zoom 2'
+                                      zoom={zoom.current}
+                                      background='#000'
+                                    />
                                     </div>
 
                                     <div className="col-lg-5">
