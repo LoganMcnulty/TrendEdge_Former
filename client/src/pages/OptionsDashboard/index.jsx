@@ -4,6 +4,7 @@ import Paper from '@material-ui/core/Paper'
 import $ from 'jquery'
 import { apiUrl } from '../../config.json'
 import http from '../../services/httpService'
+import { yahooOptionsPull }  from '../../services/optionsAPI'
 
 export const ActiveOptions = () => {
   const style = {
@@ -21,10 +22,10 @@ export const ActiveOptions = () => {
   const handleOptionSearch = (e) => {
     e.preventDefault();
     try {
-      let apiEndpoint = apiUrl + '/optionsPull/' + searchTerm;
-      http.get(apiEndpoint).then(({data}) => {
-      // console.log(data)
-      setOptionsData(data)
+      // let apiEndpoint = apiUrl + '/optionsPull/' + searchTerm;
+      yahooOptionsPull(searchTerm).then(({data}) => {
+      console.log(data)
+      // setOptionsData(data)
       })
       $(".search_input").val("")
     } catch (err) {
