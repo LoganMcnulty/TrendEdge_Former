@@ -3,6 +3,8 @@ const db = require("../models");
 const jwt = require('jsonwebtoken');
 var cheerio = require("cheerio");
 const axios = require("axios");
+
+
 router.route("/api/user").post((req, res, next) => {
     db.User.create(req.body)
         .then(function () {
@@ -141,6 +143,7 @@ router.route("/api/pullSectors").get((req, res) => {
         }
     })
 })
+
 router.route("/api/findStockData/:stockTicker/:email").get((req, res) => {
     console.log("Checking if Stock Data Exists")
     let stockData = {
@@ -161,6 +164,7 @@ router.route("/api/findStockData/:stockTicker/:email").get((req, res) => {
         }
     })
 })
+
 router.route("/api/updateSectors").put((req, res) => {
     console.log("UPDATING SECTOR " + req.body.symbol);
     sectorData = {
@@ -180,6 +184,7 @@ router.route("/api/updateSectors").put((req, res) => {
             res.json(err);
     })
 })
+
 router.route("/api/optionsPull/:stockTicker").get((req, res) => {
     let ticker = req.params.stockTicker
     let result = {
