@@ -3,8 +3,8 @@ import Template from 'templates'
 import Theme from 'themes'
 import Routes from 'routes'
 import auth from './services/authService'
-import { pullSectorData } from './services/pullSectors'
-import { calcSectorHealth } from './services/calcSectorHealth'
+import { pullSectorData, calcSectorHealth } from './services/pullSectors'
+import { updateAllStocks, updateSectorData } from './services/weeklyCronTasks'
 
 export default function App() {
 
@@ -18,9 +18,6 @@ export default function App() {
         setUser(userData)
         console.log("CURRENT USER...")
         console.log(userData)
-      
-      // cron job that updates the sectorData in the database weekly
-        // updateSectorData()
 
       // pull sectorData from DB, calc trendhealths, pass to Routes
         pullSectorData().then((sectorData) => {

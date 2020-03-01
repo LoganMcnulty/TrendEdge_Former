@@ -168,7 +168,7 @@ export function DrawerMenu({ children }) {
             </Grid>
             <Grid item>
               <Typography variant='h5' noWrap>
-                Trend Edge
+                <a href="/" style={{color:"white", textDecoration:"none"}}>Trend Edge</a>
               </Typography>
             </Grid>
           </Grid>

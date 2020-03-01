@@ -25,6 +25,7 @@ router.route("/api/user").post((req, res, next) => {
             // res.send(err);
         })
 })
+
 router.route("/api/auth").post((req, res, next) => {
     let userData = {
         email: req.body.email
@@ -57,6 +58,7 @@ router.route("/api/auth").post((req, res, next) => {
             res.json(err);
         })
 })
+
 router.route("/api/getUserSettings").post((req, res, next) => {
     let userData = {
         email: req.body.email
@@ -69,6 +71,7 @@ router.route("/api/getUserSettings").post((req, res, next) => {
         }
     })
 })
+
 router.route("/api/userSettings").post((req, res, next) => {
     let userData = {
         email: req.body.email
@@ -82,6 +85,7 @@ router.route("/api/userSettings").post((req, res, next) => {
             res.json(err);
         })
 })
+
 router.route("/api/getWatchList").post((req, res, next) => {
     let userData = {
         email: req.body.email
@@ -90,6 +94,7 @@ router.route("/api/getWatchList").post((req, res, next) => {
         res.json(returnData);
     })
 })
+
 router.route("/api/updateWatchList").post((req, res, next) => {
     let userData = {
         email: req.body.email
@@ -107,6 +112,7 @@ router.route("/api/updateWatchList").post((req, res, next) => {
             res.json(err);
         })
 })
+
 router.route("/api/deleteWatchList").put((req, res, next) => {
     let userData = {
         email: req.body.email
@@ -123,6 +129,7 @@ router.route("/api/deleteWatchList").put((req, res, next) => {
             res.json(err);
         })
 })
+
 router.route("/api/createSectors").post((req, res) => {
     let sectors = req.body.mainSectors
     db.Sector.create(sectors, function (err, docs) {
@@ -133,11 +140,23 @@ router.route("/api/createSectors").post((req, res) => {
         }
     })
 })
+
 router.route("/api/pullSectors").get((req, res) => {
     console.log("Pulling Sector Data from global sector DB")
     db.Sector.find({}, function (err, data) {
         if (err) {
             res.send(err);
+        } else {
+            res.json(data)
+        }
+    })
+})
+
+router.route("/api/pullAllStocks").get((req, res) => {
+    console.log("Pulling All Stock Data from DB")
+    db.Stock.find({}, function(err, data) {
+        if (err) {
+            res.send(err)
         } else {
             res.json(data)
         }
@@ -165,6 +184,26 @@ router.route("/api/findStockData/:stockTicker/:email").get((req, res) => {
     })
 })
 
+router.route("/api/updateStock").put((req, res) => {
+    console.log("UPDATING STOCK " + req.body.stockName);
+    stockData = {
+        stockName: req.body.stockName,
+    }
+    db.Stock.findOneAndUpdate(stockData, {
+        "priceData": req.body.priceData,
+        "macdData": req.body.macdData,
+        "adxData": req.body.adxData,
+        "averageVolumeTenDays": req.body.averageVolumeTenDays,
+        "fundamentalData": req.body.fundamentalData
+    }).then(function (res) {
+        console.log("RESPONSE")
+        console.log(res)
+    }).catch(function (err) {
+            // If an error occurred, send it to the client
+            res.json(err);
+    })
+})
+
 router.route("/api/updateSectors").put((req, res) => {
     console.log("UPDATING SECTOR " + req.body.symbol);
     sectorData = {
@@ -185,6 +224,8 @@ router.route("/api/updateSectors").put((req, res) => {
     })
 })
 
+
+// blacklisted nasdaq route for options pull ... still works locally 
 router.route("/api/optionsPull/:stockTicker").get((req, res) => {
     let ticker = req.params.stockTicker
     let result = {
@@ -248,4 +289,5 @@ router.route("/api/optionsPull/:stockTicker").get((req, res) => {
     }
     optPull()
 })
+
 module.exports = router;
