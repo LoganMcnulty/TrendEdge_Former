@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import MaterialTable from 'material-table'
-import { createSectors } from '../../services/createSectors'
-import { updateSectorData } from '../../services/pullSectors'
 
 export function SectorTable({ sectorHealthData }) {
 
@@ -24,34 +22,11 @@ export function SectorTable({ sectorHealthData }) {
 
   return (
     <React.Fragment>
-      {/* create / update bottons for dev purposes */}
-      {/* <div className="row">
-        <div className="col-lg-12">
-          <div>
-            <button class="btn btn-primary" type="submit" onClick={createSectors}>Create Sectors</button>
-            <button class="btn btn-primary" type="submit" onClick={updateSectorData}>update Sector data</button>
-          </div>
-        </div>
-      </div> */}
       <MaterialTable
         title='Sector Health Dashboard'
         columns={state.columns}
         options={{pageSize:20}}
         data={sectorHealthTableData}
-        // actions={[
-        //   {
-        //     icon: 'save',
-        //     tooltip: 'View Top Holdings',
-        //     onClick: (event, rowData) => {
-        //       console.log("Holdings Data for" + rowData.symbol)
-        //       console.log(rowData.topHoldingsNames)
-        //       console.log(rowData.topHoldingsPcts)
-        //     }
-        //   }
-        // ]}
-        // options={{
-        //   actionsColumnIndex: 3
-        // }}
       />
     </React.Fragment>
   )
